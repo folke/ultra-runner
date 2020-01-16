@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "strict": true,
+    "target": "ES2015",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "plugins": []
+  },
+  "exclude": ["node_modules", "lib"]
+}
