@@ -2,7 +2,12 @@ import { existsSync } from "fs"
 import { resolve } from "path"
 import Shellwords from "shellwords-ts"
 
-export type PackageScripts = { scripts: { [key: string]: string } }
+export type PackageScripts = {
+  scripts: { [key: string]: string }
+  ultra?: {
+    [key: string]: { concurrent: boolean }
+  }
+}
 
 export enum CommandType {
   script = "script",
@@ -14,7 +19,7 @@ export enum CommandType {
 
 export class Command {
   name: string
-  kids: Command[] = []
+  children: Command[] = []
 
   constructor(
     public args: string[],
@@ -54,9 +59,9 @@ export class CommandParser {
     ret.name = name
     ret.type = CommandType.script
     if (this.getScript(`pre${name}`))
-      ret.kids.unshift(this.createScript(`pre${name}`))
+      ret.children.unshift(this.createScript(`pre${name}`))
     if (this.getScript(`${name}post`))
-      ret.kids.push(this.createScript(`${name}post`))
+      ret.children.push(this.createScript(`${name}post`))
     return ret
   }
 
@@ -87,13 +92,13 @@ export class CommandParser {
     for (const a of args) {
       if (this.ops.includes(a)) {
         if (cmdArgs.length)
-          group.kids.push(this.createCommand(cmdArgs, allowScriptCmd))
+          group.children.push(this.createCommand(cmdArgs, allowScriptCmd))
         cmdArgs.length = 0
-        group.kids.push(new Command([a], CommandType.op))
+        group.children.push(new Command([a], CommandType.op))
       } else cmdArgs.push(a)
     }
     if (cmdArgs.length)
-      group.kids.push(this.createCommand(cmdArgs, allowScriptCmd))
+      group.children.push(this.createCommand(cmdArgs, allowScriptCmd))
     return group
   }
 
