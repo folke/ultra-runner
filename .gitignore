@@ -5,3 +5,5 @@ lib
 .DS_Store
 .env
 build
+0x
+.eslintcache
