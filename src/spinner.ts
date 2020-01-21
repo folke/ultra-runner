@@ -13,7 +13,7 @@ export enum SpinnerResult {
   warning,
 }
 
-export class TSpinner {
+export class Spinner {
   result?: SpinnerResult
   start: number
   stop?: number
@@ -41,12 +41,12 @@ export class TSpinner {
   }
 }
 
-export class Spinner {
+export class OutputSpinner {
   spinner = process.platform === "win32" ? cliSpinners.line : cliSpinners.dots
   frame = 0
   lines = 0
   interval: NodeJS.Timeout | undefined
-  spinners: TSpinner[] = []
+  spinners: Spinner[] = []
   running = false
 
   constructor(public stream = process.stdout) {}
@@ -73,29 +73,29 @@ export class Spinner {
   }
 
   start(text: string, level = 0) {
-    const s = new TSpinner(text, level)
+    const s = new Spinner(text, level)
     this.spinners.push(s)
     if (!this.running) this._start()
     this.render()
     return s
   }
 
-  stop(spinner: TSpinner) {
+  stop(spinner: Spinner) {
     spinner.stop = performance.now()
     this.render()
   }
 
-  error(spinner: TSpinner) {
+  error(spinner: Spinner) {
     spinner.result = SpinnerResult.error
     this.stop(spinner)
   }
 
-  warning(spinner: TSpinner) {
+  warning(spinner: Spinner) {
     spinner.result = SpinnerResult.warning
     this.stop(spinner)
   }
 
-  success(spinner: TSpinner) {
+  success(spinner: Spinner) {
     spinner.result = SpinnerResult.success
     this.stop(spinner)
   }
@@ -117,7 +117,7 @@ export class Spinner {
       this.interval = undefined
       cliCursor.show(this.stream)
       this.running = false
-      this.spinners.length = 0
+      this.spinners = []
       this.lines = 0
     }
   }

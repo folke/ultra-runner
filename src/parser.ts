@@ -3,7 +3,7 @@ import { resolve } from "path"
 import Shellwords from "shellwords-ts"
 
 export type PackageScripts = {
-  scripts: { [key: string]: string }
+  scripts?: { [key: string]: string }
   ultra?: {
     [key: string]: { concurrent: boolean }
   }
@@ -21,11 +21,8 @@ export class Command {
   name: string
   children: Command[] = []
 
-  constructor(
-    public args: string[],
-    public type: CommandType = CommandType.system
-  ) {
-    this.name = args?.[0]
+  constructor(public args: string[], public type: CommandType) {
+    this.name = args[0]
   }
 }
 
@@ -54,18 +51,17 @@ export class CommandParser {
 
   createScript(name: string, args: string[] = []) {
     const script = this.getScript(name)
-    if (!script) throw new Error(`Script '${script}' not found in package.json`)
     const ret = this.createGroup(script + " " + args.join(" "), false)
     ret.name = name
     ret.type = CommandType.script
     if (this.getScript(`pre${name}`))
       ret.children.unshift(this.createScript(`pre${name}`))
-    if (this.getScript(`${name}post`))
-      ret.children.push(this.createScript(`${name}post`))
+    if (this.getScript(`post${name}`))
+      ret.children.push(this.createScript(`post${name}`))
     return ret
   }
 
-  createCommand(cmd: string[], allowScriptCmd = true) {
+  createCommand(cmd: string[], allowScriptCmd: boolean) {
     hook: for (const [prefix, types] of this.hooks) {
       for (let i = 0; i < prefix.length; i++) {
         if (prefix[i] != cmd[i]) continue hook
@@ -88,12 +84,12 @@ export class CommandParser {
   createGroup(cmd: string, allowScriptCmd = true) {
     const args = this.parseArgs(cmd)
     const group = new Command([], CommandType.unknown)
-    const cmdArgs: string[] = []
+    let cmdArgs: string[] = []
     for (const a of args) {
       if (this.ops.includes(a)) {
         if (cmdArgs.length)
           group.children.push(this.createCommand(cmdArgs, allowScriptCmd))
-        cmdArgs.length = 0
+        cmdArgs = []
         group.children.push(new Command([a], CommandType.op))
       } else cmdArgs.push(a)
     }

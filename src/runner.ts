@@ -5,15 +5,14 @@ import { resolve, basename } from "path"
 import { performance } from "perf_hooks"
 import Shellwords from "shellwords-ts"
 import { Command, CommandParser, CommandType, PackageScripts } from "./parser"
-import { Spinner, TSpinner } from "./spinner"
+import { OutputSpinner, Spinner } from "./spinner"
 import supportsColor from "supports-color"
-import { spawn } from "child_process"
 import { Spawner } from "./spawn"
 
-type CliOptions = { [key: string]: string }
+type CliOptions = { [key: string]: string | boolean }
 
-class Runner {
-  spinner = new Spinner()
+export class Runner {
+  spinner = new OutputSpinner()
   constructor(public pkg: PackageScripts, public options: CliOptions = {}) {}
 
   async runCommand(cmd: Command, level = -2) {
@@ -69,7 +68,7 @@ class Runner {
     }
   }
 
-  private formatCommand(cmd: Command) {
+  formatCommand(cmd: Command) {
     if (cmd.type == CommandType.script) return chalk.white.bold(`${cmd.name}`)
     return (
       chalk.grey(`$ ${cmd.args[0]}`) +
@@ -86,22 +85,22 @@ class Runner {
     )
   }
 
-  spawn(cmd: string, args: string[], level: number, spinner?: TSpinner) {
+  spawn(cmd: string, args: string[], level: number, spinner?: Spinner) {
     const spawner = new Spawner(cmd, args)
     const prefix = `${"".padEnd(level * 2)}${chalk.grey(`   │`)} `
     let output = ""
 
-    if (this.options.flat) {
+    if (this.options.flat && !this.options.silent) {
       spawner.onLine = (line: string) =>
         console.log(chalk.grey.dim(`[${basename(cmd)}]`), line)
-    } else {
-      spawner.onData = (data: string) => {
-        let ret = `${data}`.replace(/\n/g, `\n${prefix}`)
-        if (!output.length) ret = prefix + ret
-        output += ret
-        if (!this.options.silent && spinner) {
-          spinner.output += ret
-        }
+    }
+
+    spawner.onData = (data: string) => {
+      let ret = `${data}`.replace(/\n/g, `\n${prefix}`)
+      if (!output.length) ret = prefix + ret
+      output += ret
+      if (!this.options.silent && spinner) {
+        spinner.output += ret
       }
     }
 
@@ -151,6 +150,7 @@ class Runner {
   }
 }
 
+/* istanbul ignore next */
 export function run(argv: string[] = process.argv) {
   const program = new commander.Command()
     .option(
@@ -183,7 +183,7 @@ export function run(argv: string[] = process.argv) {
     program.outputHelp()
     console.log(
       chalk.underline("\nAvailable Scripts: ") +
-        Object.keys(pkg.scripts).join(", ")
+        Object.keys(pkg?.scripts ?? {}).join(", ")
     )
     process.exit(1)
   }

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import chalk from "chalk"
 
 const isSupported =
