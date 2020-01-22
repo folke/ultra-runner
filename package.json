@@ -81,7 +81,7 @@
     "commitlint": "^8.3.5",
     "concurrently": "^5.0.2",
     "copyfiles": "^2.2.0",
-    "devmoji": "^2.0.2",
+    "devmoji": "^2.0.3",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-import": "^2.20.0",

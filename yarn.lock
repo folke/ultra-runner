@@ -2262,10 +2262,10 @@ detective@^5.2.0:
     defined "^1.0.0"
     minimist "^1.1.1"
 
-devmoji@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/devmoji/-/devmoji-2.0.2.tgz#804dcbe043a39318a014066d8be4916f4845bd7d"
-  integrity sha512-oVgS9xtnwXgVS8vkRJt30fcWEXZcnKEKzRsRAI1sN+f5SuwC5UWvx91R20qctRAUN+/3xmViQlF5OaTGiPWXgw==
+devmoji@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/devmoji/-/devmoji-2.0.3.tgz#df7ed5c42ea8f0bdc7d233e06d5d2d3bee6f9bce"
+  integrity sha512-Pkgqt6cWcioNF5V51GNXgFRE8bw526/2AUcu2YtcCIeOx0LWwqoVY6HKsaN6x06NrBG6WXvCXRi9NxjDgSKiLw==
   dependencies:
     chalk "^3.0.0"
     commander "^4.1.0"
