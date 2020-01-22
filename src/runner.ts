@@ -166,7 +166,6 @@ export class Runner {
           this.options.dryRun ? "Dry-run done" : "Done",
           `in ${this.formatDuration(performance.nodeTiming.duration / 1000)}`
         )
-        console.log(this.spinner.perf)
       }
     } catch (err) {
       this.spinner._stop()
