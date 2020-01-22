@@ -11,6 +11,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "sourceMap": true,
     "plugins": []
   },
   "exclude": ["node_modules", "lib"]
