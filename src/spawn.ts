@@ -26,12 +26,12 @@ export class Spawner {
   spawn(raw = false) {
     const child = spawn(this.cmd, this.args, {
       stdio: raw ? "inherit" : "pipe",
-      env: { ...process.env, FORCE_COLOR: chalk.level + "" },
+      env: { ...process.env, FORCE_COLOR: `${chalk.level}` },
     })
     const processData = (data: string) => {
       data = `${data}`
       this.output += data
-      let chunk = data + ""
+      let chunk = `${data}`
       let nl
       while ((nl = chunk.indexOf("\n")) >= 0) {
         const line = this.buffer + chunk.slice(0, nl)
@@ -50,7 +50,7 @@ export class Spawner {
         reject(this.onError(err))
       })
       child.on("exit", code => {
-        if (this.buffer.length) this.onLine(this.buffer + "\n")
+        if (this.buffer.length) this.onLine(`${this.buffer}\n`)
         this.buffer = ""
         if (code) reject(this.onExit(code))
         else resolve()
