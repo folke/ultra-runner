@@ -65,10 +65,11 @@ To make execution **ultra** fast, you can [configure](##gear-optional-configurat
 > :grey_exclamation: there's no need to **switch** your scripts over to **ultra**. Even with the optional configuration you can still use `yarn` or `npm` to run your scripts if you want to.
 
 Example builds:
-| | `yarn` | `ultra` not concurrent | `ultra` concurrent |
+
+|                                                             | `yarn` | `ultra` not concurrent | `ultra` concurrent |
 | ----------------------------------------------------------- | ------ | ---------------------- | ------------------ |
-| build [Ultra-Runner](https://github.com/folke/ultra-runner) | 8.9s | 7.2s | 5.1s |
-| build [Devmoji](https://github.com/folke/devmoji) | 16s | 13s | 8s |
+| build [Ultra-Runner](https://github.com/folke/ultra-runner) | 8.9s   | 7.2s                   | 5.1s               |
+| build [Devmoji](https://github.com/folke/devmoji)           | 16s    | 13s                    | 8s                 |
 
 ### :princess: Beautiful
 
