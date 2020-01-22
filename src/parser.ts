@@ -25,6 +25,7 @@ export class Command {
     this.name = args[0]
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   debug(skipRoot = true): any {
     const ret = `${this.type}:${this.args.join(" ")}`
     const children = []
