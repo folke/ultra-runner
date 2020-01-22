@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/folke/ultra-runner/compare/v1.0.2...v1.0.3) (2020-01-22)
+
+
+### Other
+
+* 📚️ updated README.md ([e6f96ab](https://github.com/folke/ultra-runner/commit/e6f96ab0e23c87efaca69055d2d0a9eec64461de))
+* 🔧 release artifacts ([e7c0379](https://github.com/folke/ultra-runner/commit/e7c03792307af89a6ad6dee34e1064fcb9cbea24))
+
 ### [1.0.2](https://github.com/folke/ultra-runner/compare/v1.0.1...v1.0.2) (2020-01-22)
 
 
