@@ -23,9 +23,9 @@ export class Spawner {
 
   constructor(public cmd: string, public args: string[]) {}
 
-  spawn() {
+  spawn(raw = false) {
     const child = spawn(this.cmd, this.args, {
-      stdio: "pipe",
+      stdio: raw ? "inherit" : "pipe",
       env: { ...process.env, FORCE_COLOR: chalk.level + "" },
     })
     const processData = (data: string) => {

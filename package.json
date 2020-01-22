@@ -40,15 +40,11 @@
     "release": "source .env && CI=true npx semantic-release"
   },
   "ultra": {
-    "lint": {
-      "concurrent": true
-    },
-    "prebuild": {
-      "concurrent": true
-    },
-    "ultra": {
-      "concurrent": true
-    }
+    "concurrent": [
+      "lint",
+      "prebuild",
+      "ultra"
+    ]
   },
   "devDependencies": {
     "0x": "4.9.1",

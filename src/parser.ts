@@ -5,7 +5,7 @@ import Shellwords from "shellwords-ts"
 export type PackageScripts = {
   scripts?: { [key: string]: string }
   ultra?: {
-    [key: string]: { concurrent: boolean }
+    concurrent?: string[]
   }
 }
 
@@ -23,6 +23,16 @@ export class Command {
 
   constructor(public args: string[], public type: CommandType) {
     this.name = args[0]
+  }
+
+  debug(skipRoot = true): any {
+    const ret = `${this.type}:${this.args.join(" ")}`
+    const children = []
+    for (const c of this.children) {
+      children.push(c.debug(false))
+    }
+    if (skipRoot) return children
+    return children.length ? [ret, children] : ret
   }
 }
 
@@ -44,7 +54,16 @@ export class CommandParser {
   parseArgs(cmd: string) {
     const args: string[] = []
     Shellwords.split(cmd, rawPart => {
-      args.push(rawPart.trim())
+      rawPart = rawPart.trim()
+      // Fix incorrect handling of ops
+      for (const op of this.ops) {
+        if (rawPart !== op && rawPart.endsWith(op)) {
+          args.push(rawPart.slice(0, -op.length))
+          args.push(op)
+          return
+        }
+      }
+      args.push(rawPart)
     })
     return args
   }

@@ -13,31 +13,35 @@ type CliOptions = { [key: string]: string | boolean }
 
 export class Runner {
   spinner = new OutputSpinner()
-  constructor(public pkg: PackageScripts, public options: CliOptions = {}) {}
+  constructor(public pkg: PackageScripts, public options: CliOptions = {}) {
+    if (options.parallel) options.concurrent = true
+  }
 
-  async runCommand(cmd: Command, level = -2) {
+  formatStart(cmd: Command, level: number) {
+    if (this.options.raw) return
+    const title = this.formatCommand(cmd)
+    if (this.options.flat) console.log("❯ " + title)
+    else return this.spinner.start(title, level)
+  }
+
+  async runCommand(cmd: Command, level = -2, forceConcurrent = false) {
     if (cmd.type == CommandType.op) return
 
     const concurrent =
-      cmd.type == CommandType.script && this.pkg?.ultra?.[cmd.name]?.concurrent
+      forceConcurrent ||
+      (cmd.type == CommandType.script &&
+        this.pkg?.ultra?.concurrent?.includes(cmd.name))
 
     let spinner
     if (cmd.type == CommandType.script) {
-      if (level >= 0) {
-        if (this.options.flat) console.log("❯ " + this.formatCommand(cmd))
-        else spinner = this.spinner.start(this.formatCommand(cmd), level)
-      }
+      if (level >= 0) spinner = this.formatStart(cmd, level)
     } else {
       if (cmd.args.length) {
         const args = Shellwords.split(cmd.args.join(" "))
         if (cmd.type == CommandType.bin)
           args[0] = `./node_modules/.bin/${args[0]}`
 
-        const title = this.formatCommand(cmd)
-        if (this.options.flat) console.log(title)
-        const cmdSpinner = this.options.flat
-          ? undefined
-          : this.spinner.start(title, level)
+        const cmdSpinner = this.formatStart(cmd, level)
         try {
           if (!this.options.dryRun) {
             await this.spawn(args[0], args.slice(1), level, cmdSpinner)
@@ -90,19 +94,21 @@ export class Runner {
     const prefix = `${"".padEnd(level * 2)}${chalk.grey(`   │`)} `
     let output = ""
 
-    if (this.options.flat && !this.options.silent) {
-      spawner.onLine = (line: string) =>
-        console.log(chalk.grey.dim(`[${basename(cmd)}]`), line)
-    }
-
-    spawner.onData = (data: string) => {
-      let ret = `${data}`.replace(/\n/g, `\n${prefix}`)
-      if (!output.length) ret = prefix + ret
-      output += ret
-      if (!this.options.silent && spinner) {
-        spinner.output += ret
+    if (this.options.flat)
+      spawner.onLine = (line: string) => {
+        line = chalk.grey.dim(`[${basename(cmd)}]`) + " " + line
+        output += line + "\n"
+        if (!this.options.silent) console.log(line)
       }
-    }
+    else
+      spawner.onData = (data: string) => {
+        let ret = `${data}`.replace(/\n/g, `\n${prefix}`)
+        if (!output.length) ret = prefix + ret
+        output += ret
+        if (!this.options.silent && spinner) {
+          spinner.output += ret
+        }
+      }
 
     spawner.onError = (err: Error) =>
       new Error(
@@ -119,7 +125,7 @@ export class Runner {
           basename(cmd)
         )} failed with exit code ${chalk.red(code)}`
       )
-    return spawner.spawn()
+    return spawner.spawn(this.options.raw as boolean)
   }
 
   formatDuration(duration: number) {
@@ -130,7 +136,7 @@ export class Runner {
   async run(cmd: string) {
     try {
       const command = new CommandParser(this.pkg).parse(cmd)
-      await this.runCommand(command)
+      await this.runCommand(command, -2, this.options.concurrent as boolean)
       this.spinner._stop()
       if (!this.options.silent) {
         console.log(
@@ -153,11 +159,14 @@ export class Runner {
 /* istanbul ignore next */
 export function run(argv: string[] = process.argv) {
   const program = new commander.Command()
+    .option("-c|--concurrent", "Run the given commands concurrently")
+    .option("-p|--parallel", "alias for --concurrently")
     .option(
-      "-f|--flat",
-      "flat output without spinners and merged ouput",
+      "--flat",
+      "disable fancy output, spinners and seperate command output. Default when not a TTY. Useful for logging",
       !process.stdout.isTTY
     )
+    .option("--raw", "Output only raw command output")
     .option(
       "-s|--silent",
       "skip script output. ultra console logs will still be shown"

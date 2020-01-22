@@ -54,9 +54,28 @@ test("test npx bin ", () => {
 test("test op", () => {
   const parser = new CommandParser({ scripts: {} })
   const cmd = parser.parse("npx jest && npx foo")
+  expect(cmd.debug()).toStrictEqual(["bin:jest", "op:&&", "system:npx foo"])
   expect(cmd.children).toHaveLength(3)
   expect(cmd.children[1].name).toBe("&&")
   expect(cmd.children[1].type).toBe(CommandType.op)
+})
+
+test("test op ;", () => {
+  const parser = new CommandParser({ scripts: {} })
+  const cmd = parser.parse("test ; test")
+  expect(cmd.debug()).toStrictEqual(["system:test", "op:;", "system:test"])
+})
+
+test("test op &&", () => {
+  const parser = new CommandParser({ scripts: {} })
+  const cmd = parser.parse("jest && test")
+  expect(cmd.debug()).toStrictEqual(["bin:jest", "op:&&", "system:test"])
+})
+
+test("test op ; 2", () => {
+  const parser = new CommandParser({ scripts: {} })
+  const cmd = parser.parse("test; test")
+  expect(cmd.debug()).toStrictEqual(["system:test", "op:;", "system:test"])
 })
 
 test("test op only", () => {
