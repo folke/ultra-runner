@@ -2,7 +2,7 @@
 
 **Smart** and **beautiful** script runner that hijacks any `npm run`, `yarn` and `npx` calls for **ultra** fast execution.
 
-![Devmoji Ultra Build](assets/devmoji-build.svg)
+![Devmoji Ultra Build](assets/devmoji-build.svg?sanitize=true)
 
 ## :question: What
 
