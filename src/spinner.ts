@@ -30,8 +30,8 @@ export class Spinner {
       symbol = symbols.get(SpinnerResult[this.result])
       if (this.stop) {
         const duration = (this.stop - this.start) / 1000
-        let du = duration.toFixed(3) + "s"
-        if (duration < 1) du = (duration * 1000).toFixed(0) + "ms"
+        let du = `${duration.toFixed(3)}s`
+        if (duration < 1) du = `${(duration * 1000).toFixed(0)}ms`
         return `${padding}${symbol} ${this.text} ${chalk.grey.dim(du)}${output}`
       }
     }
@@ -53,7 +53,7 @@ export class OutputSpinner {
   render(full = false) {
     const symbol = chalk.yellow(this.spinner.frames[this.frame])
     let text = ""
-    for (const spinner of this.spinners) text += spinner.format(symbol) + "\n"
+    for (const spinner of this.spinners) text += `${spinner.format(symbol)}\n`
     if (!full) text = text.trim()
     let lines = text.split("\n")
     if (!full) lines = lines.slice(-process.stdout.rows)

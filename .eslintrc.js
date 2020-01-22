@@ -26,6 +26,7 @@ module.exports = {
     impliedStrict: true,
   },
   rules: {
+    "prefer-template": "warn",
     "prettier/prettier": "warn",
     "lines-between-class-members": [
       "error",

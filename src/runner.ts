@@ -80,19 +80,15 @@ export class Runner {
 
   formatCommand(cmd: Command) {
     if (cmd.type == CommandType.script) return chalk.white.bold(`${cmd.name}`)
-    return (
-      chalk.grey(`$ ${cmd.args[0]}`) +
-      " " +
-      cmd.args
-        .slice(1)
-        .map(x => {
-          if (x.startsWith("-")) return chalk.cyan(x)
-          if (existsSync(x)) return chalk.magenta(x)
-          if (x.includes("*")) return chalk.yellow(x)
-          return x
-        })
-        .join(" ")
-    )
+    return `${chalk.grey(`$ ${cmd.args[0]}`)} ${cmd.args
+      .slice(1)
+      .map(x => {
+        if (x.startsWith("-")) return chalk.cyan(x)
+        if (existsSync(x)) return chalk.magenta(x)
+        if (x.includes("*")) return chalk.yellow(x)
+        return x
+      })
+      .join(" ")}`
   }
 
   spawn(cmd: string, args: string[], level: number, spinner?: Spinner) {
@@ -101,7 +97,7 @@ export class Runner {
 
     if (!this.options.fancy)
       spawner.onLine = (line: string) => {
-        const prefix = chalk.grey.dim(`[${basename(cmd)}]`) + " "
+        const prefix = `${chalk.grey.dim(`[${basename(cmd)}]`)} `
         line = wrapAnsi(
           `${line}`,
           process.stdout.columns - stringWidth(prefix) - 1,
@@ -112,7 +108,7 @@ export class Runner {
           }
         )
         line = prefix + line.replace(/\n/g, `\n${prefix}`)
-        output += line + "\n"
+        output += `${line}\n`
         if (!this.options.silent) console.log(line)
       }
     else
@@ -154,8 +150,8 @@ export class Runner {
   }
 
   formatDuration(duration: number) {
-    if (duration < 1) return (duration * 1000).toFixed(0) + "ms"
-    return duration.toFixed(3) + "s"
+    if (duration < 1) return `${(duration * 1000).toFixed(0)}ms`
+    return `${duration.toFixed(3)}s`
   }
 
   async run(cmd: string) {

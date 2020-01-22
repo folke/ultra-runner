@@ -71,7 +71,7 @@ export class CommandParser {
 
   createScript(name: string, args: string[] = []) {
     const script = this.getScript(name)
-    const ret = this.createGroup(script + " " + args.join(" "), false)
+    const ret = this.createGroup(`${script} ${args.join(" ")}`, false)
     ret.name = name
     ret.type = CommandType.script
     if (this.getScript(`pre${name}`))
