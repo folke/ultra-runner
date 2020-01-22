@@ -1,5 +1,5 @@
-import { spawn } from "child_process"
 import chalk from "chalk"
+import { spawn } from "child_process"
 
 export class Spawner {
   output = ""
@@ -25,27 +25,13 @@ export class Spawner {
 
   spawn(raw = false) {
     const child = spawn(this.cmd, this.args, {
-      stdio: raw ? "inherit" : "pipe",
       env: { ...process.env, FORCE_COLOR: `${chalk.level}` },
+      stdio: raw ? "inherit" : "pipe",
     })
-    const processData = (data: string) => {
-      data = `${data}`
-      this.output += data
-      let chunk = `${data}`
-      let nl
-      while ((nl = chunk.indexOf("\n")) >= 0) {
-        const line = this.buffer + chunk.slice(0, nl)
-        this.buffer = ""
-        chunk = chunk.slice(nl + 1)
-        this.onLine(line)
-      }
-      this.buffer = chunk
-      this.onData(data)
-    }
 
     return new Promise((resolve, reject) => {
-      child.stdout?.on("data", processData)
-      child.stderr?.on("data", processData)
+      child.stdout?.on("data", data => this.processData(data))
+      child.stderr?.on("data", data => this.processData(data))
       child.on("error", err => {
         reject(this.onError(err))
       })
@@ -56,5 +42,20 @@ export class Spawner {
         else resolve()
       })
     })
+  }
+
+  processData(data: string) {
+    data = `${data}`
+    this.output += data
+    let chunk = `${data}`
+    let nl
+    while ((nl = chunk.indexOf("\n")) >= 0) {
+      const line = this.buffer + chunk.slice(0, nl)
+      this.buffer = ""
+      chunk = chunk.slice(nl + 1)
+      this.onLine(line)
+    }
+    this.buffer = chunk
+    this.onData(data)
   }
 }

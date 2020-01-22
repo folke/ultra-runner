@@ -12,13 +12,15 @@ module.exports = {
     "plugin:import/typescript",
     "prettier",
     "prettier/@typescript-eslint",
+    "plugin:unicorn/recommended",
+    "plugin:promise/recommended",
   ],
   env: {
     node: true,
     browser: false,
     jest: true,
   },
-  plugins: ["@typescript-eslint", "prettier", "jest", "import"],
+  plugins: ["@typescript-eslint", "prettier", "jest", "import", "promise"],
   parserOptions: {
     ecmaVersion: 2019, // Allows for the parsing of modern ECMAScript features
     sourceType: "module", // Allows for the use of imports
@@ -26,8 +28,15 @@ module.exports = {
     impliedStrict: true,
   },
   rules: {
+    "array-callback-return": "error",
     "prefer-template": "warn",
+    "prefer-promise-reject-errors": "error",
+    "require-unicode-regexp": "error",
+    yoda: "error",
+    "prefer-spread": "error",
     "prettier/prettier": "warn",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/explicit-length-check": "off",
     "lines-between-class-members": [
       "error",
       "always",

@@ -1,11 +1,10 @@
 import * as cliCursor from "cli-cursor"
+import chalk from "chalk"
 // eslint-disable-next-line import/default
 import cliSpinners from "cli-spinners"
-import chalk from "chalk"
 import { performance } from "perf_hooks"
-import symbols from "./symbols"
-
 import readline from "readline"
+import symbols from "./symbols"
 
 export enum SpinnerResult {
   success = 1,

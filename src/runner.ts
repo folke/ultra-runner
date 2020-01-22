@@ -1,17 +1,17 @@
+#!/usr/bin/env node
 import chalk from "chalk"
 import commander from "commander"
 import { existsSync } from "fs"
-import { resolve, basename } from "path"
+import { basename, resolve } from "path"
 import { performance } from "perf_hooks"
 import Shellwords from "shellwords-ts"
-import { Command, CommandParser, CommandType, PackageScripts } from "./parser"
-import { OutputSpinner, Spinner } from "./spinner"
-import supportsColor from "supports-color"
-import { Spawner } from "./spawn"
-
-import wrapAnsi from "wrap-ansi"
 // eslint-disable-next-line import/default
 import stringWidth from "string-width"
+import supportsColor from "supports-color"
+import wrapAnsi from "wrap-ansi"
+import { Command, CommandParser, CommandType, PackageScripts } from "./parser"
+import { Spawner } from "./spawn"
+import { OutputSpinner, Spinner } from "./spinner"
 
 type CliOptions = { [key: string]: string | boolean }
 
@@ -54,13 +54,13 @@ export class Runner {
           }
 
           if (cmdSpinner) {
-            if (cmdSpinner?.output.match(/warning/i))
+            if (cmdSpinner?.output.match(/warning/iu))
               this.spinner.warning(cmdSpinner)
             else this.spinner.success(cmdSpinner)
           }
-        } catch (err) {
+        } catch (error) {
           if (cmdSpinner) this.spinner.error(cmdSpinner)
-          throw err
+          throw error
         }
       }
     }
@@ -72,9 +72,9 @@ export class Runner {
       }
       if (concurrent) await Promise.all(promises)
       spinner && this.spinner.success(spinner)
-    } catch (err) {
+    } catch (error) {
       spinner && this.spinner.error(spinner)
-      throw err
+      throw error
     }
   }
 
@@ -102,12 +102,12 @@ export class Runner {
           `${line}`,
           process.stdout.columns - stringWidth(prefix) - 1,
           {
+            hard: false,
             trim: false,
             wordWrap: true,
-            hard: false,
           }
         )
-        line = prefix + line.replace(/\n/g, `\n${prefix}`)
+        line = prefix + line.replace(/\n/gu, `\n${prefix}`)
         output += `${line}\n`
         if (!this.options.silent) console.log(line)
       }
@@ -118,12 +118,12 @@ export class Runner {
           `${data}`,
           process.stdout.columns - stringWidth(prefix),
           {
+            hard: false,
             trim: false,
             wordWrap: true,
-            hard: false,
           }
         )
-        ret = ret.replace(/\n/g, `\n${prefix}`)
+        ret = ret.replace(/\n/gu, `\n${prefix}`)
         if (!output.length) ret = prefix + ret
         output += ret
         if (!this.options.silent && spinner) {
@@ -167,11 +167,11 @@ export class Runner {
           `in ${this.formatDuration(performance.nodeTiming.duration / 1000)}`
         )
       }
-    } catch (err) {
+    } catch (error) {
       this.spinner._stop()
-      if (err instanceof Error) {
-        console.error(err.message)
-      } else console.error(err)
+      if (error instanceof Error) {
+        console.error(error.message)
+      } else console.error(error)
       process.exit(1)
     }
   }

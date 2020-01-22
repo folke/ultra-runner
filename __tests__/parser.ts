@@ -16,7 +16,7 @@ test("no scripts", () => {
 })
 
 test("test pre ", () => {
-  const parser = new CommandParser({ scripts: { test: "foo", pretest: "bar" } })
+  const parser = new CommandParser({ scripts: { pretest: "bar", test: "foo" } })
   const cmd = parser.parse("test")
   expect(cmd.children).toHaveLength(1)
   expect(cmd.children[0].children).toHaveLength(2)
@@ -26,7 +26,7 @@ test("test pre ", () => {
 
 test("test post ", () => {
   const parser = new CommandParser({
-    scripts: { test: "foo", posttest: "bar" },
+    scripts: { posttest: "bar", test: "foo" },
   })
   const cmd = parser.parse("test")
   expect(cmd.children).toHaveLength(1)

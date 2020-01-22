@@ -1,6 +1,6 @@
+import Shellwords from "shellwords-ts"
 import { existsSync } from "fs"
 import { resolve } from "path"
-import Shellwords from "shellwords-ts"
 
 export type PackageScripts = {
   scripts?: { [key: string]: string }
@@ -83,8 +83,8 @@ export class CommandParser {
 
   createCommand(cmd: string[], allowScriptCmd: boolean) {
     hook: for (const [prefix, types] of this.hooks) {
-      for (let i = 0; i < prefix.length; i++) {
-        if (prefix[i] != cmd[i]) continue hook
+      for (const [i, p] of prefix.entries()) {
+        if (p != cmd[i]) continue hook
       }
       const c = cmd[prefix.length]
       if (this.isScript(c) && types.includes(CommandType.script)) {
