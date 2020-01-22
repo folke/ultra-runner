@@ -42,32 +42,60 @@ export class Spinner {
 export class OutputSpinner {
   spinner = process.platform === "win32" ? cliSpinners.line : cliSpinners.dots
   frame = 0
-  lines = 0
   interval: NodeJS.Timeout | undefined
   spinners: Spinner[] = []
   running = false
+  renderedLines: string[] = []
+  perf = { rendered: 0, skipped: 0 }
 
   constructor(public stream = process.stdout) {}
 
-  clear() {
-    for (let i = 0; i < this.lines; i++) {
-      if (i > 0) readline.moveCursor(this.stream, 0, -1)
-      readline.clearLine(this.stream, 0)
-    }
-    this.lines = 0
-  }
-
   render(full = false) {
-    this.clear()
     const symbol = chalk.yellow(this.spinner.frames[this.frame])
     let text = ""
     for (const spinner of this.spinners) text += spinner.format(symbol) + "\n"
     if (!full) text = text.trim()
     let lines = text.split("\n")
     if (!full) lines = lines.slice(-process.stdout.rows)
-    readline.cursorTo(this.stream, 0)
-    this.stream.write(lines.join("\n"))
-    this.lines = lines.length
+
+    // Check if we will write the same lines
+    if (lines.length == this.renderedLines.length) {
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i] != this.renderedLines[i]) break
+        if (i == lines.length - 1) {
+          this.perf.skipped += lines.length
+          return
+        }
+      }
+    }
+
+    // Move cursor to first line
+    if (this.renderedLines.length)
+      readline.moveCursor(this.stream, 0, -this.renderedLines.length + 1)
+
+    // Update existing lines
+    for (let l = 0; l < this.renderedLines.length; l++) {
+      const line = lines[l]
+      if (line != this.renderedLines[l]) {
+        readline.cursorTo(this.stream, 0)
+        readline.clearLine(this.stream, 0)
+        if (line) this.stream.write(line)
+        this.perf.rendered++
+      } else {
+        this.perf.skipped++
+      }
+      if (l < this.renderedLines.length - 1)
+        readline.moveCursor(this.stream, 0, 1)
+    }
+
+    // Render remaining lines
+    if (lines.length > this.renderedLines.length) {
+      if (this.renderedLines.length > 0) this.stream.write("\n")
+      this.stream.write(lines.slice(this.renderedLines.length).join("\n"))
+      this.perf.rendered += lines.length - this.renderedLines.length
+    }
+
+    this.renderedLines = lines
   }
 
   start(text: string, level = 0) {
@@ -116,7 +144,6 @@ export class OutputSpinner {
       cliCursor.show(this.stream)
       this.running = false
       this.spinners = []
-      this.lines = 0
     }
   }
 }

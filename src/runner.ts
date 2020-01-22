@@ -24,8 +24,10 @@ export class Runner {
   formatStart(cmd: Command, level: number) {
     if (this.options.raw) return
     const title = this.formatCommand(cmd)
-    if (this.options.flat) console.log("❯ " + title)
-    else return this.spinner.start(title, level)
+    if (!this.options.fancy) {
+      if (cmd.type == CommandType.script) console.log(`❯ ${title}`)
+      else console.log(title)
+    } else return this.spinner.start(title, level)
   }
 
   async runCommand(cmd: Command, level = -2, forceConcurrent = false) {
@@ -95,10 +97,9 @@ export class Runner {
 
   spawn(cmd: string, args: string[], level: number, spinner?: Spinner) {
     const spawner = new Spawner(cmd, args)
-    const prefix = `${"".padEnd(level * 2)}${chalk.grey(`   │`)} `
     let output = ""
 
-    if (this.options.flat)
+    if (!this.options.fancy)
       spawner.onLine = (line: string) => {
         const prefix = chalk.grey.dim(`[${basename(cmd)}]`) + " "
         line = wrapAnsi(
@@ -116,6 +117,7 @@ export class Runner {
       }
     else
       spawner.onData = (data: string) => {
+        const prefix = `${"".padEnd(level * 2)}${chalk.grey(`  │`)} `
         let ret = wrapAnsi(
           `${data}`,
           process.stdout.columns - stringWidth(prefix),
@@ -168,6 +170,7 @@ export class Runner {
           this.options.dryRun ? "Dry-run done" : "Done",
           `in ${this.formatDuration(performance.nodeTiming.duration / 1000)}`
         )
+        console.log(this.spinner.perf)
       }
     } catch (err) {
       this.spinner._stop()
@@ -183,10 +186,15 @@ export class Runner {
 export function run(argv: string[] = process.argv) {
   const program = new commander.Command()
     .option("-c|--concurrent", "Run the given commands concurrently")
-    .option("-p|--parallel", "alias for --concurrently")
+    .option("-p|--parallel", "alias for --concurrent")
     .option(
-      "--flat",
-      "disable fancy output, spinners and seperate command output. Default when not a TTY. Useful for logging",
+      "--fancy",
+      "enable fancy output, spinners and seperate command output. Default when a TTY",
+      process.stdout.isTTY
+    )
+    .option(
+      "--no-fancy",
+      "disables fancy output, spinners and seperate command output. Default when not a TTY. Useful for logging",
       !process.stdout.isTTY
     )
     .option("--raw", "Output only raw command output")
