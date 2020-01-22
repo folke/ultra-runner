@@ -88,7 +88,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jest": "^23.4.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^25.1.0",
+    "jest": "<25.0.0",
     "markdownlint-cli": "^0.21.0",
     "np": "^5.2.1",
     "prettier": "^1.19.1",
