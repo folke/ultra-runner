@@ -32,12 +32,10 @@ export class Spinner {
         const duration = (this.stop - this.start) / 1000
         let du = duration.toFixed(3) + "s"
         if (duration < 1) du = (duration * 1000).toFixed(0) + "ms"
-        return `${padding} ${symbol} ${this.text} ${chalk.grey.dim(
-          du
-        )}${output}`
+        return `${padding}${symbol} ${this.text} ${chalk.grey.dim(du)}${output}`
       }
     }
-    return `${padding} ${symbol} ${this.text}${output}`
+    return `${padding}${symbol} ${this.text}${output}`
   }
 }
 

@@ -9,6 +9,26 @@
   "bin": {
     "ultra": "bin/ultra.js"
   },
+  "files": [
+    "lib",
+    "bin",
+    "*.md"
+  ],
+  "keywords": [
+    "cli",
+    "command-line",
+    "concurrent",
+    "concurrently",
+    "execution",
+    "fast",
+    "npm",
+    "parallel",
+    "run",
+    "runner",
+    "scripts",
+    "terminal",
+    "yarn"
+  ],
   "gitHooks": {
     "prepare-commit-msg": "npx --no-install devmoji -e",
     "commit-msg": "npx --no-install commitlint -e -V"
