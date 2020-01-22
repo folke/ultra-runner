@@ -9,6 +9,10 @@ import { OutputSpinner, Spinner } from "./spinner"
 import supportsColor from "supports-color"
 import { Spawner } from "./spawn"
 
+import wrapAnsi from "wrap-ansi"
+// eslint-disable-next-line import/default
+import stringWidth from "string-width"
+
 type CliOptions = { [key: string]: string | boolean }
 
 export class Runner {
@@ -96,13 +100,32 @@ export class Runner {
 
     if (this.options.flat)
       spawner.onLine = (line: string) => {
-        line = chalk.grey.dim(`[${basename(cmd)}]`) + " " + line
+        const prefix = chalk.grey.dim(`[${basename(cmd)}]`) + " "
+        line = wrapAnsi(
+          `${line}`,
+          process.stdout.columns - stringWidth(prefix) - 1,
+          {
+            trim: false,
+            wordWrap: true,
+            hard: false,
+          }
+        )
+        line = prefix + line.replace(/\n/g, `\n${prefix}`)
         output += line + "\n"
         if (!this.options.silent) console.log(line)
       }
     else
       spawner.onData = (data: string) => {
-        let ret = `${data}`.replace(/\n/g, `\n${prefix}`)
+        let ret = wrapAnsi(
+          `${data}`,
+          process.stdout.columns - stringWidth(prefix),
+          {
+            trim: false,
+            wordWrap: true,
+            hard: false,
+          }
+        )
+        ret = ret.replace(/\n/g, `\n${prefix}`)
         if (!output.length) ret = prefix + ret
         output += ret
         if (!this.options.silent && spinner) {
