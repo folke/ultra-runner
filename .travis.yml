@@ -3,5 +3,6 @@ cache:
   yarn: true
 script:
   - yarn lint
-  - yarn test
+  - yarn test --coverage
+  - cat ./coverage/lcov.info | npx coveralls
   - yarn build:rollup

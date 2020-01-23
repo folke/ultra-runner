@@ -1,5 +1,7 @@
 # :runner: :mountain: Ultra Runner
 
+[![Build Status](https://travis-ci.org/folke/ultra-runner.svg?branch=master)](https://travis-ci.org/folke/ultra-runner)
+
 **Smart** and **beautiful** script runner that hijacks any `npm run`, `yarn` and `npx` calls for **ultra** fast execution.
 
 ![Devmoji Ultra Build](assets/demo.svg?sanitize=true)
