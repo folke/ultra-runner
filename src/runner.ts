@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import chalk from "chalk"
 import commander from "commander"
 import { existsSync } from "fs"
@@ -172,6 +171,7 @@ export class Runner {
       if (error instanceof Error) {
         console.error(error.message)
       } else console.error(error)
+      // eslint-disable-next-line unicorn/no-process-exit
       process.exit(1)
     }
   }
@@ -220,6 +220,7 @@ export function run(argv: string[] = process.argv) {
       chalk.underline("\nAvailable Scripts: ") +
         Object.keys(pkg?.scripts ?? {}).join(", ")
     )
+    // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1)
   }
 }
