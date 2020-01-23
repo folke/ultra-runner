@@ -101,7 +101,7 @@ export class Runner {
           `${line}`,
           process.stdout.columns - stringWidth(prefix) - 1,
           {
-            hard: false,
+            hard: true,
             trim: false,
             wordWrap: true,
           }
@@ -117,7 +117,7 @@ export class Runner {
           `${data}`,
           process.stdout.columns - stringWidth(prefix),
           {
-            hard: false,
+            hard: true,
             trim: false,
             wordWrap: true,
           }
