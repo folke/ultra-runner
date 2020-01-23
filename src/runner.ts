@@ -33,7 +33,7 @@ export class Runner {
     const concurrent =
       forceConcurrent ||
       (cmd.type == CommandType.script &&
-        this.pkg?.ultra?.concurrent?.includes(cmd.name))
+        this.pkg.ultra?.concurrent?.includes(cmd.name))
 
     let spinner
     if (cmd.type == CommandType.script) {
@@ -51,7 +51,7 @@ export class Runner {
           }
 
           if (cmdSpinner) {
-            if (cmdSpinner?.output.match(/warning/iu))
+            if (/warning/iu.test(cmdSpinner.output))
               this.spinner.warning(cmdSpinner)
             else this.spinner.success(cmdSpinner)
           }
@@ -70,7 +70,7 @@ export class Runner {
       if (concurrent) await Promise.all(promises)
       spinner && this.spinner.success(spinner)
     } catch (error) {
-      spinner && this.spinner.error(spinner)
+      if (spinner) this.spinner.error(spinner)
       throw error
     }
   }

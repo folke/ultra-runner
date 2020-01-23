@@ -14,13 +14,21 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:unicorn/recommended",
     "plugin:promise/recommended",
+    "plugin:chai-expect/recommended",
   ],
   env: {
     node: true,
     browser: false,
     jest: true,
   },
-  plugins: ["@typescript-eslint", "prettier", "jest", "import", "promise"],
+  plugins: [
+    "@typescript-eslint",
+    "prettier",
+    "jest",
+    "import",
+    "promise",
+    "chai-expect",
+  ],
   parserOptions: {
     ecmaVersion: 2019, // Allows for the parsing of modern ECMAScript features
     sourceType: "module", // Allows for the use of imports

@@ -1,4 +1,5 @@
 module.exports = {
+  releaseCommitMessageFormat: "chore(release): {{currentTag}} [ci skip]",
   types: [
     { type: "feat", section: "Features" },
     { type: "fix", section: "Bug Fixes" },

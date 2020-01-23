@@ -1,6 +1,6 @@
-/* istanbul ignore file */
 import chalk from "chalk"
 
+/* c8 ignore next 4 */
 const isSupported =
   process.platform !== "win32" ||
   process.env.CI ||
@@ -23,8 +23,9 @@ const fallbacks = {
 }
 
 function get(name: string) {
+  /* c8 ignore next */
   const symbols = isSupported ? main : fallbacks
   return (symbols as { [key: string]: string })[name]
 }
 
-export default { ...(isSupported ? main : fallbacks), get }
+export default { ...(isSupported ? main : /* c8 ignore next */ fallbacks), get }

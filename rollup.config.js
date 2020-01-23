@@ -12,6 +12,9 @@ import progress from "rollup-plugin-progress"
 import sizes from "rollup-plugin-sizes"
 // eslint-disable-next-line import/default
 import builtins from "builtin-modules"
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import visualizer from "rollup-plugin-visualizer"
 
 export default {
   input: "src/cli.ts", // our source file
@@ -36,5 +39,6 @@ export default {
     }),
     terser(),
     sizes(),
+    visualizer(),
   ],
 }

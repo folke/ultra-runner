@@ -6,7 +6,7 @@ import supportsColor from "supports-color"
 import { PackageScripts } from "./parser"
 import { Runner } from "./runner"
 
-export function run(argv: string[] = process.argv) {
+export async function run(argv: string[] = process.argv) {
   const program = new commander.Command()
     .option("-c|--concurrent", "Run the given commands concurrently")
     .option("-p|--parallel", "alias for --concurrent")
@@ -38,21 +38,22 @@ export function run(argv: string[] = process.argv) {
   const packageFile = resolve(process.cwd(), "./package.json")
   const pkg = existsSync(packageFile)
     ? (require(packageFile) as PackageScripts)
-    : { scripts: {} }
+    : /* c8 ignore next */ { scripts: {} }
   const runner = new Runner(pkg, program.opts())
   const args = argv.slice(offset)
-  if (args.length) runner.run(args.join(" "))
+  if (args.length) await runner.run(args.join(" "))
   else {
     program.outputHelp()
     console.log(
       chalk.underline("\nAvailable Scripts: ") +
-        Object.keys(pkg?.scripts ?? {}).join(", ")
+        /* c8 ignore next */ Object.keys(pkg?.scripts ?? {}).join(", ")
     )
     // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1)
   }
 }
 
+/* c8 ignore next 3 */
 if (module === require.main) {
   run()
 }

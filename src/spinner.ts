@@ -39,6 +39,7 @@ export class Spinner {
 }
 
 export class OutputSpinner {
+  /* c8 ignore next */
   spinner = process.platform === "win32" ? cliSpinners.line : cliSpinners.dots
   frame = 0
   interval: NodeJS.Timeout | undefined
@@ -61,6 +62,7 @@ export class OutputSpinner {
     if (lines.length == this.renderedLines.length) {
       for (let i = 0; i < lines.length; i++) {
         if (lines[i] != this.renderedLines[i]) break
+        /* c8 ignore next 4 */
         if (i == lines.length - 1) {
           this.perf.skipped += lines.length
           return
@@ -126,10 +128,12 @@ export class OutputSpinner {
   }
 
   _start() {
+    /* c8 ignore next */
     if (this.running) return
     this.running = true
     cliCursor.hide(this.stream)
     this.interval = setInterval(() => {
+      /* c8 ignore next 2 */
       this.frame = ++this.frame % this.spinner.frames.length
       this.render()
     }, this.spinner.interval)
