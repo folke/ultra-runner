@@ -14,7 +14,7 @@ import sizes from "rollup-plugin-sizes"
 import builtins from "builtin-modules"
 
 export default {
-  input: "src/runner.ts", // our source file
+  input: "src/cli.ts", // our source file
   output: [
     {
       file: pkg.main,

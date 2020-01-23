@@ -37,6 +37,7 @@ module.exports = {
     "prettier/prettier": "warn",
     "unicorn/prevent-abbreviations": "off",
     "unicorn/explicit-length-check": "off",
+    "unicorn/consistent-function-scoping": "off",
     "lines-between-class-members": [
       "error",
       "always",
@@ -46,7 +47,7 @@ module.exports = {
     "jest/expect-expect": [
       "error",
       {
-        assertFunctionNames: ["expect", "request.get.expect"],
+        assertFunctionNames: ["expect", "chai.expect", "**.should.be.**"],
       },
     ],
   },

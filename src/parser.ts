@@ -17,6 +17,8 @@ export enum CommandType {
   unknown = "unknown",
 }
 
+type DebugCommand = string | { [cmd: string]: DebugCommand } | DebugCommand[]
+
 export class Command {
   name: string
   children: Command[] = []
@@ -26,14 +28,22 @@ export class Command {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  debug(skipRoot = true): any {
-    const ret = `${this.type}:${this.args.join(" ")}`
+  debug(): DebugCommand {
+    const args = this.args.slice(1).join(" ")
+    const cmd = `${this.type}:${this.name}${args.length ? ` ${args}` : ""}`
     const children = []
     for (const c of this.children) {
-      children.push(c.debug(false))
+      children.push(c.debug())
     }
-    if (skipRoot) return children
-    return children.length ? [ret, children] : ret
+    if (children.length) {
+      if (this.type == CommandType.unknown)
+        return children.length == 1 ? children[0] : children
+      const ret: DebugCommand = {}
+      ret[cmd] = children.length == 1 ? children[0] : children
+      return ret
+    }
+    return cmd
+    // if (skipRoot) return children
   }
 }
 
