@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -12,16 +11,17 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - name: lint, test and build
-      run: |
-        yarn lint
-        yarn test --coverage --coverageProvider v8
-        yarn build:rollup
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g yarn
+      - name: lint, test and build
+        run: |
+          yarn install
+          yarn lint
+          yarn test --coverage --coverageProvider v8
+          yarn build:rollup
+        env:
+          CI: true
