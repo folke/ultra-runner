@@ -1,6 +1,6 @@
 # :runner: :mountain: Ultra Runner
 
-[![Build Status](https://travis-ci.org/folke/ultra-runner.svg?branch=master)](https://travis-ci.org/folke/ultra-runner)
+[![Build Status](https://travis-ci.org/folke/ultra-runner.svg?branch=master)](https://travis-ci.org/folke/ultra-runner) [![Coverage Status](https://coveralls.io/repos/github/folke/ultra-runner/badge.svg?branch=master)](https://coveralls.io/github/folke/ultra-runner?branch=master) ![npm](https://img.shields.io/npm/v/ultra-runner) ![GitHub](https://img.shields.io/github/license/folke/ultra-runner) ![GitHub top language](https://img.shields.io/github/languages/top/folke/ultra-runner)
 
 **Smart** and **beautiful** script runner that hijacks any `npm run`, `yarn` and `npx` calls for **ultra** fast execution.
 
