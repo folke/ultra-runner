@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/folke/ultra-runner/compare/v1.0.4...v1.0.5) (2020-01-23)
+
+
+### Bug Fixes
+
+* 🐛 force hard wrapping on long lines ([ea88b58](https://github.com/folke/ultra-runner/commit/ea88b58a83e54b3e03e45352e9ee782e3d59dc22))
+
+
+### Other
+
+* 📚️ added badges ([f32cba4](https://github.com/folke/ultra-runner/commit/f32cba4a16883790db61cca1a41f01e610c9ad5d))
+* 🚨 added a bunch of tests ([b35827c](https://github.com/folke/ultra-runner/commit/b35827c6a1d7364bd970d86d16e87e44d171344d))
+* **eslint:** 🎨 added additional eslint rules ([a3a44c5](https://github.com/folke/ultra-runner/commit/a3a44c54084a4302813d5c4f684c06ce03ee9a3c))
+* added Apache 2.0 license ([d6ce07a](https://github.com/folke/ultra-runner/commit/d6ce07affd907727750e8fa16aa239b0eb7c824b))
+
 ### [1.0.4](https://github.com/folke/ultra-runner/compare/v1.0.3...v1.0.4) (2020-01-22)
 
 

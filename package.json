@@ -1,7 +1,7 @@
 {
   "name": "ultra-runner",
   "description": "Smart and beautiful script runner that hijacks any `npm run`, `yarn` and `npx` calls for ultra fast execution",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "lib/runner.js",
   "repository": "http://github.com/folke/ultra-runner",
   "author": "Folke Lemaitre <folke.lemaitre@gmail.com>",
@@ -58,7 +58,7 @@
     "lint:ts": "npx tsc -p tsconfig.build.json --noEmit",
     "lint:fix": "yarn lint:eslint --fix",
     "prepublishOnly": "yarn build",
-    "release": "npx standard-version"
+    "release": "npx standard-version --color"
   },
   "ultra": {
     "concurrent": [
