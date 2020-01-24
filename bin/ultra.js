@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require("../lib/runner").run()
+require("../lib/cli").run()
