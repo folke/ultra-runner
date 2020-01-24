@@ -24,6 +24,7 @@ export default {
       format: "cjs",
     },
   ],
+  // external: [...builtins],
   external: [...Object.keys(pkg.dependencies || {}), ...builtins],
   plugins: [
     progress(),
@@ -31,12 +32,10 @@ export default {
     resolve({
       preferBuiltins: true,
     }),
-    commonjs(),
     typescript({
-      tsconfig: "./tsconfig.build.json",
-      module: "esnext",
-      typescript: require("typescript"),
+      tsconfig: "tsconfig.build.json",
     }),
+    commonjs({ sourceMap: true, extensions: [".js", ".ts"] }),
     terser(),
     sizes(),
     visualizer(),
