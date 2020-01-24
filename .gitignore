@@ -7,3 +7,5 @@ lib
 build
 0x
 .eslintcache
+.clinic
+stats.html

@@ -85,6 +85,7 @@
     "@typescript-eslint/eslint-plugin": "2",
     "@typescript-eslint/parser": "^2.17.0",
     "chai": "^4.2.0",
+    "clinic": "^5.0.0",
     "commitlint": "^8.3.5",
     "concurrently": "^5.0.2",
     "conventional-changelog-cli": "^2.0.31",

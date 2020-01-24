@@ -9,6 +9,13 @@
       "problemMatcher": [
         "$eslint-stylish"
       ]
+    },
+    {
+      "type": "npm",
+      "script": "lint:ts",
+      "problemMatcher": [
+        "$tsc"
+      ]
     }
   ]
 }

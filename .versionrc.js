@@ -9,5 +9,6 @@ module.exports = {
     { type: "refactor", section: "Other" },
     { type: "perf", section: "Other" },
     { type: "test", section: "Other" },
+    { type: "ci", section: "Other" },
   ],
 }
