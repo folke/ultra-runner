@@ -4,8 +4,10 @@ on: [push]
 
 jobs:
   build:
+    env:
+      CI: true
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -28,7 +30,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      
+
       - name: Install Dependencies
         run: yarn
       - name: Lint
@@ -47,5 +49,3 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
-        env:
-          CI: true
