@@ -16,7 +16,7 @@ test("true ", async () => {
 test("echo foo ", async () => {
   const spawner = new Spawner("echo", ["foo"])
   await spawner.spawn()
-  expect(spawner.output).toBe("foo\n")
+  expect(spawner.output.trim()).toBe("foo")
 })
 
 test("command does not exist ", () => {
