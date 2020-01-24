@@ -1,7 +1,7 @@
 {
   "name": "ultra-runner",
   "description": "Smart and beautiful script runner that hijacks any `npm run`, `yarn` and `npx` calls for ultra fast execution",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "lib/cli.js",
   "repository": "http://github.com/folke/ultra-runner",
   "author": "Folke Lemaitre <folke.lemaitre@gmail.com>",

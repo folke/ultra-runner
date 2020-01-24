@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.8](https://github.com/folke/ultra-runner/compare/v1.0.7...v1.0.8) (2020-01-24)
+
+
+### Other
+
+* ♻️ main should be lib/cli.js ([e640cb1](https://github.com/folke/ultra-runner/commit/e640cb18422ffd634db60ac7c7f17275734d976c))
+* 👷 added Github build action ([5b6bd03](https://github.com/folke/ultra-runner/commit/5b6bd03189a580cd44427d2b83adb633e9174c9e))
+* 👷 fixed Github build action ([efd50e7](https://github.com/folke/ultra-runner/commit/efd50e7c30fef8bc597cdee372a31c44c0d099e2))
+* 📚 added Github CI badge ([56aa598](https://github.com/folke/ultra-runner/commit/56aa59847ebf9ae97f834edc0815970d50d68284))
+* 📚️ migrate travis-ci.org to .com [skip ci] ([48095bb](https://github.com/folke/ultra-runner/commit/48095bb776df2156826f3dc300102987551c5d91))
+* 🚨 code coverage to 100% 💯 💥 ([713c633](https://github.com/folke/ultra-runner/commit/713c633f693a466946852c13e230d4d860610176))
+
 ### [1.0.7](https://github.com/folke/ultra-runner/compare/v1.0.6...v1.0.7) (2020-01-23)
 
 ### [1.0.6](https://github.com/folke/ultra-runner/compare/v1.0.5...v1.0.6) (2020-01-23)
