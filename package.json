@@ -29,9 +29,11 @@
     "terminal",
     "yarn"
   ],
-  "gitHooks": {
-    "prepare-commit-msg": "npx --no-install devmoji -e",
-    "commit-msg": "npx --no-install commitlint -e -V"
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "npx --no-install devmoji -e",
+      "commit-msg": "npx --no-install commitlint -e -V"
+    }
   },
   "scripts": {
     "ultra:a": "sleep 3",
@@ -91,7 +93,7 @@
     "conventional-changelog-cli": "2.0.31",
     "copyfiles": "2.2.0",
     "coveralls": "3.0.9",
-    "devmoji": "2.0.3",
+    "devmoji": "2.1.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.9.0",
     "eslint-plugin-chai-expect": "2.1.0",
@@ -101,6 +103,7 @@
     "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-unicorn": "15.0.1",
+    "husky": "^4.2.1",
     "jest": "25.1.0",
     "markdownlint-cli": "0.21.0",
     "prettier": "1.19.1",
@@ -117,8 +120,7 @@
     "ts-jest": "25.0.0",
     "ts-node": "8.6.2",
     "tslib": "1.10.0",
-    "typescript": "3.7.5",
-    "yorkie": "2.0.0"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "chalk": "^3.0.0",
