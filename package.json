@@ -91,7 +91,7 @@
     "conventional-changelog-cli": "2.0.31",
     "copyfiles": "2.2.0",
     "coveralls": "3.0.9",
-    "devmoji": "2.0.3",
+    "devmoji": "2.1.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.9.0",
     "eslint-plugin-chai-expect": "2.1.0",
