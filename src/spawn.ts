@@ -22,12 +22,17 @@ export class Spawner {
     return new Error(`Exit code ${code}`)
   }
 
-  constructor(public cmd: string, public args: string[] = []) {}
+  constructor(
+    public cmd: string,
+    public args: string[] = [],
+    public cwd = process.cwd()
+  ) {}
 
   spawn(raw = false) {
     const child = spawn(this.cmd, this.args, {
       env: { ...process.env, FORCE_COLOR: `${chalk.level}` },
       stdio: raw ? "inherit" : "pipe",
+      cwd: this.cwd,
     })
 
     const processData = (data: string) => {
