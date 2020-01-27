@@ -1,6 +1,6 @@
 import Shellwords from "shellwords-ts"
 import { existsSync } from "fs"
-import { resolve, posix } from "path"
+import { posix } from "path"
 
 export type PackageScripts = {
   scripts?: { [key: string]: string }
