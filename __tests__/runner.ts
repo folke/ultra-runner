@@ -4,6 +4,7 @@ import chai from "chai"
 import sinonChai from "sinon-chai"
 import chalk from "chalk"
 import { PackageScripts } from "../src/parser"
+import * as path from "path"
 
 chai.use(sinonChai)
 chai.should()
@@ -63,20 +64,40 @@ test("advanced build --no-fancy", async () => {
   stubs.spawn.should.be.callCount(6)
   stubs.spawn
     .getCall(0)
-    .should.be.calledWith("./node_modules/.bin/rimraf", ["lib"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/rimraf"),
+      ["lib"]
+    )
   stubs.spawn
     .getCall(1)
-    .should.be.calledWith("./node_modules/.bin/tsc", ["--noEmit"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/tsc"),
+      ["--noEmit"]
+    )
   stubs.spawn
     .getCall(2)
-    .should.be.calledWith("./node_modules/.bin/eslint", ["src/*.ts"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/eslint"),
+      ["src/*.ts"]
+    )
   stubs.spawn
     .getCall(3)
-    .should.be.calledWith("./node_modules/.bin/markdownlint", ["README.md"])
-  stubs.spawn.getCall(4).should.be.calledWith("./node_modules/.bin/jest", [])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/markdownlint"),
+      ["README.md"]
+    )
+  stubs.spawn
+    .getCall(4)
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/jest"),
+      []
+    )
   stubs.spawn
     .getCall(5)
-    .should.be.calledWith("./node_modules/.bin/rollup", ["-c"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/rollup"),
+      ["-c"]
+    )
 })
 
 test("advanced build --fancy", async () => {
@@ -88,20 +109,40 @@ test("advanced build --fancy", async () => {
   stubs.spawn.should.be.callCount(6)
   stubs.spawn
     .getCall(0)
-    .should.be.calledWith("./node_modules/.bin/rimraf", ["lib"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/rimraf"),
+      ["lib"]
+    )
   stubs.spawn
     .getCall(1)
-    .should.be.calledWith("./node_modules/.bin/tsc", ["--noEmit"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/tsc"),
+      ["--noEmit"]
+    )
   stubs.spawn
     .getCall(2)
-    .should.be.calledWith("./node_modules/.bin/eslint", ["src/*.ts"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/eslint"),
+      ["src/*.ts"]
+    )
   stubs.spawn
     .getCall(3)
-    .should.be.calledWith("./node_modules/.bin/markdownlint", ["README.md"])
-  stubs.spawn.getCall(4).should.be.calledWith("./node_modules/.bin/jest", [])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/markdownlint"),
+      ["README.md"]
+    )
+  stubs.spawn
+    .getCall(4)
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/jest"),
+      []
+    )
   stubs.spawn
     .getCall(5)
-    .should.be.calledWith("./node_modules/.bin/rollup", ["-c"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/rollup"),
+      ["-c"]
+    )
 })
 
 test("advanced build --raw", async () => {
@@ -111,20 +152,40 @@ test("advanced build --raw", async () => {
   stubs.spawn.should.be.callCount(6)
   stubs.spawn
     .getCall(0)
-    .should.be.calledWith("./node_modules/.bin/rimraf", ["lib"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/rimraf"),
+      ["lib"]
+    )
   stubs.spawn
     .getCall(1)
-    .should.be.calledWith("./node_modules/.bin/tsc", ["--noEmit"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/tsc"),
+      ["--noEmit"]
+    )
   stubs.spawn
     .getCall(2)
-    .should.be.calledWith("./node_modules/.bin/eslint", ["src/*.ts"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/eslint"),
+      ["src/*.ts"]
+    )
   stubs.spawn
     .getCall(3)
-    .should.be.calledWith("./node_modules/.bin/markdownlint", ["README.md"])
-  stubs.spawn.getCall(4).should.be.calledWith("./node_modules/.bin/jest", [])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/markdownlint"),
+      ["README.md"]
+    )
+  stubs.spawn
+    .getCall(4)
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/jest"),
+      []
+    )
   stubs.spawn
     .getCall(5)
-    .should.be.calledWith("./node_modules/.bin/rollup", ["-c"])
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/rollup"),
+      ["-c"]
+    )
 })
 
 test("concurrent ", async () => {
@@ -134,5 +195,10 @@ test("concurrent ", async () => {
   )
   await runner.run("test")
   stubs.spawn.should.be.calledOnce
-  stubs.spawn.getCall(0).should.be.calledWith("./node_modules/.bin/jest", [])
+  stubs.spawn
+    .getCall(0)
+    .should.be.calledWith(
+      path.resolve(process.cwd(), "./node_modules/.bin/jest"),
+      []
+    )
 })

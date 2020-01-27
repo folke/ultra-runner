@@ -20,6 +20,7 @@ export async function run(argv: string[] = process.argv) {
       "disables fancy output, spinners and seperate command output. Default when not a TTY. Useful for logging",
       !process.stdout.isTTY
     )
+    .option("--cwd <directory>", "Run in directory")
     .option("--raw", "Output only raw command output")
     .option(
       "-s|--silent",
@@ -32,6 +33,10 @@ export async function run(argv: string[] = process.argv) {
 
   let offset = 2
   for (offset = 2; offset < argv.length; offset++) {
+    if (argv[offset] == "--cwd") {
+      offset++
+      continue
+    }
     if (!argv[offset].startsWith("-")) break
   }
   program.parse(argv.slice(0, offset))

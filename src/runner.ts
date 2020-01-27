@@ -14,8 +14,10 @@ type CliOptions = { [key: string]: string | boolean }
 
 export class Runner {
   spinner = new OutputSpinner()
+  parser: CommandParser
   constructor(public pkg: PackageScripts, public options: CliOptions = {}) {
     if (options.parallel) options.concurrent = true
+    this.parser = new CommandParser(pkg)
   }
 
   formatStart(cmd: Command, level: number) {
@@ -42,7 +44,7 @@ export class Runner {
       if (cmd.args.length) {
         const args = Shellwords.split(cmd.args.join(" "))
         if (cmd.type == CommandType.bin)
-          args[0] = `./node_modules/.bin/${args[0]}`
+          args[0] = this.parser.getBin(args[0]) || args[0]
 
         const cmdSpinner = this.formatStart(cmd, level)
         try {
@@ -89,7 +91,7 @@ export class Runner {
   }
 
   spawn(cmd: string, args: string[], level: number, spinner?: Spinner) {
-    const spawner = new Spawner(cmd, args)
+    const spawner = new Spawner(cmd, args, this.options.cwd as string)
     let output = ""
 
     if (!this.options.fancy)
@@ -153,7 +155,7 @@ export class Runner {
 
   async run(cmd: string) {
     try {
-      const command = new CommandParser(this.pkg).parse(cmd)
+      const command = this.parser.parse(cmd)
       await this.runCommand(command, -2, this.options.concurrent as boolean)
       this.spinner._stop()
       if (!this.options.silent) {
