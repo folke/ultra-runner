@@ -149,7 +149,7 @@ export class CommandParser {
 
   getBin(name: string) {
     for (const dir of this.bins) {
-      const bin = resolve(dir, name)
+      const bin = posix.resolve(dir, name)
       if (existsSync(bin)) return bin
     }
   }
