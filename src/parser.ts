@@ -67,7 +67,9 @@ export class CommandParser {
     while (cwd != "/") {
       const p = posix.resolve(cwd, "./node_modules/.bin")
       if (existsSync(p)) this.bins.push(p)
-      cwd = posix.resolve(cwd, "../")
+      const up = posix.resolve(cwd, "../")
+      if (up == cwd) break
+      cwd = up
     }
   }
 
