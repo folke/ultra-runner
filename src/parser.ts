@@ -1,6 +1,6 @@
 import Shellwords from "shellwords-ts"
 import { existsSync } from "fs"
-import { posix } from "path"
+import * as path from "path"
 
 export type PackageScripts = {
   scripts?: { [key: string]: string }
@@ -65,9 +65,9 @@ export class CommandParser {
   constructor(public pkg: PackageScripts) {
     let cwd = process.cwd()
     while (cwd != "/") {
-      const p = posix.resolve(cwd, "./node_modules/.bin")
+      const p = path.resolve(cwd, "./node_modules/.bin")
       if (existsSync(p)) this.bins.push(p)
-      const up = posix.resolve(cwd, "../")
+      const up = path.resolve(cwd, "../")
       if (up == cwd) break
       cwd = up
     }
@@ -149,7 +149,7 @@ export class CommandParser {
 
   getBin(name: string) {
     for (const dir of this.bins) {
-      const bin = posix.resolve(dir, name)
+      const bin = path.resolve(dir, name)
       if (existsSync(bin)) return bin
     }
   }
