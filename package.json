@@ -124,7 +124,7 @@
     "cli-cursor": "^3.1.0",
     "cli-spinners": "^2.2.0",
     "commander": "^4.1.0",
-    "shellwords-ts": "^2.0.4",
+    "shellwords-ts": "^3.0.0",
     "string-width": "^4.2.0",
     "supports-color": "^7.1.0",
     "wrap-ansi": "^6.2.0"

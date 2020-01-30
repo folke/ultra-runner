@@ -7697,10 +7697,10 @@ shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
 
-shellwords-ts@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/shellwords-ts/-/shellwords-ts-2.0.4.tgz#f817223f5ca81888b58538d5f6bf8558a274c07d"
-  integrity sha512-qEhCihxp13V5V2PJG/gN/j4AC2jVmbr57AKJsU/mTNEts2E9BibLIrsr+cmwlM86GYQGjoiODDiNO8wnboVI0w==
+shellwords-ts@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/shellwords-ts/-/shellwords-ts-3.0.0.tgz#cd0679116dbe8581a8a0299b4f5f52a067ac79f2"
+  integrity sha512-4uZTHR2P7zKRZmSoOiUCFK1K+5LlDxay/RVNWDDImnGG1/4r/dZ2Y3rzpo871Iche913yOgYeKrrxl+3vengFw==
 
 shellwords@^0.1.1:
   version "0.1.1"
