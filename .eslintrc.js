@@ -34,6 +34,7 @@ module.exports = {
     sourceType: "module", // Allows for the use of imports
     project: "./tsconfig.json",
     impliedStrict: true,
+    createDefaultProgram: true,
   },
   rules: {
     "array-callback-return": "error",
