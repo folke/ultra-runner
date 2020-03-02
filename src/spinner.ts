@@ -43,7 +43,6 @@ export class OutputSpinner {
   spinner = process.platform === "win32" ? cliSpinners.line : cliSpinners.dots
   frame = 0
   interval: NodeJS.Timeout | undefined
-  spinners: Spinner[] = []
   running = false
   renderedLines: string[] = []
   perf = { rendered: 0, skipped: 0 }
@@ -52,8 +51,37 @@ export class OutputSpinner {
 
   render(full = false) {
     const symbol = chalk.yellow(this.spinner.frames[this.frame])
-    let text = ""
-    for (const spinner of this.spinners) text += `${spinner.format(symbol)}\n`
+
+    let lineCount = 0
+    const spinnerLines = this.spinners.map(spinner => {
+      const text = `${spinner.format(symbol)}`
+      const lines = text.split("\n")
+      lineCount += Math.min(lines.length, 3)
+      return { count: Math.min(lines.length, 3), lines }
+    })
+
+    while (lineCount < process.stdout.rows) {
+      const loopLineCount = +lineCount
+      spinnerLines.every(s => {
+        if (s.lines.length > s.count) {
+          s.count++
+          lineCount++
+        }
+        return lineCount < process.stdout.rows
+      })
+      if (lineCount == loopLineCount) break
+    }
+
+    const limitLines = (lines: string[], count: number) => {
+      const ret = [lines[0]]
+      if (count > 1) ret.push(...lines.slice(1 - count))
+      return ret
+    }
+
+    let text = spinnerLines
+      .map(s => (full ? s.lines : limitLines(s.lines, s.count)).join("\n"))
+      .join("\n")
+
     if (!full) text = text.trim()
     let lines = text.split("\n")
     if (!full) lines = lines.slice(-process.stdout.rows)
@@ -99,9 +127,26 @@ export class OutputSpinner {
     this.renderedLines = lines
   }
 
-  start(text: string, level = 0) {
+  spinnerMap = new Map<Spinner | undefined, Spinner[]>()
+
+  get spinners(): Spinner[] {
+    const ret = new Array<Spinner>()
+    const queue = this.spinnerMap.get(undefined)?.slice() ?? []
+    while (queue.length) {
+      const spinner = queue.shift() as Spinner
+      ret.push(spinner)
+      queue.unshift(...(this.spinnerMap.get(spinner) || []))
+    }
+    return ret
+  }
+
+  start(text: string, level = 0, parentSpinner?: Spinner) {
     const s = new Spinner(text, level)
-    this.spinners.push(s)
+    if (!this.spinnerMap.has(parentSpinner))
+      this.spinnerMap.set(parentSpinner, [])
+    this.spinnerMap.get(parentSpinner)?.push(s)
+
+    // this.spinners.push(s)
     if (!this.running) this._start()
     this.render()
     return s
@@ -146,7 +191,7 @@ export class OutputSpinner {
       this.interval = undefined
       cliCursor.show(this.stream)
       this.running = false
-      this.spinners = []
+      this.spinnerMap.clear()
     }
   }
 }
