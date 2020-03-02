@@ -1,15 +1,22 @@
-import chalk from "chalk"
 import commander from "commander"
-import { existsSync } from "fs"
-import { resolve } from "path"
 import supportsColor from "supports-color"
-import { PackageScripts } from "./parser"
 import { Runner } from "./runner"
 
 export async function run(argv: string[] = process.argv) {
   const program = new commander.Command()
     .option("-c|--concurrent", "Run the given commands concurrently")
-    .option("-p|--parallel", "alias for --concurrent")
+    .option("-p|--parallel", "Run the given commands in parallel")
+    .option("-r|--recursive", "Run command in every workspace folder")
+    .option("--info", "Show workspace dependencies")
+    .option("-l|--list", "List package scripts. Also works with --recusive")
+    .option(
+      "--tree",
+      "Follow workspace dependency tree. Also works with --concurrent"
+    )
+    .option(
+      "-f|--filter <filter>",
+      "Filter package name or directory using wildcard pattern"
+    )
     .option(
       "--fancy",
       "enable fancy output, spinners and seperate command output. Default when a TTY",
@@ -33,26 +40,27 @@ export async function run(argv: string[] = process.argv) {
 
   let offset = 2
   for (offset = 2; offset < argv.length; offset++) {
-    if (argv[offset] == "--cwd") {
+    if (["--cwd", "--filter", "-f"].includes(argv[offset])) {
       offset++
       continue
     }
     if (!argv[offset].startsWith("-")) break
   }
   program.parse(argv.slice(0, offset))
-  const packageFile = resolve(process.cwd(), "./package.json")
-  const pkg = existsSync(packageFile)
-    ? (require(packageFile) as PackageScripts)
-    : /* c8 ignore next */ { scripts: {} }
-  const runner = new Runner(pkg, program.opts())
+  const options = program.opts()
+
+  const runner = new Runner(options)
+  if (options.list) return await runner.list()
+  if (program.info) return await runner.info()
+
   const args = argv.slice(offset)
-  if (args.length) await runner.run(args.join(" "))
-  else {
+
+  if (args.length) {
+    if (options.recursive) await runner.runRecursive(args.join(" "))
+    else await runner.run(args.join(" "))
+  } else {
     program.outputHelp()
-    console.log(
-      chalk.underline("\nAvailable Scripts: ") +
-        /* c8 ignore next */ Object.keys(pkg?.scripts ?? {}).join(", ")
-    )
+    console.log("See --list for available scripts")
     // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1)
   }
