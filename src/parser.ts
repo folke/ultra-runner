@@ -1,13 +1,7 @@
-import Shellwords from "shellwords-ts"
 import { existsSync } from "fs"
 import * as path from "path"
-
-export type PackageScripts = {
-  scripts?: { [key: string]: string }
-  ultra?: {
-    concurrent?: string[]
-  }
-}
+import Shellwords from "shellwords-ts"
+import { PackageJson } from "./workspace"
 
 export enum CommandType {
   script = "script",
@@ -22,18 +16,46 @@ type DebugCommand = string | { [cmd: string]: DebugCommand } | DebugCommand[]
 export class Command {
   name: string
   children: Command[] = []
+  concurrent = false
+  cwd?: string
+  // eslint-disable-next-line @typescript-eslint/require-await
+  beforeRun = async () => {
+    return
+  }
 
-  constructor(public args: string[], public type: CommandType) {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  afterRun = () => {
+    return
+  }
+
+  constructor(
+    public args: string[],
+    public type: CommandType,
+    public bin?: string
+  ) {
     this.name = args[0]
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  debug(): DebugCommand {
+  add(...children: Command[]) {
+    this.children.push(...children)
+    return this
+  }
+
+  setCwd(cwd: string) {
+    this.cwd = cwd
+    for (const c of this.children) {
+      c.setCwd(cwd)
+    }
+    return this
+  }
+
+  debug(showConcurrent = false): DebugCommand {
     const args = this.args.slice(1).join(" ")
-    const cmd = `${this.type}:${this.name}${args.length ? ` ${args}` : ""}`
+    let cmd = `${this.type}:${this.name}${args.length ? ` ${args}` : ""}`
+    if (showConcurrent && this.concurrent) cmd += ":cc"
     const children = []
     for (const c of this.children) {
-      children.push(c.debug())
+      children.push(c.debug(showConcurrent))
     }
     if (children.length) {
       if (this.type == CommandType.unknown)
@@ -43,7 +65,6 @@ export class Command {
       return ret
     }
     return cmd
-    // if (skipRoot) return children
   }
 }
 
@@ -51,19 +72,20 @@ export class CommandParser {
   ops = [";", "||", "&&"]
 
   hooks: [string[], string[]][] = [
-    [["yarn"], ["script", "bin"]],
+    [["yarn"], [CommandType.script, CommandType.bin]],
     [
       ["yarn", "run"],
-      ["script", "bin"],
+      [CommandType.script, CommandType.bin],
     ],
-    [["npm", "run"], ["script"]],
-    [["npx"], ["bin"]],
+    [["npm", "run"], [CommandType.script]],
+    [["npx"], [CommandType.bin]],
+    [["pnpx"], [CommandType.bin]],
+    [["pnpm", "run"], [CommandType.script]],
   ]
 
   bins: string[] = []
 
-  constructor(public pkg: PackageScripts) {
-    let cwd = process.cwd()
+  constructor(public pkg: PackageJson, cwd = process.cwd()) {
     while (cwd != "/") {
       const p = path.resolve(cwd, "./node_modules/.bin")
       if (existsSync(p)) this.bins.push(p)
@@ -99,6 +121,7 @@ export class CommandParser {
       ret.children.unshift(this.createScript(`pre${name}`))
     if (this.getScript(`post${name}`))
       ret.children.push(this.createScript(`post${name}`))
+    ret.concurrent = this.pkg.ultra?.concurrent?.includes(name) ?? false
     return ret
   }
 
@@ -112,13 +135,18 @@ export class CommandParser {
         return this.createScript(c, cmd.slice(prefix.length + 1))
       }
 
-      if (this.isBin(c) && types.includes(CommandType.bin)) {
-        return new Command(cmd.slice(prefix.length), CommandType.bin)
+      if (types.includes(CommandType.bin) && this.isBin(c)) {
+        return new Command(
+          cmd.slice(prefix.length),
+          CommandType.bin,
+          this.getBin(c)
+        )
       }
     }
     if (allowScriptCmd && this.isScript(cmd[0]))
       return this.createScript(cmd[0], cmd.slice(1))
-    if (this.isBin(cmd[0])) return new Command(cmd, CommandType.bin)
+    if (this.isBin(cmd[0]))
+      return new Command(cmd, CommandType.bin, this.getBin(cmd[0]))
     return new Command(cmd, CommandType.system)
   }
 
@@ -147,14 +175,14 @@ export class CommandParser {
     return this.pkg.scripts && name in this.pkg.scripts
   }
 
-  getBin(name: string) {
+  private getBin(name: string) {
     for (const dir of this.bins) {
       const bin = path.resolve(dir, name)
       if (existsSync(bin)) return bin
     }
   }
 
-  isBin(name: string) {
+  private isBin(name: string) {
     return this.getBin(name) ? true : false
   }
 
