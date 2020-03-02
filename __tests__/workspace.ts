@@ -19,7 +19,9 @@ test("lerna", async () => {
     ?.packages
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p => path.relative(".", p.root))
+    const dirs = packages.map(p =>
+      path.relative(".", p.root).replace("\\", "/")
+    )
     dirs.sort()
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
@@ -36,7 +38,9 @@ test("yarn", async () => {
     ?.packages
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p => path.relative(".", p.root))
+    const dirs = packages.map(p =>
+      path.relative(".", p.root).replace("\\", "/")
+    )
     dirs.sort()
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
@@ -53,7 +57,9 @@ test("pnpm", async () => {
     ?.packages
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p => path.relative(".", p.root))
+    const dirs = packages.map(p =>
+      path.relative(".", p.root).replace("\\", "/")
+    )
     dirs.sort()
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
@@ -70,7 +76,9 @@ test("recursive", async () => {
     ?.packages
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p => path.relative(".", p.root))
+    const dirs = packages.map(p =>
+      path.relative(".", p.root).replace("\\", "/")
+    )
     dirs.sort()
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
@@ -88,7 +96,9 @@ test("workspace", async () => {
   )?.packages
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p => path.relative(".", p.root))
+    const dirs = packages.map(p =>
+      path.relative(".", p.root).replace("\\", "/")
+    )
     dirs.sort()
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",

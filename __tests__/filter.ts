@@ -8,7 +8,7 @@ test("filter dir", async () => {
   if (workspace) {
     filter(workspace, "apps/*")
     const dirs = workspace.packages.map(p =>
-      path.relative("__tests__/workspace", p.root)
+      path.relative("__tests__/workspace", p.root).replace("\\", "/")
     )
     dirs.sort()
     expect(dirs).toStrictEqual(["apps/app1", "apps/app2"])
@@ -21,7 +21,7 @@ test("filter pkg", async () => {
   if (workspace) {
     filter(workspace, "@scoped/*")
     const dirs = workspace.packages.map(p =>
-      path.relative("__tests__/workspace", p.root)
+      path.relative("__tests__/workspace", p.root).replace("\\", "/")
     )
     dirs.sort()
     expect(dirs).toStrictEqual(["libs/lib3"])
