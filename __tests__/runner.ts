@@ -3,7 +3,7 @@ import sinon from "sinon"
 import chai from "chai"
 import sinonChai from "sinon-chai"
 import chalk from "chalk"
-import { PackageScripts } from "../src/parser"
+import { PackageJson } from "../src/workspace"
 import * as path from "path"
 
 chai.use(sinonChai)
@@ -28,7 +28,7 @@ afterAll(() => {
   chalk.level = chalkLevel
 })
 
-const advancedPackage: PackageScripts = {
+const advancedPackage: PackageJson = {
   scripts: {
     prebuild: "yarn clean && yarn lint && yarn test",
     "build:rollup": "npx rollup -c",
@@ -44,18 +44,18 @@ const advancedPackage: PackageScripts = {
 
 test("constructor", () => {
   chai.expect(new Runner({}).options).to.be.empty
-  chai.expect(new Runner({}, { parallel: true }).options.concurrent).to.be.true
+  chai.expect(new Runner({ parallel: true }).options.concurrent).to.be.true
 })
 
 test("advanced build --dry-run", async () => {
-  const runner = new Runner(advancedPackage, { dryRun: true })
-  await runner.run("build")
+  const runner = new Runner({ dryRun: true })
+  await runner.run("build", advancedPackage)
   chai.expect(stubs.spawn).not.to.be.called
 })
 
 test("advanced build --no-fancy", async () => {
-  const runner = new Runner(advancedPackage)
-  await runner.run("build")
+  const runner = new Runner()
+  await runner.run("build", advancedPackage)
 
   stubs.log.should.be.calledWith("❯ lint")
   stubs.log.should.be.calledWith("❯ prebuild")
@@ -101,8 +101,8 @@ test("advanced build --no-fancy", async () => {
 })
 
 test("advanced build --fancy", async () => {
-  const runner = new Runner(advancedPackage, { fancy: true })
-  await runner.run("build")
+  const runner = new Runner({ fancy: true })
+  await runner.run("build", advancedPackage)
 
   stubs.write.should.be.calledWithMatch("✔")
 
@@ -146,8 +146,8 @@ test("advanced build --fancy", async () => {
 })
 
 test("advanced build --raw", async () => {
-  const runner = new Runner(advancedPackage, { raw: true })
-  await runner.run("build")
+  const runner = new Runner({ raw: true })
+  await runner.run("build", advancedPackage)
 
   stubs.spawn.should.be.callCount(6)
   stubs.spawn
@@ -189,11 +189,11 @@ test("advanced build --raw", async () => {
 })
 
 test("concurrent ", async () => {
-  const runner = new Runner(
-    { scripts: { test: "jest" }, ultra: { concurrent: ["test"] } },
-    {}
-  )
-  await runner.run("test")
+  const runner = new Runner({})
+  await runner.run("test", {
+    scripts: { test: "jest" },
+    ultra: { concurrent: ["test"] },
+  })
   stubs.spawn.should.be.calledOnce
   stubs.spawn
     .getCall(0)

@@ -37,6 +37,6 @@ test("false", async () => {
 
 test("no params", async () => {
   await run(["", ""])
-  stubs.log.should.be.calledWithMatch("Available Scripts")
+  stubs.log.should.be.calledWithMatch("See --list for available scripts")
   stubs.exit.should.be.calledWith(1)
 })

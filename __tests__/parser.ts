@@ -39,6 +39,21 @@ test("test bin ", () => {
   expect(cmd.debug()).toStrictEqual("bin:jest")
 })
 
+test("yarn bin", () => {
+  const parser = new CommandParser({ scripts: {} })
+  const cmd = parser.parse("yarn jest")
+  expect(cmd.children).toHaveLength(1)
+  expect(cmd.debug()).toStrictEqual("bin:jest")
+})
+
+test("yarn script", () => {
+  const parser = new CommandParser({ scripts: { foo: "yarn jest" } })
+  const cmd = parser.parse("foo")
+  expect(cmd.debug()).toStrictEqual({
+    "script:foo": "bin:jest",
+  })
+})
+
 test("test npx bin ", () => {
   const parser = new CommandParser({ scripts: {} })
   const cmd = parser.parse("npx jest")

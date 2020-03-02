@@ -26,9 +26,9 @@ afterAll(() => {
 })
 
 test("failed command", async () => {
-  const runner = new Runner({ scripts: { test: "fail" } }, { fancy: true })
+  const runner = new Runner({ fancy: true })
   const spawn = sinon.stub(runner, "spawn").rejects()
-  await runner.run("test")
+  await runner.run("test", { scripts: { test: "fail" } })
   spawn.should.be.calledWith("fail", [])
   stubs.exit.should.be.calledWith(1)
 })
@@ -40,41 +40,38 @@ test("formatDuration", () => {
 })
 
 test("error", async () => {
-  const runner = new Runner(
-    { scripts: { test: "false", pretest: "false" } },
-    { fancy: true }
-  )
-  await runner.run("test")
+  const runner = new Runner({ fancy: true })
+  await runner.run("test", { scripts: { test: "false", pretest: "false" } })
   stubs.exit.should.be.calledWith(1)
 })
 
 test("string error", async () => {
-  const runner = new Runner({})
+  const runner = new Runner()
   sinon.stub(runner, "spawn").throws({ foo: "bar" })
-  await runner.run("test")
+  await runner.run("test", {})
   stubs.exit.should.be.calledWith(1)
 })
 
 test("error --silent", async () => {
-  const runner = new Runner({}, { fancy: false, silent: true })
-  await runner.run("false")
+  const runner = new Runner({ fancy: false, silent: true })
+  await runner.run("false", {})
   stubs.exit.should.be.calledWith(1)
 })
 
 test("unknown command", async () => {
-  const runner = new Runner({}, { fancy: false })
-  await runner.run("foobar")
+  const runner = new Runner({ fancy: false })
+  await runner.run("foobar", {})
   stubs.exit.should.be.calledWith(1)
 })
 
 test("warning", async () => {
-  const runner = new Runner({}, { fancy: true })
-  await runner.run("echo warning")
+  const runner = new Runner({ fancy: true })
+  await runner.run("echo warning", {})
   stubs.write.should.be.calledWithMatch("⚠")
 })
 
 test("--no-fancy", async () => {
-  const runner = new Runner({}, { fancy: false })
-  await runner.run("echo foobar")
+  const runner = new Runner({ fancy: false })
+  await runner.run("echo foobar", {})
   stubs.log.should.be.calledWithMatch("foobar")
 })
