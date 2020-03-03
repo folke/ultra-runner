@@ -1,10 +1,10 @@
-import * as cliCursor from "cli-cursor"
 import chalk from "chalk"
+import * as cliCursor from "cli-cursor"
 // eslint-disable-next-line import/default
 import cliSpinners from "cli-spinners"
 import { performance } from "perf_hooks"
-import readline from "readline"
 import symbols from "./symbols"
+import { Terminal } from "./terminal"
 
 export enum SpinnerResult {
   success = 1,
@@ -44,10 +44,13 @@ export class OutputSpinner {
   frame = 0
   interval: NodeJS.Timeout | undefined
   running = false
-  renderedLines: string[] = []
-  perf = { rendered: 0, skipped: 0 }
+  spinnerMap = new Map<Spinner | undefined, Spinner[]>()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  terminal: Terminal
 
-  constructor(public stream = process.stdout) {}
+  constructor(public stream = process.stdout) {
+    this.terminal = new Terminal(stream)
+  }
 
   render(full = false) {
     const symbol = chalk.yellow(this.spinner.frames[this.frame])
@@ -78,56 +81,16 @@ export class OutputSpinner {
       return ret
     }
 
-    let text = spinnerLines
+    let text = `${spinnerLines
       .map(s => (full ? s.lines : limitLines(s.lines, s.count)).join("\n"))
-      .join("\n")
+      .join("\n")}\n`
 
     if (!full) text = text.trim()
     let lines = text.split("\n")
     if (!full) lines = lines.slice(-process.stdout.rows)
 
-    // Check if we will write the same lines
-    if (lines.length == this.renderedLines.length) {
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i] != this.renderedLines[i]) break
-        /* c8 ignore next 4 */
-        if (i == lines.length - 1) {
-          this.perf.skipped += lines.length
-          return
-        }
-      }
-    }
-
-    // Move cursor to first line
-    if (this.renderedLines.length)
-      readline.moveCursor(this.stream, 0, -this.renderedLines.length + 1)
-
-    // Update existing lines
-    for (let l = 0; l < this.renderedLines.length; l++) {
-      const line = lines[l]
-      if (line != this.renderedLines[l]) {
-        readline.cursorTo(this.stream, 0)
-        readline.clearLine(this.stream, 0)
-        if (line) this.stream.write(line)
-        this.perf.rendered++
-      } else {
-        this.perf.skipped++
-      }
-      if (l < this.renderedLines.length - 1)
-        readline.moveCursor(this.stream, 0, 1)
-    }
-
-    // Render remaining lines
-    if (lines.length > this.renderedLines.length) {
-      if (this.renderedLines.length > 0) this.stream.write("\n")
-      this.stream.write(lines.slice(this.renderedLines.length).join("\n"))
-      this.perf.rendered += lines.length - this.renderedLines.length
-    }
-
-    this.renderedLines = lines
+    this.terminal.update(lines)
   }
-
-  spinnerMap = new Map<Spinner | undefined, Spinner[]>()
 
   get spinners(): Spinner[] {
     const ret = new Array<Spinner>()
