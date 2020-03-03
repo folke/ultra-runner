@@ -1,7 +1,9 @@
 import chalk from "chalk"
-import { spawn } from "child_process"
+import { spawn, ChildProcess } from "child_process"
 
 export class Spawner {
+  static children = new Map<number, ChildProcess>()
+
   output = ""
   buffer = ""
   exitCode: number | null = null
@@ -34,6 +36,16 @@ export class Spawner {
       stdio: raw ? "inherit" : "pipe",
       cwd: this.cwd,
     })
+    if (!Spawner.children.size) {
+      ;(["SIGTERM", "SIGINT"] as const).forEach(event =>
+        process.once(event, () => {
+          Spawner.exit(event)
+          process.exit(1)
+        })
+      )
+      process.once("exit", () => Spawner.exit("exit"))
+    }
+    Spawner.children.set(child.pid, child)
 
     const processData = (data: string) => {
       data = `${data}`
@@ -54,15 +66,24 @@ export class Spawner {
       child.stdout?.on("data", processData)
       child.stderr?.on("data", processData)
       child.on("error", err => {
+        Spawner.children.delete(child.pid)
         reject(this.onError(err))
       })
       child.on("close", code => {
         this.exitCode = code
         if (this.buffer.length) this.onLine(`${this.buffer}\n`)
         this.buffer = ""
+        Spawner.children.delete(child.pid)
         if (code) reject(this.onExit(code))
         else resolve()
       })
+    })
+  }
+
+  static exit(_reason: string) {
+    Spawner.children.forEach(child => {
+      // console.log(`[${reason}] Killing ${child.pid}`)
+      child.kill()
     })
   }
 }
