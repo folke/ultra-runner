@@ -9,7 +9,7 @@ export function filter(workspace: Workspace, filter: string) {
   workspace.packages = workspace.packages.filter(
     p =>
       regex.test(p.name || "") ||
-      regex.test(path.relative(workspace.root, p.root))
+      regex.test(path.relative(workspace.root, p.root).replace(/\\/gu, "/"))
   )
   return workspace
 }
