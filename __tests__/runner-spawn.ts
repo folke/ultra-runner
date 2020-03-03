@@ -1,3 +1,5 @@
+import { HASH_FILE } from "./../src/build"
+import fs from "fs"
 import { Runner } from "../src/runner"
 import sinon from "sinon"
 import chai from "chai"
@@ -18,6 +20,7 @@ chalk.level = 0
 
 beforeEach(() => {
   sinon.resetHistory()
+  if (fs.existsSync(HASH_FILE)) fs.unlinkSync(HASH_FILE)
 })
 
 afterAll(() => {
@@ -26,7 +29,7 @@ afterAll(() => {
 })
 
 test("failed command", async () => {
-  const runner = new Runner({ fancy: true })
+  const runner = new Runner({ pretty: true })
   const spawn = sinon.stub(runner, "spawn").rejects()
   await runner.run("test", { scripts: { test: "fail" } })
   spawn.should.be.calledWith("fail", [])
@@ -40,7 +43,7 @@ test("formatDuration", () => {
 })
 
 test("error", async () => {
-  const runner = new Runner({ fancy: true })
+  const runner = new Runner({ pretty: true })
   await runner.run("test", { scripts: { test: "false", pretest: "false" } })
   stubs.exit.should.be.calledWith(1)
 })
@@ -53,25 +56,25 @@ test("string error", async () => {
 })
 
 test("error --silent", async () => {
-  const runner = new Runner({ fancy: false, silent: true })
+  const runner = new Runner({ pretty: false, silent: true })
   await runner.run("false", {})
   stubs.exit.should.be.calledWith(1)
 })
 
 test("unknown command", async () => {
-  const runner = new Runner({ fancy: false })
+  const runner = new Runner({ pretty: false })
   await runner.run("foobar", {})
   stubs.exit.should.be.calledWith(1)
 })
 
 test("warning", async () => {
-  const runner = new Runner({ fancy: true })
+  const runner = new Runner({ pretty: true })
   await runner.run("echo warning", {})
   stubs.write.should.be.calledWithMatch("⚠")
 })
 
-test("--no-fancy", async () => {
-  const runner = new Runner({ fancy: false })
+test("--no-pretty", async () => {
+  const runner = new Runner({ pretty: false })
   await runner.run("echo foobar", {})
   stubs.log.should.be.calledWithMatch("foobar")
 })

@@ -1,10 +1,13 @@
-import { Runner } from "../src/runner"
-import sinon from "sinon"
+import { HASH_FILE } from "./../src/build"
 import chai from "chai"
-import sinonChai from "sinon-chai"
 import chalk from "chalk"
-import { PackageJson } from "../src/workspace"
+import fs from "fs"
 import * as path from "path"
+import sinon from "sinon"
+import sinonChai from "sinon-chai"
+import { defaults } from "../src/options"
+import { Runner } from "../src/runner"
+import { PackageJson } from "../src/workspace"
 
 chai.use(sinonChai)
 chai.should()
@@ -21,6 +24,7 @@ chalk.level = 0
 
 beforeEach(() => {
   sinon.resetHistory()
+  if (fs.existsSync(HASH_FILE)) fs.unlinkSync(HASH_FILE)
 })
 
 afterAll(() => {
@@ -43,8 +47,7 @@ const advancedPackage: PackageJson = {
 }
 
 test("constructor", () => {
-  chai.expect(new Runner({}).options).to.be.empty
-  chai.expect(new Runner({ parallel: true }).options.concurrent).to.be.true
+  chai.expect(new Runner({}).options).to.be.deep.equal(defaults)
 })
 
 test("advanced build --dry-run", async () => {
@@ -53,7 +56,7 @@ test("advanced build --dry-run", async () => {
   chai.expect(stubs.spawn).not.to.be.called
 })
 
-test("advanced build --no-fancy", async () => {
+test("advanced build --no-pretty", async () => {
   const runner = new Runner()
   await runner.run("build", advancedPackage)
 
@@ -100,8 +103,8 @@ test("advanced build --no-fancy", async () => {
     )
 })
 
-test("advanced build --fancy", async () => {
-  const runner = new Runner({ fancy: true })
+test("advanced build --pretty", async () => {
+  const runner = new Runner({ pretty: true })
   await runner.run("build", advancedPackage)
 
   stubs.write.should.be.calledWithMatch("✔")
