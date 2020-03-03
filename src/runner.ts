@@ -3,28 +3,34 @@ import { existsSync } from "fs"
 import { basename, relative } from "path"
 import { performance } from "perf_hooks"
 import Shellwords from "shellwords-ts"
-// eslint-disable-next-line import/default
-import stringWidth from "string-width"
-import wrapAnsi from "wrap-ansi"
+import { needsBuild, ChangeType } from "./build"
+import { filter } from "./filter"
+import { CommandFormatter } from "./formatter"
+import { defaults, RunnerOptions } from "./options"
 import { Command, CommandParser, CommandType } from "./parser"
 import { Spawner } from "./spawn"
 import { OutputSpinner, Spinner } from "./spinner"
-import { findPackageUp, getWorkspace, PackageJson } from "./workspace"
-import { filter } from "./filter"
-
-type CliOptions = { [key: string]: string | boolean }
+import {
+  findPackageUp,
+  getWorkspace,
+  Workspace,
+  PackageJson,
+} from "./workspace"
 
 export class Runner {
+  MAX_CONCURRENCY = 10
   spinner = new OutputSpinner()
-  constructor(public options: CliOptions = {}) {
-    if (options.parallel || options.concurrent)
-      options.parallel = options.concurrent = true
+  options: RunnerOptions
+  workspace?: Workspace
+
+  constructor(public _options: Partial<RunnerOptions> = {}) {
+    this.options = { ...defaults, ..._options }
   }
 
   formatStart(cmd: Command, level: number, parentSpinner?: Spinner) {
     if (this.options.raw) return
     const title = this.formatCommand(cmd)
-    if (!this.options.fancy) {
+    if (!this.options.pretty) {
       if (cmd.type == CommandType.script) console.log(`❯ ${title}`)
       else console.log(title)
     } else return this.spinner.start(title, level, parentSpinner)
@@ -61,15 +67,53 @@ export class Runner {
         }
       }
     }
-    try {
-      const promises = []
-      for (const child of cmd.children) {
-        promises.push(this.runCommand(child, level + 1, spinner))
-        if (!cmd.concurrent) await promises[promises.length - 1]
+    const formatter = new CommandFormatter(
+      cmd.name,
+      level,
+      spinner,
+      this.options
+    )
+    const isBuildScript = cmd.type == CommandType.script && cmd.name == "build"
+    const changes = isBuildScript
+      ? await needsBuild(
+          cmd.cwd || process.cwd(),
+          this.workspace,
+          this.options.rebuild
+        )
+      : undefined
+    if (isBuildScript) {
+      if (!changes) formatter.write("No changes. Skipping build...")
+      else {
+        formatter.write(
+          chalk.blue("changes:\n") +
+            changes.changes
+              .map(c => {
+                let str = "  "
+                if (c.type == ChangeType.added) str += chalk.green("+")
+                else if (c.type == ChangeType.deleted) str += chalk.red("-")
+                else if (c.type == ChangeType.modified) str += chalk.green("+")
+                return `${str} ${c.file}`
+              })
+              .join("\n")
+        )
       }
-      if (cmd.concurrent) await Promise.all(promises)
+    }
+    try {
+      if (!isBuildScript || changes) {
+        const promises = []
+        for (const child of cmd.children) {
+          promises.push(this.runCommand(child, level + 1, spinner))
+          if (!cmd.concurrent) await promises[promises.length - 1]
+          else if (promises.length > this.MAX_CONCURRENCY) {
+            await Promise.all(promises)
+            promises.length = 0
+          }
+        }
+        if (cmd.concurrent) await Promise.all(promises)
+      }
       spinner && this.spinner.success(spinner)
       cmd.afterRun()
+      if (changes) await changes.onBuild()
     } catch (error) {
       if (spinner) this.spinner.error(spinner)
       throw error
@@ -96,40 +140,12 @@ export class Runner {
     cwd?: string,
     spinner?: Spinner
   ) {
-    const spawner = new Spawner(cmd, args, (this.options.cwd as string) || cwd)
-    let output = ""
+    const spawner = new Spawner(cmd, args, this.options.cwd || cwd)
+    const formatter = new CommandFormatter(cmd, level, spinner, this.options)
 
-    const format = (prefix: string, text: string) => {
-      text = text.replace("\u001Bc", "") // remove clear screen
-      text = wrapAnsi(
-        `${text}`,
-        process.stdout.columns - stringWidth(prefix) - 1,
-        {
-          hard: true,
-          trim: false,
-          wordWrap: true,
-        }
-      )
-      return text.replace(/\n/gu, `\n${prefix}`)
-    }
-
-    if (!this.options.fancy)
-      spawner.onLine = (line: string) => {
-        const prefix = `${chalk.grey.dim(`[${basename(cmd)}]`)} `
-        line = prefix + format(prefix, line)
-        output += `${line}\n`
-        if (!this.options.silent) console.log(line)
-      }
-    else
-      spawner.onData = (data: string) => {
-        const prefix = `${"".padEnd(level * 2)}${chalk.grey(`  │`)} `
-        let ret = format(prefix, data)
-        if (!output.length) ret = prefix + ret
-        output += ret
-        if (!this.options.silent && spinner) {
-          spinner.output += ret
-        }
-      }
+    if (this.options.pretty)
+      spawner.onData = (line: string) => formatter.write(line)
+    else spawner.onLine = (line: string) => formatter.write(line)
 
     spawner.onError = (err: Error) =>
       new Error(
@@ -140,13 +156,13 @@ export class Runner {
 
     spawner.onExit = (code: number) =>
       new Error(
-        `${this.options.silent ? output : ""}\n${chalk.red(
+        `${this.options.silent ? formatter.output : ""}\n${chalk.red(
           "error"
         )} Command ${chalk.white.dim(
           basename(cmd)
         )} failed with exit code ${chalk.red(code)}`
       )
-    return spawner.spawn(this.options.raw as boolean)
+    return spawner.spawn(this.options.raw)
   }
 
   formatDuration(duration: number) {
@@ -155,13 +171,10 @@ export class Runner {
   }
 
   async list() {
-    const workspace = await getWorkspace(
-      process.cwd(),
-      this.options.recursive as boolean
-    )
+    const workspace = await getWorkspace(process.cwd(), this.options.recursive)
     if (!workspace) throw new Error("Cannot find package.json")
 
-    if (this.options.filter) filter(workspace, this.options.filter as string)
+    if (this.options.filter) filter(workspace, this.options.filter)
     let counter = 0
     workspace?.packages?.forEach(p => {
       console.log(
@@ -186,7 +199,7 @@ export class Runner {
   async info() {
     const workspace = await getWorkspace(process.cwd(), true)
     if (workspace) {
-      if (this.options.filter) filter(workspace, this.options.filter as string)
+      if (this.options.filter) filter(workspace, this.options.filter)
       const localPackages = workspace.packages.map(p => p.name)
       let counter = 0
       workspace.packages.forEach(p => {
@@ -208,25 +221,25 @@ export class Runner {
   deps = new Map<string | undefined, Promise<void>>()
 
   async runRecursive(cmd: string) {
-    const workspace = await getWorkspace(process.cwd(), true)
+    this.workspace = await getWorkspace(process.cwd(), true)
 
-    if (!workspace?.packages?.length)
+    if (!this.workspace?.packages?.length)
       throw new Error(
         "Could not find packages in your workspace. Supported: yarn, pnpm, lerna"
       )
-    if (this.options.filter) filter(workspace, this.options.filter as string)
+    if (this.options.filter) filter(this.workspace, this.options.filter)
     const command = new Command([], CommandType.script)
 
-    const workspacePackages = workspace.packages.map(p => p.name)
+    const workspacePackages = this.workspace.packages.map(p => p.name)
     let hasScript = false
-    command.children = workspace.packages
+    command.children = this.workspace.packages
       .map(pkg => {
         const command = new CommandParser(pkg, pkg.root)
           .parse(cmd)
           .setCwd(pkg.root)
         command.name = chalk.cyanBright(pkg.name || "Package")
         command.type = CommandType.script
-        if (this.options.tree)
+        if (cmd.startsWith("build"))
           command.beforeRun = async () => {
             this.deps.set(
               pkg.name,
@@ -247,16 +260,14 @@ export class Runner {
       .filter(
         c => !hasScript || c.children.some(c => c.type == CommandType.script)
       )
-
+    command.concurrent = true
     this._run(command, -1)
 
     // process.exit(1)
   }
 
-  async _run(command: Command, level = -2) {
+  async _run(command: Command, level = -1) {
     try {
-      if (this.options.concurrent) command.concurrent = true
-      // console.dir(command.debug(true), { depth: Infinity })
       await this.runCommand(command, level)
       this.spinner._stop()
       if (!this.options.silent) {
@@ -270,8 +281,8 @@ export class Runner {
     } catch (error) {
       this.spinner._stop()
       if (error instanceof Error) {
-        console.error(error.message)
-      } else console.error(error)
+        console.error(chalk.red("error ") + error.message)
+      } else console.error(chalk.red("error ") + error)
       // eslint-disable-next-line unicorn/no-process-exit
       process.exit(1)
     }

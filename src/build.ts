@@ -97,10 +97,13 @@ function loadPackageFiles(depsFile: string): PackageFiles {
 
 export async function needsBuild(
   root: string,
-  workspace: Workspace | undefined
+  workspace: Workspace | undefined,
+  forceRebuild = false
 ) {
   const depsFile = path.resolve(root, HASH_FILE)
-  const existingDeps = loadPackageFiles(depsFile)
+  const existingDeps: PackageFiles = forceRebuild
+    ? { files: {}, deps: {} }
+    : loadPackageFiles(depsFile)
   const deps = await getPackageFiles(root, workspace)
 
   const changes = getChanges(existingDeps, deps)
