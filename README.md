@@ -77,17 +77,17 @@ Example builds:
 
 There are three output formats that each can be combined with `--silent` to hide command output.
 
-`--fancy` is the default. It shows output in a hieracrhical way and uses spinners to see exactly what's happening.
+`--pretty` is the default. It shows output in a hieracrhical way and uses spinners to see exactly what's happening.
 Make sure to check out the animation at the top of this page as well. Every executed step shows the execution time.
 ![Ultra Lint](assets/ultra-format-fancy.png)
 
-`--fancy` combined with `--silent` is useful if you're only interested to see the overview:
+`--pretty` combined with `--silent` is useful if you're only interested to see the overview:
 ![Ultra Lint](assets/ultra-format-fancy-silent.png)
 
-`--no-fancy` doesn't use spinners and prefixes command output with the command name. This is useful for logging purposes.
+`--no-pretty` doesn't use spinners and prefixes command output with the command name. This is useful for logging purposes.
 ![Ultra Lint](assets/ultra-format-no-fancy.png)
 
-Combining `--no-fancy` with `--silent` shows a flat overview:
+Combining `--no-pretty` with `--silent` shows a flat overview:
 ![Ultra Lint](assets/ultra-format-no-fancy-silent.png)
 
 `--raw` will show the exact ouput as you would expect when running the commands stand alone. If the command you're executing is interactive (reads from stdin), then this is the mode you should use.
@@ -122,8 +122,8 @@ Usage: ultra [options]
 Options:
   -c|--concurrent  Run the given commands concurrently
   -p|--parallel    alias for --concurrent
-  --fancy          enable fancy output, spinners and seperate command output. Default when a TTY (default: true)
-  --no-fancy       disables fancy output, spinners and seperate command output. Default when not a TTY. Useful for logging
+  --pretty          enable pretty output, spinners and seperate command output. Default when a TTY (default: true)
+  --no-pretty       disables pretty output, spinners and seperate command output. Default when not a TTY. Useful for logging
   --raw            Output only raw command output
   -s|--silent      skip script output. ultra console logs will still be shown
   --color          colorize output (default: true)
@@ -137,7 +137,7 @@ Options:
   - `ultra --concurrent lint \; test \; build`
   - `ultra --concurrent "lint ; test ; build"`
   - `ultra --concurrent "lint && test && build"`
-- use `--dry-run` to see what would be executed. The output is similar to `--fancy --silent`
+- use `--dry-run` to see what would be executed. The output is similar to `--pretty --silent`
 
 ## :gear: Optional Configuration
 

@@ -21,7 +21,7 @@
       "request": "launch",​
       "cwd": "${workspaceRoot}",​
       "runtimeArgs": ["-r", "ts-node/register"],​
-      "args": ["${workspaceFolder}/src/runner.ts", "--fancy", "--color", "sleep", "10"],
+      "args": ["${workspaceFolder}/src/runner.ts", "--pretty", "--color", "sleep", "10"],
       "console": "integratedTerminal",
       "internalConsoleOptions":"openOnSessionStart"
     }
