@@ -1,5 +1,8 @@
-import path from "path"
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import { parse } from "comment-json"
 import fs from "fs"
+import path from "path"
 // eslint-disable-next-line import/default
 import tinyGlob from "tiny-glob"
 import yaml from "yaml"
@@ -18,11 +21,12 @@ export type PackageJsonWithRoot = PackageJson & {
   root: string
 }
 
-enum WorkspaceType {
+export enum WorkspaceType {
   single,
   lerna,
   yarn,
   pnpm,
+  rush,
   recursive,
 }
 
@@ -43,10 +47,14 @@ type GlobOptions = {
 
 export async function glob(dirs: string[], options?: GlobOptions) {
   if (!options) options = {}
-  options.absolute = true
+  options = { absolute: true, ...options }
   const ret = (await Promise.all(dirs.map(d => tinyGlob(d, options)))).flat()
   return options.directoriesOnly
-    ? ret.filter(f => fs.lstatSync(f).isDirectory())
+    ? ret.filter(f =>
+        fs
+          .lstatSync(path.resolve(options?.cwd || process.cwd(), f))
+          .isDirectory()
+      )
     : ret
 }
 
@@ -81,7 +89,7 @@ async function getPackages(
 ): Promise<Workspace> {
   const packages = (await glob(globs, { cwd: root, directoriesOnly: true }))
     .map(p => getPackage(p))
-    .filter(p => p) as PackageJsonWithRoot[]
+    .filter(p => p && p.name) as PackageJsonWithRoot[]
 
   // Sort packages in correct build order based on workspace dependencies
   const map = new Map<string, PackageJsonWithRoot>(
@@ -113,6 +121,18 @@ export function getLernaWorkspace(cwd = process.cwd()) {
       root,
       require(path.resolve(root, "lerna.json")).packages,
       WorkspaceType.lerna
+    )
+}
+
+export function getRushWorkspace(cwd = process.cwd()) {
+  const root = findUp("rush.json", cwd)
+  if (root)
+    return getPackages(
+      root,
+      parse(
+        fs.readFileSync(path.resolve(root, "rush.json")).toString()
+      )?.projects.map((p: { projectFolder?: string }) => p.projectFolder),
+      WorkspaceType.rush
     )
 }
 
@@ -161,6 +181,7 @@ export async function getWorkspace(
     getPnpmWorkspace,
     getYarnWorkspace,
     getLernaWorkspace,
+    getRushWorkspace,
     getRecursiveWorkspace,
   ]
   for (const m of methods) {
