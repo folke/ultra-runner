@@ -1,5 +1,7 @@
 import * as ws from "../src/workspace"
 import path from "path"
+import { findUp } from "../src/package"
+import { WorkspaceProviderType } from "../src/workspace.providers"
 
 test("findUp ", () => {
   const tests = [
@@ -8,15 +10,19 @@ test("findUp ", () => {
     [".", "node_modules", path.resolve(__dirname, "../")],
     [".", "package.json", path.resolve(__dirname, "../")],
   ]
-  expect(ws.findUp("blablabla")).toBeUndefined()
+  expect(findUp("blablabla")).toBeUndefined()
   tests.forEach(([cwd, name, result]) => {
-    expect(ws.findUp(name, cwd)).toBe(result)
+    expect(findUp(name, cwd)).toBe(result)
   })
 })
 
 test("lerna", async () => {
-  const packages = (await ws.getLernaWorkspace("__tests__/workspace/apps"))
-    ?.packages
+  const packages = (
+    await ws.getWorkspace({
+      cwd: "__tests__/workspace/apps",
+      type: WorkspaceProviderType.lerna,
+    })
+  )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
     const dirs = packages.map(p =>
@@ -34,8 +40,12 @@ test("lerna", async () => {
 })
 
 test("yarn", async () => {
-  const packages = (await ws.getYarnWorkspace("__tests__/workspace/apps/app1"))
-    ?.packages
+  const packages = (
+    await ws.getWorkspace({
+      cwd: "__tests__/workspace/apps/app1",
+      type: WorkspaceProviderType.yarn,
+    })
+  )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
     const dirs = packages.map(p =>
@@ -53,8 +63,12 @@ test("yarn", async () => {
 })
 
 test("pnpm", async () => {
-  const packages = (await ws.getPnpmWorkspace("__tests__/workspace/apps/app1"))
-    ?.packages
+  const packages = (
+    await ws.getWorkspace({
+      cwd: "__tests__/workspace/apps/app1",
+      type: WorkspaceProviderType.pnpm,
+    })
+  )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
     const dirs = packages.map(p =>
@@ -72,8 +86,12 @@ test("pnpm", async () => {
 })
 
 test("recursive", async () => {
-  const packages = (await ws.getRecursiveWorkspace("__tests__/workspace"))
-    ?.packages
+  const packages = (
+    await ws.getWorkspace({
+      cwd: "__tests__/workspace",
+      type: WorkspaceProviderType.recursive,
+    })
+  )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
     const dirs = packages.map(p =>
@@ -92,8 +110,8 @@ test("recursive", async () => {
 
 test("workspace", async () => {
   const packages = (
-    await ws.getWorkspace("__tests__/workspace/apps/app1", true)
-  )?.packages
+    await ws.getWorkspace({ cwd: "__tests__/workspace/apps/app1" })
+  )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
     const dirs = packages.map(p =>

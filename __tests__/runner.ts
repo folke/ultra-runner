@@ -7,7 +7,7 @@ import sinon from "sinon"
 import sinonChai from "sinon-chai"
 import { defaults } from "../src/options"
 import { Runner } from "../src/runner"
-import { PackageJson } from "../src/workspace"
+import { PackageJson } from "../src/package"
 
 chai.use(sinonChai)
 chai.should()
@@ -33,6 +33,7 @@ afterAll(() => {
 })
 
 const advancedPackage: PackageJson = {
+  name: "advanced-package",
   scripts: {
     prebuild: "yarn clean && yarn lint && yarn test",
     "build:rollup": "npx rollup -c",
@@ -194,6 +195,7 @@ test("advanced build --raw", async () => {
 test("concurrent ", async () => {
   const runner = new Runner({})
   await runner.run("test", {
+    name: "test",
     scripts: { test: "jest" },
     ultra: { concurrent: ["test"] },
   })

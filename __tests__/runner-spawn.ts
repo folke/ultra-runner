@@ -31,7 +31,7 @@ afterAll(() => {
 test("failed command", async () => {
   const runner = new Runner({ pretty: true })
   const spawn = sinon.stub(runner, "spawn").rejects()
-  await runner.run("test", { scripts: { test: "fail" } })
+  await runner.run("test", { name: "test", scripts: { test: "fail" } })
   spawn.should.be.calledWith("fail", [])
   stubs.exit.should.be.calledWith(1)
 })
@@ -44,37 +44,40 @@ test("formatDuration", () => {
 
 test("error", async () => {
   const runner = new Runner({ pretty: true })
-  await runner.run("test", { scripts: { test: "false", pretest: "false" } })
+  await runner.run("test", {
+    name: "test",
+    scripts: { test: "false", pretest: "false" },
+  })
   stubs.exit.should.be.calledWith(1)
 })
 
 test("string error", async () => {
   const runner = new Runner()
   sinon.stub(runner, "spawn").throws({ foo: "bar" })
-  await runner.run("test", {})
+  await runner.run("test", { name: "test" })
   stubs.exit.should.be.calledWith(1)
 })
 
 test("error --silent", async () => {
   const runner = new Runner({ pretty: false, silent: true })
-  await runner.run("false", {})
+  await runner.run("false", { name: "test" })
   stubs.exit.should.be.calledWith(1)
 })
 
 test("unknown command", async () => {
   const runner = new Runner({ pretty: false })
-  await runner.run("foobar", {})
+  await runner.run("foobar", { name: "test" })
   stubs.exit.should.be.calledWith(1)
 })
 
 test("warning", async () => {
   const runner = new Runner({ pretty: true })
-  await runner.run("echo warning", {})
+  await runner.run("echo warning", { name: "test" })
   stubs.write.should.be.calledWithMatch("⚠")
 })
 
 test("--no-pretty", async () => {
   const runner = new Runner({ pretty: false })
-  await runner.run("echo foobar", {})
+  await runner.run("echo foobar", { name: "test" })
   stubs.log.should.be.calledWithMatch("foobar")
 })
