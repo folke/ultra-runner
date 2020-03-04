@@ -1,7 +1,7 @@
 import { exec } from "child_process"
 import fs from "fs"
 import path from "path"
-import { findUp } from "./workspace"
+import { findUp } from "./package"
 
 const regex = /^([A-Z?]) (\d{6}) ([a-z0-9]{40}) (\d+)\t(.*)$/u
 
@@ -14,13 +14,18 @@ function parseFiles(data: string, root: string): GitFiles {
     if (m) {
       const file = m[5]
       let hash = m[3]
-      if (m[1] == "C")
-        hash += `.${fs.lstatSync(path.resolve(root, file)).mtimeMs}`
+      if (m[1] == "C") {
+        const filePath = path.resolve(root, file)
+        if (fs.existsSync(filePath))
+          hash += `.${fs.lstatSync(filePath).mtimeMs}`
+        else hash += ".del"
+      }
       ret[file] = hash
     } else {
       const file = line.slice(2)
-      if (fs.existsSync(path.resolve(root, file)))
-        ret[file] = `${fs.lstatSync(path.resolve(root, file)).mtimeMs}`
+      const filePath = path.resolve(root, file)
+      if (fs.existsSync(filePath))
+        ret[file] = `${fs.lstatSync(filePath).mtimeMs}`
     }
   })
   return ret
@@ -59,12 +64,20 @@ class FilesCache {
     if (files) {
       return Object.fromEntries(
         Object.entries(files)
-          .filter(([file]) => path.resolve(root, file).startsWith(directory))
+          .filter(([file]) => {
+            const filePath = path.resolve(root, file)
+            return filePath == directory || filePath.startsWith(`${directory}/`)
+          })
           .map(([file, hash]) => [
             path.relative(directory, path.resolve(root, file)),
             hash,
           ])
-          .filter(([file]) => file.length && !exclude.includes(file))
+          .filter(
+            ([file]) =>
+              file.length &&
+              !exclude.includes(file) &&
+              !file.endsWith(".ultra.cache.json")
+          )
       )
     } else throw new Error(`Could not find Git files for ${root}`)
   }
