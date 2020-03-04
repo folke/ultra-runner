@@ -9,3 +9,4 @@ build
 .eslintcache
 .clinic
 stats.html
+tsconfig.build.tsbuildinfo

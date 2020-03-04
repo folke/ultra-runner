@@ -56,7 +56,7 @@
     "lint": "yarn lint:ts && yarn lint:eslint && yarn lint:docs",
     "lint:eslint": "npx eslint bin/*.js src/*.ts __tests__/*.ts --cache",
     "lint:docs": "npx markdownlint README.md",
-    "lint:ts": "npx tsc -p tsconfig.build.json --noEmit",
+    "lint:ts": "npx tsc -p tsconfig.build.json",
     "lint:fix": "yarn lint:eslint --fix",
     "prerelease": "yarn build",
     "release": "npx standard-version",
@@ -135,11 +135,11 @@
     "cli-spinners": "^2.2.0",
     "commander": "^4.1.0",
     "comment-json": "^3.0.2",
+    "fast-glob": "^3.2.2",
     "globrex": "^0.1.2",
     "shellwords-ts": "^3.0.0",
     "string-width": "^4.2.0",
     "through2": "^3.0.1",
-    "tiny-glob": "^0.2.6",
     "wrap-ansi": "^6.2.0",
     "yaml": "^1.7.2"
   }

@@ -4,7 +4,8 @@
     "outDir": "lib",
     "rootDir": "src",
     "skipLibCheck": false,
-    "types": ["node"]
+    "types": ["node"],
+    "incremental": true
   },
   "extends": "./tsconfig.json",
   "include": ["src/**/*.ts"],
