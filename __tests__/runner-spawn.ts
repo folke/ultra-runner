@@ -1,10 +1,8 @@
-import { HASH_FILE } from "./../src/build"
-import fs from "fs"
-import { Runner } from "../src/runner"
-import sinon from "sinon"
 import chai from "chai"
-import sinonChai from "sinon-chai"
 import chalk from "chalk"
+import sinon from "sinon"
+import sinonChai from "sinon-chai"
+import { Runner } from "../src/runner"
 
 chai.use(sinonChai)
 chai.should()
@@ -20,7 +18,7 @@ chalk.level = 0
 
 beforeEach(() => {
   sinon.resetHistory()
-  if (fs.existsSync(HASH_FILE)) fs.unlinkSync(HASH_FILE)
+  // if (fs.existsSync(HASH_FILE)) fs.unlinkSync(HASH_FILE)
 })
 
 afterAll(() => {
