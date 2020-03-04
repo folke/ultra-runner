@@ -2,7 +2,7 @@
 
 [![github badge](https://github.com/folke/ultra-runner/workflows/Node%20CI/badge.svg)](https://github.com/folke/ultra-runner/actions?query=workflow%3A%22Node+CI%22) [![Coverage Status](https://coveralls.io/repos/github/folke/ultra-runner/badge.svg?branch=master)](https://coveralls.io/github/folke/ultra-runner?branch=master) [![npm](https://img.shields.io/npm/v/ultra-runner)](https://www.npmjs.com/package/ultra-runner) [![GitHub](https://img.shields.io/github/license/folke/ultra-runner)](https://github.com/folke/ultra-runner/blob/master/LICENSE) [![GitHub top language](https://img.shields.io/github/languages/top/folke/ultra-runner)](https://github.com/folke/ultra-runner/) [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 
-**Smart** and **beautiful** script runner that hijacks any `npm run`, `yarn` and `npx` calls for **ultra** fast execution.
+**Smart** and **beautiful** monorepo script runner that hijacks any `npm`, `pnpm`, `yarn` and `npx` calls for **ultra** fast execution.
 
 ![Devmoji Ultra Build](assets/demo.svg?sanitize=true)
 

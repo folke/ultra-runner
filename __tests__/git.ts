@@ -4,7 +4,7 @@ import path from "path"
 const workspaceRoot = path.resolve(__dirname, "workspace")
 
 function f(file: string) {
-  return file.replace(/\\/gu, "/")
+  return file.replace(/\//gu, "\\")
 }
 
 test("parseGitFiles", () => {
