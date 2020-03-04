@@ -72,7 +72,7 @@ async function getPackageFiles(
   workspace: Workspace | undefined
 ): Promise<PackageFiles> {
   return {
-    files: await cache.getFiles(root, [HASH_FILE]),
+    files: await cache.getFiles(root),
     deps: getDependencies(root, workspace),
   }
 }

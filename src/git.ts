@@ -2,6 +2,7 @@ import { exec } from "child_process"
 import fs from "fs"
 import path from "path"
 import { findUp } from "./package"
+import { HASH_FILE } from "./build"
 
 const regex = /^([A-Z?]) (\d{6}) ([a-z0-9]{40}) (\d+)\t(.*)$/u
 
@@ -76,7 +77,7 @@ class FilesCache {
             ([file]) =>
               file.length &&
               !exclude.includes(file) &&
-              !file.endsWith(".ultra.cache.json")
+              !file.endsWith(HASH_FILE)
           )
       )
     } else throw new Error(`Could not find Git files for ${root}`)
