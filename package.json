@@ -92,6 +92,7 @@
     "@types/through2": "2.0.34",
     "@types/wrap-ansi": "3.0.0",
     "@types/yaml": "1.2.0",
+    "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "2.22.0",
     "@typescript-eslint/parser": "2.22.0",
     "builtin-modules": "3.1.0",
@@ -133,7 +134,6 @@
     "chalk": "^3.0.0",
     "cli-cursor": "^3.1.0",
     "cli-spinners": "^2.2.0",
-    "commander": "^4.1.0",
     "comment-json": "^3.0.2",
     "fast-glob": "^3.2.2",
     "globrex": "^0.1.2",
@@ -141,6 +141,7 @@
     "string-width": "^4.2.0",
     "through2": "^3.0.1",
     "wrap-ansi": "^6.2.0",
-    "yaml": "^1.7.2"
+    "yaml": "^1.7.2",
+    "yargs": "^15.1.0"
   }
 }

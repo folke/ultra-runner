@@ -2,7 +2,10 @@
 
 [![github badge](https://github.com/folke/ultra-runner/workflows/Node%20CI/badge.svg)](https://github.com/folke/ultra-runner/actions?query=workflow%3A%22Node+CI%22) [![Coverage Status](https://coveralls.io/repos/github/folke/ultra-runner/badge.svg?branch=master)](https://coveralls.io/github/folke/ultra-runner?branch=master) [![npm](https://img.shields.io/npm/v/ultra-runner)](https://www.npmjs.com/package/ultra-runner) [![GitHub](https://img.shields.io/github/license/folke/ultra-runner)](https://github.com/folke/ultra-runner/blob/master/LICENSE) [![GitHub top language](https://img.shields.io/github/languages/top/folke/ultra-runner)](https://github.com/folke/ultra-runner/) [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 
-**Smart** and **beautiful** monorepo script runner that hijacks any `npm`, `pnpm`, `yarn` and `npx` calls for **ultra** fast execution.
+**Smart** and **beautiful** script runner with **monorepo** support that hijacks any `npm`, `pnpm`, `yarn` and `npx` calls for **ultra** fast execution.
+
+Features:
+*
 
 ![Devmoji Ultra Build](assets/demo.svg?sanitize=true)
 
@@ -117,26 +120,28 @@ See [optional configuration](##gear-optional-configuration) for information on h
 
 ```console
 $ ultra --help
-Usage: ultra [options]
+Usage: ultra [options] <cmd> [cmd-options]
 
 Options:
-  -c|--concurrent  Run the given commands concurrently
-  -p|--parallel    alias for --concurrent
-  --pretty          enable pretty output, spinners and seperate command output. Default when a TTY (default: true)
-  --no-pretty       disables pretty output, spinners and seperate command output. Default when not a TTY. Useful for logging
-  --raw            Output only raw command output
-  -s|--silent      skip script output. ultra console logs will still be shown
-  --color          colorize output (default: true)
-  --no-color       don't colorize output
-  -d|--dry-run     output what would be executed
-  -v|--version     output the version number
-  -h, --help       output usage information
+  -r|--recursive        Run command in every workspace folder concurrently
+  --root                When using --recursive, also include the root package of the workspace
+  -i|--info             Show workspace dependencies
+  -l|--list             List package scripts. Also works with --recusive
+  -f|--filter <filter>  Filter package name or directory using wildcard pattern
+  -b|--build            Use dependency tree to build packages in correct order
+  --rebuild             Triggers a build without checking for file changes
+  --concurrency         Set the maximum number of concurrency. Default is 10. For unlimited concurrency use Infinity
+  --pretty              enable pretty output, spinners and seperate command output. Default when a TTY (default: true)
+  --no-pretty           disables pretty output, spinners and seperate command output. Default when not a TTY. Useful for logging
+  --raw                 Output only raw command output
+  -s|--silent           skip script output. ultra console logs will still be shown
+  --color               colorize output
+  --no-color            don't colorize output
+  -d|--dry-run          output what would be executed
+  -v|--version          output the version number
+  -h, --help            output usage information
 ```
 
-- use `--concurrent` to quickly run some commands in parallel. Any of the commands below are valid:
-  - `ultra --concurrent lint \; test \; build`
-  - `ultra --concurrent "lint ; test ; build"`
-  - `ultra --concurrent "lint && test && build"`
 - use `--dry-run` to see what would be executed. The output is similar to `--pretty --silent`
 
 ## :gear: Optional Configuration
