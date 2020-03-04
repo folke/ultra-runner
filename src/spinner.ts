@@ -1,7 +1,5 @@
 import chalk from "chalk"
-import * as cliCursor from "cli-cursor"
 // eslint-disable-next-line import/default
-import cliSpinners from "cli-spinners"
 import { performance } from "perf_hooks"
 import symbols from "./symbols"
 import { Terminal } from "./terminal"
@@ -10,6 +8,19 @@ export enum SpinnerResult {
   success = 1,
   error,
   warning,
+}
+
+function showCursor(stream = process.stderr) {
+  stream.isTTY && stream.write("\u001B[?25h")
+}
+
+function hideCursor(stream = process.stderr) {
+  if (!stream.isTTY) return
+  ;(["SIGTERM", "SIGINT"] as const).forEach(event =>
+    process.once(event, () => showCursor(stream))
+  )
+  process.once("exit", () => showCursor(stream))
+  stream.write("\u001B[?25l")
 }
 
 export class Spinner {
@@ -40,7 +51,17 @@ export class Spinner {
 
 export class OutputSpinner {
   /* c8 ignore next */
-  spinner = process.platform === "win32" ? cliSpinners.line : cliSpinners.dots
+  spinner =
+    process.platform === "win32"
+      ? {
+          interval: 130,
+          frames: ["-", "\\", "|", "/"],
+        }
+      : {
+          interval: 80,
+          frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+        }
+
   frame = 0
   interval: NodeJS.Timeout | undefined
   running = false
@@ -139,7 +160,7 @@ export class OutputSpinner {
     /* c8 ignore next */
     if (this.running) return
     this.running = true
-    cliCursor.hide(this.stream)
+    hideCursor(this.stream)
     this.interval = setInterval(() => {
       /* c8 ignore next 2 */
       this.frame = ++this.frame % this.spinner.frames.length
@@ -152,7 +173,7 @@ export class OutputSpinner {
       if (this.interval) clearInterval(this.interval)
       this.render(true)
       this.interval = undefined
-      cliCursor.show(this.stream)
+      showCursor(this.stream)
       this.running = false
       this.spinnerMap.clear()
     }
