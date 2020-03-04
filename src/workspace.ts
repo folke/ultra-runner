@@ -1,191 +1,111 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import { parse } from "comment-json"
-import fs from "fs"
+import globrex from "globrex"
 import path from "path"
-// eslint-disable-next-line import/default
-import tinyGlob from "tiny-glob"
-import yaml from "yaml"
+import { getPackage, findPackages, PackageJsonWithRoot } from "./package"
+import { providers, WorkspaceProviderType } from "./workspace.providers"
 
-export type PackageJson = {
-  name?: string
-  scripts?: { [key: string]: string }
-  dependencies?: { [key: string]: string }
-  ultra?: {
-    concurrent?: string[]
+const defaultOptions = {
+  cwd: process.cwd(),
+  type: undefined as WorkspaceProviderType | undefined,
+  includeRoot: false,
+}
+
+export type WorkspaceOptions = typeof defaultOptions
+
+export class Workspace {
+  packages = new Map<string, PackageJsonWithRoot>()
+  roots = new Map<string, string>()
+  order: string[]
+
+  private constructor(
+    public root: string,
+    packages: PackageJsonWithRoot[],
+    public type: WorkspaceProviderType
+  ) {
+    packages.forEach(p => {
+      if (!p.name) p.name = p.root
+      this.packages.set(p.name, p)
+      this.roots.set(p.root, p.name)
+    })
+
+    this.order = []
+    ;[...this.packages.entries()].forEach(([name]) => {
+      if (!this.order.includes(name)) {
+        ;[...this.getDepTree(name), name].forEach(
+          n => this.order.includes(n) || this.order.push(n)
+        )
+      }
+    })
   }
-  workspaces?: string[] | { packages?: string[] }
-}
 
-export type PackageJsonWithRoot = PackageJson & {
-  root: string
-}
+  static async getWorkspace(_options?: Partial<WorkspaceOptions>) {
+    const options: WorkspaceOptions = { ...defaultOptions, ..._options }
 
-export enum WorkspaceType {
-  single,
-  lerna,
-  yarn,
-  pnpm,
-  rush,
-  recursive,
-}
+    const types = options.type
+      ? [options.type]
+      : (Object.keys(providers) as WorkspaceProviderType[])
 
-export type Workspace = {
-  type: WorkspaceType
-  root: string
-  packages: PackageJsonWithRoot[]
-}
-
-type GlobOptions = {
-  cwd?: string
-  dot?: boolean
-  absolute?: boolean
-  filesOnly?: boolean
-  directoriesOnly?: boolean
-  flush?: boolean
-}
-
-export async function glob(dirs: string[], options?: GlobOptions) {
-  if (!options) options = {}
-  options = { absolute: true, ...options }
-  const ret = (await Promise.all(dirs.map(d => tinyGlob(d, options)))).flat()
-  return options.directoriesOnly
-    ? ret.filter(f =>
-        fs
-          .lstatSync(path.resolve(options?.cwd || process.cwd(), f))
-          .isDirectory()
-      )
-    : ret
-}
-
-export function findUp(name: string, cwd = process.cwd()): string | undefined {
-  let up = path.resolve(cwd)
-  do {
-    cwd = up
-    const p = path.resolve(cwd, name)
-    if (fs.existsSync(p)) return cwd
-    up = path.resolve(cwd, "../")
-  } while (up !== cwd)
-}
-
-export function getPackage(root: string): PackageJsonWithRoot | undefined {
-  const pkgPath = path.resolve(root, "package.json")
-  return fs.existsSync(pkgPath)
-    ? { ...(require(pkgPath) as PackageJson), root }
-    : undefined
-}
-
-export function findPackageUp(
-  cwd = process.cwd()
-): PackageJsonWithRoot | undefined {
-  const root = findUp("package.json", cwd)
-  if (root) return getPackage(root)
-}
-
-async function getPackages(
-  root: string,
-  globs: string[],
-  type: WorkspaceType
-): Promise<Workspace> {
-  const packages = (await glob(globs, { cwd: root, directoriesOnly: true }))
-    .map(p => getPackage(p))
-    .filter(p => p && p.name) as PackageJsonWithRoot[]
-
-  // Sort packages in correct build order based on workspace dependencies
-  const map = new Map<string, PackageJsonWithRoot>(
-    packages.map(p => [p.name || "", p])
-  )
-  const queue = packages.map(p => p.name)
-  const order: string[] = []
-  while (queue.length) {
-    const pname = queue.shift() as string
-    const deps = Object.keys(
-      (map.get(pname) as PackageJsonWithRoot).dependencies || {}
-    ).filter(d => map.has(d) && !order.includes(d))
-    if (deps.length) queue.push(...deps, pname)
-    else if (!order.includes(pname)) order.push(pname)
-  }
-  return {
-    type,
-    root,
-    packages: packages.sort(
-      (p1, p2) => order.indexOf(p1.name || "") - order.indexOf(p2.name || "")
-    ),
-  }
-}
-
-export function getLernaWorkspace(cwd = process.cwd()) {
-  const root = findUp("lerna.json", cwd)
-  if (root)
-    return getPackages(
-      root,
-      require(path.resolve(root, "lerna.json")).packages,
-      WorkspaceType.lerna
-    )
-}
-
-export function getRushWorkspace(cwd = process.cwd()) {
-  const root = findUp("rush.json", cwd)
-  if (root)
-    return getPackages(
-      root,
-      parse(
-        fs.readFileSync(path.resolve(root, "rush.json")).toString()
-      )?.projects.map((p: { projectFolder?: string }) => p.projectFolder),
-      WorkspaceType.rush
-    )
-}
-
-export function getYarnWorkspace(cwd = process.cwd()) {
-  let root = findUp("package.json", cwd)
-  while (root) {
-    const pkg = getPackage(root)
-    if (pkg?.workspaces) {
-      if (Array.isArray(pkg.workspaces))
-        return getPackages(root, pkg.workspaces, WorkspaceType.yarn)
-      if (Array.isArray(pkg.workspaces.packages))
-        return getPackages(root, pkg.workspaces.packages, WorkspaceType.yarn)
+    for (const type of types) {
+      const provider = providers[type]
+      const info = await provider(options.cwd)
+      if (info) {
+        if (options.includeRoot) info.patterns.push(".")
+        const packages = (
+          await findPackages(info.patterns, { cwd: info.root })
+        ).map(p => getPackage(p)) as PackageJsonWithRoot[]
+        return new Workspace(info.root, packages, type)
+      }
     }
-    root = findUp("package.json", path.resolve(path.dirname(root), ".."))
   }
-}
 
-export function getPnpmWorkspace(cwd = process.cwd()) {
-  const root = findUp("pnpm-workspace.yaml", cwd)
-  if (root) {
-    const y = yaml.parse(
-      fs.readFileSync(path.resolve(root, "pnpm-workspace.yaml"), "utf8")
+  getPackageForRoot(root: string) {
+    return this.roots.get(root)
+  }
+
+  getDeps(pkgName: string) {
+    return Object.keys(this.packages.get(pkgName)?.dependencies || {}).filter(
+      dep => this.packages.has(dep) && dep !== pkgName
     )
-    if (y.packages) return getPackages(root, y.packages, WorkspaceType.pnpm)
+  }
+
+  _getDepTree(pkgName: string, seen: string[] = []) {
+    if (seen.includes(pkgName)) return []
+    seen.push(pkgName)
+
+    const ret: string[] = []
+    this.getDeps(pkgName).forEach(d => {
+      ;[...this._getDepTree(d, seen), d].forEach(
+        dd => ret.includes(dd) || ret.push(dd)
+      )
+    })
+    return ret
+  }
+
+  getDepTree(pkgName: string) {
+    const ret = this._getDepTree(pkgName)
+    const idx = ret.indexOf(pkgName)
+    if (idx >= 0) ret.splice(idx, 1)
+    return ret
+  }
+
+  getPackages(filter?: string) {
+    let ret = [...this.packages.values()]
+
+    if (filter) {
+      const regex: RegExp = globrex(filter, { filepath: true }).regex
+      ret = ret.filter(
+        p =>
+          regex.test(p.name || "") ||
+          regex.test(path.relative(this.root, p.root).replace(/\\/gu, "/"))
+      )
+    }
+    return ret.sort(
+      (a, b) => this.order.indexOf(a.name) - this.order.indexOf(b.name)
+    )
   }
 }
 
-export async function getRecursiveWorkspace(cwd = process.cwd()) {
-  const dirs = (
-    await glob(["**/*/package.json"], { cwd, filesOnly: true })
-  ).map(f => path.dirname(f))
-  if (dirs.length) return getPackages(cwd, dirs, WorkspaceType.recursive)
-}
-
-export async function getWorkspace(
-  cwd = process.cwd(),
-  recursive = false
-): Promise<Workspace | undefined> {
-  if (!recursive) {
-    const pkg = findPackageUp()
-    return pkg
-      ? { root: pkg.root, type: WorkspaceType.single, packages: [pkg] }
-      : undefined
-  }
-  const methods = [
-    getPnpmWorkspace,
-    getYarnWorkspace,
-    getLernaWorkspace,
-    getRushWorkspace,
-    getRecursiveWorkspace,
-  ]
-  for (const m of methods) {
-    const ret = await m(cwd)
-    if (ret?.packages?.length) return ret
-  }
+export async function getWorkspace(options?: Partial<WorkspaceOptions>) {
+  return Workspace.getWorkspace(options)
 }
