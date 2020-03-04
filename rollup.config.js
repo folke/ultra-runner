@@ -20,7 +20,8 @@ export default {
   input: "src/cli.ts", // our source file
   output: [
     {
-      file: pkg.main,
+      // file: pkg.main,
+      dir: "./lib",
       format: "cjs",
     },
   ],
@@ -37,7 +38,7 @@ export default {
     }),
     commonjs({ sourceMap: true, extensions: [".js", ".ts"] }),
     terser(),
-    sizes(),
+    // sizes(),
     visualizer(),
   ],
 }
