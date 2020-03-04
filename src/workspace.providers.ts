@@ -1,7 +1,6 @@
-import { parse } from "comment-json"
 import fs from "fs"
 import path from "path"
-import yaml from "yaml"
+
 import { findUp, getPackage } from "./package"
 
 export enum WorkspaceProviderType {
@@ -34,7 +33,8 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     }
   },
 
-  pnpm: cwd => {
+  pnpm: async cwd => {
+    const yaml = await import("yaml")
     const root = findUp("pnpm-workspace.yaml", cwd)
     if (root) {
       const y = yaml.parse(
@@ -54,7 +54,8 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
       }
   },
 
-  rush: cwd => {
+  rush: async cwd => {
+    const { parse } = await import("comment-json")
     const root = findUp("rush.json", cwd)
     if (root)
       return {
