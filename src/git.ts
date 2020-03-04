@@ -64,7 +64,9 @@ class FilesCache {
       Object.entries(files)
         .filter(([file]) => {
           const filePath = path.resolve(root, file)
-          return filePath == directory || filePath.startsWith(`${directory}/`)
+          return (
+            filePath == directory || filePath.startsWith(directory + path.sep)
+          )
         })
         .map(([file, hash]) => [
           path.relative(directory, path.resolve(root, file)),
