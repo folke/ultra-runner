@@ -19,6 +19,8 @@ export async function run(argv: string[] = process.argv) {
   const args = argv.slice(offset)
   argv = argv.slice(0, offset)
   let options: Partial<RunnerOptions> = { ...defaults }
+  if (argv.includes("--build") && !args.length) args.push("build")
+  if (argv.includes("--rebuild") && !args.length) args.push("build")
 
   // When running without options, or with --recursive only,
   // do not parse argv with yargs. Saves about 50ms
@@ -45,6 +47,8 @@ export async function run(argv: string[] = process.argv) {
     }
   }
   if (options.rebuild) options.build = true
+
+  if (options.debug) console.log({ options, args })
 
   const runner = new Runner(options)
   try {
