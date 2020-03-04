@@ -114,8 +114,8 @@ This ensures there's pretty much no overhead in execution by **Ultra** itself, s
 
 Suppose you would want to run a script that calls 5 other scripts by using `&&` and/or `post`/`pre`.
 
-- Using `yarn`, you would have a total overhead of **2.5s** _(10x 250ms)_
-- Using `ultra`, you hit the overhead only once, so the total overhead would still be **65ms**
+* Using `yarn`, you would have a total overhead of **2.5s** _(10x 250ms)_
+* Using `ultra`, you hit the overhead only once, so the total overhead would still be **65ms**
 
 To make execution **ultra** fast, you can [configure](##gear-optional-configuration) which `scripts` should be ran concurrently.
 
@@ -217,5 +217,5 @@ in your `package.json`.
 }
 ```
 
-- `yarn build` will run the `lint` and `jest` commands sequentially
-- `ultra build` will run all `lint` commands concurrently and then execute `jest`. (note that we can also add `prebuild` to `concurrent`, since tests don't depend on linting. this way all commnands would run concurrently)
+* `yarn build` will run the `lint` and `jest` commands sequentially
+* `ultra build` will run all `lint` commands concurrently and then execute `jest`. (note that we can also add `prebuild` to `concurrent`, since tests don't depend on linting. this way all commnands would run concurrently)
