@@ -3,8 +3,12 @@ import path from "path"
 
 const workspaceRoot = path.resolve(__dirname, "workspace")
 
-function f(file: string) {
-  return file.replace(/\//gu, "\\")
+function f(files: Record<string, unknown>) {
+  return files
+    ? Object.fromEntries(
+        Object.entries(files).map(([k, v]) => [k.replace(/\\/gu, "/"), v])
+      )
+    : files
 }
 
 test("parseGitFiles", () => {
@@ -31,11 +35,11 @@ H 100644 afcd42dfe13cb03ac1cdf0f7843188bdb6cbdb66 0     package.json`
 })
 
 test("getGitFiles", async () => {
-  const files = await getGitFiles(path.resolve(workspaceRoot, "apps"))
-  expect(files[f("__tests__/workspace/apps/app1/package.json")]).toMatch(
+  const files = f(await getGitFiles(path.resolve(workspaceRoot, "apps")))
+  expect(files["__tests__/workspace/apps/app1/package.json"]).toMatch(
     /^[a-z0-9]*$/u
   )
-  expect(files[f("__tests__/workspace/apps/app2/package.json")]).toMatch(
+  expect(files["__tests__/workspace/apps/app2/package.json"]).toMatch(
     /^[a-z0-9]*$/u
   )
   expect(files[""]).toMatch(/^\d+\.\d+$/u)
@@ -44,9 +48,9 @@ test("getGitFiles", async () => {
 })
 
 test("cache", async () => {
-  const files = await cache.getFiles(path.resolve(workspaceRoot, "apps"))
-  expect(files[f("app1/package.json")]).toMatch(/^[a-z0-9]*$/u)
-  expect(files[f("app2/package.json")]).toMatch(/^[a-z0-9]*$/u)
+  const files = f(await cache.getFiles(path.resolve(workspaceRoot, "apps")))
+  expect(files["app1/package.json"]).toMatch(/^[a-z0-9]*$/u)
+  expect(files["app2/package.json"]).toMatch(/^[a-z0-9]*$/u)
   expect(Object.keys(files)).toHaveLength(2)
   expect(cache.cache.size).not.toBe(0)
   await cache.getFiles(path.resolve(workspaceRoot, "apps"))

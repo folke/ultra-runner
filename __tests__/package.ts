@@ -2,7 +2,7 @@ import { findPackages, findUp, getPackage } from "../src/package"
 import path from "path"
 
 function fa(files: string[]) {
-  return files.map(f => f.replace(/\//gu, "\\"))
+  return files.map(f => f.replace(/\\/gu, "/"))
 }
 
 test("findPackages without options ", async () => {
@@ -14,9 +14,14 @@ test("findPackages without options ", async () => {
   )
     .map(p => path.relative(root, p))
     .sort()
-  expect(packages).toStrictEqual(
-    fa(["", "apps/app1", "apps/app2", "libs/lib1", "libs/lib2", "libs/lib3"])
-  )
+  expect(fa(packages)).toStrictEqual([
+    "",
+    "apps/app1",
+    "apps/app2",
+    "libs/lib1",
+    "libs/lib2",
+    "libs/lib3",
+  ])
 })
 
 test("findUp", () => {
