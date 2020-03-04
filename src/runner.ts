@@ -207,8 +207,20 @@ export class Runner {
   }
 
   async info() {
+    const types = await Workspace.detectWorkspaceProviders()
+    if (!types.length) throw new Error("No workspaces found")
+    if (types.length > 1)
+      console.log(
+        chalk.blue("Detected workspaces: ") + chalk.magenta(types.join(", "))
+      )
     const workspace = await getWorkspace({ includeRoot: true })
     if (workspace) {
+      console.log(
+        `${chalk.blue("Workspace ") +
+          chalk.magenta(workspace.type)} with ${chalk.magenta(
+          workspace.getPackageManager()
+        )}`
+      )
       let counter = 0
       workspace.getPackages(this.options.filter).forEach(p => {
         let at = relative(workspace.root, p.root)
@@ -218,7 +230,7 @@ export class Runner {
             `${p.name}`
           )} at ${chalk.whiteBright(at)}`
         )
-        workspace.getDepTree(p.name).forEach(s => {
+        workspace.getDeps(p.name).forEach(s => {
           console.log(`  ❯ ${chalk.grey(s)}`)
         })
       })

@@ -4,6 +4,7 @@ import globrex from "globrex"
 import path from "path"
 import { getPackage, findPackages, PackageJsonWithRoot } from "./package"
 import { providers, WorkspaceProviderType } from "./workspace.providers"
+import { existsSync } from "fs"
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -37,6 +38,29 @@ export class Workspace {
         )
       }
     })
+  }
+
+  getPackageManager() {
+    const pms = {
+      npm: ["package-lock.json", "npm-shrinkwrap.json"],
+      yarn: ["yarn.lock"],
+      pnpm: ["pnpm-lock.yaml"],
+    }
+    for (const [type, files] of Object.entries(pms)) {
+      if (files.some(f => existsSync(path.resolve(this.root, f)))) return type
+    }
+  }
+
+  static async detectWorkspaceProviders(cwd = process.cwd()) {
+    const ret: WorkspaceProviderType[] = []
+    const types = Object.entries(providers)
+    for (const [type, provider] of types) {
+      if (["single", "recursive"].includes(type)) continue
+      if ((await provider(cwd))?.patterns.length) {
+        ret.push(type as WorkspaceProviderType)
+      }
+    }
+    return ret
   }
 
   static async getWorkspace(_options?: Partial<WorkspaceOptions>) {
