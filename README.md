@@ -2,24 +2,26 @@
 
 [![github badge](https://github.com/folke/ultra-runner/workflows/Node%20CI/badge.svg)](https://github.com/folke/ultra-runner/actions?query=workflow%3A%22Node+CI%22) [![Coverage Status](https://coveralls.io/repos/github/folke/ultra-runner/badge.svg?branch=master)](https://coveralls.io/github/folke/ultra-runner?branch=master) [![npm](https://img.shields.io/npm/v/ultra-runner)](https://www.npmjs.com/package/ultra-runner) [![GitHub](https://img.shields.io/github/license/folke/ultra-runner)](https://github.com/folke/ultra-runner/blob/master/LICENSE) [![GitHub top language](https://img.shields.io/github/languages/top/folke/ultra-runner)](https://github.com/folke/ultra-runner/) [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 
-**Smart** and **beautiful** script runner with **monorepo** support that hijacks any `npm`, `pnpm`, `yarn` and `npx` calls for **ultra** fast execution.
+**Ultra fast** monorepo script runner and build tool.
 
-Features:
-*
+## :sparkles: Features
+
+* **zero-config**: works out of the box with your existing monorepo
+* **non-intrusive**: no need to make any changes to your packages.json files
+* **workspaces**: detects packages in existing `lerna`, `yarn` and `pnpm` workspaces, or recusrively searches them
+* **ultra fast builds**: `ultra` keeps track of file changes in your repo and only actually `build` a package when needed
+* **parallel builds**: `ultra` builds your packages concurrently by default
+* **workspace dependencies**: workspace dependencies are automatically resolved and used for parallel builds
+* **execute anything**: one command to run package scripts, `node_modules` binaries or system binaries, recursively in your repository.
+* **faster script execution**: `ultra` hijacks any `npm`, `pnpm`, `yarn` and `npx` calls for faster execution.
+* **concurrency within scripts**: you can add optional configuration to `package.json` to run parts of a script in parallel. No need to change the actual `scripts`
+* **filtering**: filter on package names or subdirectories
 
 ![Devmoji Ultra Build](assets/demo.svg?sanitize=true)
 
-## :question: Why
+## Workspaces
 
-Use one command to run package scripts, locally installed binaries or system binaries
-
-|                        | `npm run`          | `npx`              | `yarn`             | `yarn exec`        | `ultra`            |
-| ---------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| `package.json` scripts | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :white_check_mark: |
-| `./node_modules/.bin/` | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| system binaries        | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: |
-
-### :nerd_face: Smart
+## :nerd_face: Smart
 
 **Ultra** parses your `package.json` and hijacks any `npm run`, `yarn` and `npx` calls.
 Shell operators like `&&`, `;` and `||` are also interpreted.
@@ -42,19 +44,69 @@ Running `ultra lint`
 ![Ultra Lint](assets/ultra-lint.png)
 
 Running `ultra lint:fix` will spawn exactly **one** child process, directly with the correct command, instead of spawning `yarn` intermediately
-![Ultra Lint](assets/ultra-lint-fix.png)
 
 **Ultra** will additionally execute any configured `pre` and `post` scripts, just like `npm run` and `yarn run`.
 
-### :zap: Ultra Fast
+## :palm_tree: Recursive Execution
+
+When using `-r` or `--recursive`, the command will be executed in every package of your repository, **excluding the root package**. If you also want to run in the root package, combine `--recursive` with `--root`.
+Commands are always run concurrently with a default concurrency of `10` (can be changed with `--concurrency`)
+
+**Ultra** finds packages based on your monorepo workspace:
+
+* lerna
+* pnpm
+* yarn workspace
+* when no monorepo manager was found, we look recursively for packages
+
+Use `--filter <filter>` to filter packages in the workspace. The filter argument can use wildcards to filter package names and/or subdirectories:
+
+```shell
+$ ultra -r --filter "@scope/app" pwd
+...
+
+$ ultra -r --filter "@scope/*" pwd
+...
+
+$ ultra -r --filter "apps/*" pwd
+...
+```
+
+## :package: Builds
+
+`Ultra` automatically detects workspace dependencies, while still allowing parallel builds. Packages are build concurrently as soon as their dependencies are build (also concurrently).
+Every package directory contains a `.ultra.cache.json` file that contains hashes of all files and build artifacts in your repository. Internally this uses `git ls-files` for files under source control and simple `mtime` timestamps for build artifacts.
+When building a package, the current state is compared with the `.ultra.cache.json`. Builds are skipped when no changes were detected.
+
+Optimized builds using the dependency tree and files cache, are automatically triggered when running the `build` script or using `--build` with a custom script or command.
+
+All commands below will trigger optimized builds.
+
+```shell
+$ ultra -r --build
+...
+
+$ ultra -r build
+...
+
+$ ultra -r --build mycustombuildscript
+...
+```
+
+If for some reason you want to rebuild a package, use `--rebuild` or `rebuild`.
+
+## :zap: Fast
 
 **Ultra** parses your `package.json` scripts and will only execute the commands that are really needed. Any script interdependencies are resolved during the parsing stage.
 This ensures there's pretty much no overhead in execution by **Ultra** itself, since it's only running once.
 `yarn run` or `npm run` on the other hand, will spawn new `yarn` or `npm` child processes as needed by the package scripts.
 
-|                          | `npm run` | `npx` | `yarn` | `yarn exec` | `ultra` |
-| ------------------------ | --------- | ----- | ------ | ----------- | ------- |
-| execution overhead _(1)_ | 250ms     | 60ms  | 220ms  | 200ms       | 80ms    |
+|                          | `npm run`          | `npx`              | `yarn`             | `yarn exec`        | `ultra`            |
+| ------------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
+| `package.json` scripts   | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :white_check_mark: |
+| `./node_modules/.bin/`   | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| system binaries          | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: |
+| execution overhead _(1)_ | 250ms              | 60ms               | 220ms              | 200ms              | 65ms               |
 
   <!-- markdownlint-disable MD033 -->
 
@@ -63,7 +115,7 @@ This ensures there's pretty much no overhead in execution by **Ultra** itself, s
 Suppose you would want to run a script that calls 5 other scripts by using `&&` and/or `post`/`pre`.
 
 - Using `yarn`, you would have a total overhead of **2.5s** _(10x 250ms)_
-- Using `ultra`, you hit the overhead only once, so the total overhead would still be **80ms**
+- Using `ultra`, you hit the overhead only once, so the total overhead would still be **65ms**
 
 To make execution **ultra** fast, you can [configure](##gear-optional-configuration) which `scripts` should be ran concurrently.
 
@@ -76,27 +128,22 @@ Example builds:
 | build [Ultra-Runner](https://github.com/folke/ultra-runner) | 8.9s   | 7.2s                   | 5.1s               |
 | build [Devmoji](https://github.com/folke/devmoji)           | 16s    | 13s                    | 8s                 |
 
-### :princess: Beautiful
+## :art: Formatting
 
 There are three output formats that each can be combined with `--silent` to hide command output.
 
 `--pretty` is the default. It shows output in a hieracrhical way and uses spinners to see exactly what's happening.
-Make sure to check out the animation at the top of this page as well. Every executed step shows the execution time.
-![Ultra Lint](assets/ultra-format-fancy.png)
+Make sure to check out the animation at the top of this page. Every executed step shows the execution time.
 
 `--pretty` combined with `--silent` is useful if you're only interested to see the overview:
-![Ultra Lint](assets/ultra-format-fancy-silent.png)
 
 `--no-pretty` doesn't use spinners and prefixes command output with the command name. This is useful for logging purposes.
-![Ultra Lint](assets/ultra-format-no-fancy.png)
 
-Combining `--no-pretty` with `--silent` shows a flat overview:
-![Ultra Lint](assets/ultra-format-no-fancy-silent.png)
+Combining `--no-pretty` with `--silent` shows a flat overview.
 
 `--raw` will show the exact ouput as you would expect when running the commands stand alone. If the command you're executing is interactive (reads from stdin), then this is the mode you should use.
-![Ultra Lint](assets/ultra-format-raw.png)
 
-## :package: Installation
+## :dizzy: Getting Started
 
 Install with `npm` or `yarn`
 
@@ -114,6 +161,8 @@ npm install --dev ultra-runner
 yarn add --dev ultra-runner
 ```
 
+Now run `ultra --info` within your repository to see everything related to your monorepo
+
 See [optional configuration](##gear-optional-configuration) for information on how to setup concurrent script execution.
 
 ## :rocket: Usage
@@ -122,27 +171,30 @@ See [optional configuration](##gear-optional-configuration) for information on h
 $ ultra --help
 Usage: ultra [options] <cmd> [cmd-options]
 
-Options:
-  -r|--recursive        Run command in every workspace folder concurrently
-  --root                When using --recursive, also include the root package of the workspace
-  -i|--info             Show workspace dependencies
-  -l|--list             List package scripts. Also works with --recusive
-  -f|--filter <filter>  Filter package name or directory using wildcard pattern
-  -b|--build            Use dependency tree to build packages in correct order
-  --rebuild             Triggers a build without checking for file changes
-  --concurrency         Set the maximum number of concurrency. Default is 10. For unlimited concurrency use Infinity
-  --pretty              enable pretty output, spinners and seperate command output. Default when a TTY (default: true)
-  --no-pretty           disables pretty output, spinners and seperate command output. Default when not a TTY. Useful for logging
-  --raw                 Output only raw command output
-  -s|--silent           skip script output. ultra console logs will still be shown
-  --color               colorize output
-  --no-color            don't colorize output
-  -d|--dry-run          output what would be executed
-  -v|--version          output the version number
-  -h, --help            output usage information
-```
+Workspace:
+  --recursive, -r  Run command in every workspace folder concurrently                                      [boolean]
+  --filter         Filter package name or directory using wildcard pattern                                  [string]
+  --root           When using --recursive, also include the root package of the workspace                  [boolean]
+  --concurrency    Set the maximum number of concurrency                                      [number] [default: 10]
 
-- use `--dry-run` to see what would be executed. The output is similar to `--pretty --silent`
+Status:
+  --info  Show workspace dependencies                                                                      [boolean]
+  --list  List package scripts. Also works with --recusive                                                 [boolean]
+
+Build:
+  --build, -b  Use dependency tree to build packages in correct order                                      [boolean]
+  --rebuild    Triggers a build without checking for file changes                                          [boolean]
+
+Formatting:
+  --pretty  enable pretty output, spinners and seperate command output. Default when a TTY [boolean] [default: true]
+  --raw     Output only raw command output                                                                 [boolean]
+  --silent  Skip script output. ultra console logs will still be shown                                     [boolean]
+  --color   colorize output                                                                [boolean] [default: true]
+
+Options:
+  --version      Show version number                                                                       [boolean]
+  --dry-run, -d  Show what commands would be executed, without actually executing them                     [boolean]
+```
 
 ## :gear: Optional Configuration
 
@@ -167,6 +219,3 @@ in your `package.json`.
 
 - `yarn build` will run the `lint` and `jest` commands sequentially
 - `ultra build` will run all `lint` commands concurrently and then execute `jest`. (note that we can also add `prebuild` to `concurrent`, since tests don't depend on linting. this way all commnands would run concurrently)
-
-Notice how the sum of execution times of the seperate lint commands is lower than the total time:
-![Ultra Lint](assets/ultra-lint.png)
