@@ -4,11 +4,11 @@ import path from "path"
 import { findUp } from "./package"
 import { HASH_FILE } from "./build"
 
-const regex = /^([A-Z?]) (\d{6}) ([a-z0-9]{40}) (\d+)\t(.*)$/u
+const regex = /^([A-Z?])\s+(\d{6})\s+([a-z0-9]{40})\s+(\d+)\s+(.*)$/u
 
 type GitFiles = Record<string, string>
 
-function parseFiles(data: string, root: string): GitFiles {
+export function parseFiles(data: string, root: string): GitFiles {
   const ret: GitFiles = {}
   data.split("\n").forEach(line => {
     const m = regex.exec(line)
@@ -33,8 +33,6 @@ function parseFiles(data: string, root: string): GitFiles {
 }
 
 export async function getGitFiles(root: string): Promise<GitFiles> {
-  if (!fs.existsSync(path.resolve(root, ".git")))
-    throw new Error("Directory is not a top git root")
   return new Promise((resolve, reject) => {
     exec(
       "git ls-files --full-name -s -d -c -m -o --directory -t",
@@ -61,26 +59,22 @@ class FilesCache {
     if (!this.cache.has(root)) {
       this.cache.set(root, await getGitFiles(root))
     }
-    const files = this.cache.get(root)
-    if (files) {
-      return Object.fromEntries(
-        Object.entries(files)
-          .filter(([file]) => {
-            const filePath = path.resolve(root, file)
-            return filePath == directory || filePath.startsWith(`${directory}/`)
-          })
-          .map(([file, hash]) => [
-            path.relative(directory, path.resolve(root, file)),
-            hash,
-          ])
-          .filter(
-            ([file]) =>
-              file.length &&
-              !exclude.includes(file) &&
-              !file.endsWith(HASH_FILE)
-          )
-      )
-    } else throw new Error(`Could not find Git files for ${root}`)
+    const files = this.cache.get(root) || {}
+    return Object.fromEntries(
+      Object.entries(files)
+        .filter(([file]) => {
+          const filePath = path.resolve(root, file)
+          return filePath == directory || filePath.startsWith(`${directory}/`)
+        })
+        .map(([file, hash]) => [
+          path.relative(directory, path.resolve(root, file)),
+          hash,
+        ])
+        .filter(
+          ([file]) =>
+            file.length && !exclude.includes(file) && !file.endsWith(HASH_FILE)
+        )
+    )
   }
 }
 
