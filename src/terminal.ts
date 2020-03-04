@@ -4,19 +4,13 @@ import splitAnsi from "ansi-split"
 import readline from "readline"
 // eslint-disable-next-line import/default
 import ansiLength from "string-width"
-import through from "through2"
 
 export class Terminal {
   lines: string[] = []
-  buffer: import("stream").Transform
   output = ""
   resized = false
 
   constructor(public stream = process.stdout) {
-    this.buffer = through((data: string, _enc: string, cb) => {
-      this.output += data
-      cb()
-    })
     stream.setMaxListeners(50)
     stream.on("resize", () => (this.resized = true))
   }
@@ -76,7 +70,7 @@ export class Terminal {
 
     // Move cursor to first line
     if (this.lines.length)
-      readline.moveCursor(this.buffer, 0, -this.lines.length + 1)
+      readline.moveCursor(this.stream, 0, -this.lines.length + 1)
 
     // Update existing lines
     for (let l = 0; l < this.lines.length; l++) {
@@ -84,25 +78,23 @@ export class Terminal {
       if (line != this.lines[l]) {
         const diff = this.diff(line, this.lines[l])
         if (diff) {
-          readline.cursorTo(this.buffer, diff.left)
-          this.buffer.write(diff.str)
+          readline.cursorTo(this.stream, diff.left)
+          this.stream.write(diff.str)
         } else {
-          readline.cursorTo(this.buffer, 0)
+          readline.cursorTo(this.stream, 0)
           if (!line || ansiLength(line) < ansiLength(this.lines[l]))
-            readline.clearLine(this.buffer, 0)
-          if (line) this.buffer.write(line)
+            readline.clearLine(this.stream, 0)
+          if (line) this.stream.write(line)
         }
       }
-      if (l < this.lines.length - 1) readline.moveCursor(this.buffer, 0, 1)
+      if (l < this.lines.length - 1) readline.moveCursor(this.stream, 0, 1)
     }
 
     // Render remaining lines
     if (lines.length > this.lines.length) {
-      if (this.lines.length > 0) this.buffer.write("\n")
-      this.buffer.write(lines.slice(this.lines.length).join("\n"))
+      if (this.lines.length > 0) this.stream.write("\n")
+      this.stream.write(lines.slice(this.lines.length).join("\n"))
     }
     this.lines = lines
-
-    this.stream.write(this.output)
   }
 }
