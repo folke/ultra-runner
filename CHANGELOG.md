@@ -2,6 +2,83 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/folke/ultra-runner/compare/v1.1.0...v2.0.0) (2020-03-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* 💥 ♻️ new command line options
+
+### Features
+
+* ✨ added --build, --concurrency, --debug and --root to cli ([0c277ef](https://github.com/folke/ultra-runner/commit/0c277ef36d5853c2a380ca06633def29d60e2e51))
+* ✨ added --list to show available scripts ([6f9224a](https://github.com/folke/ultra-runner/commit/6f9224a8e03d84a798e59d39953411ecebf88ca6))
+* ✨ added initial support for rush workspaces ([a771ec6](https://github.com/folke/ultra-runner/commit/a771ec6247dee4b81df8d1b3f1ff038fca7bf9e8))
+* ✨ added support for lerna, yarn and pnpm workspaces ([f2b387d](https://github.com/folke/ultra-runner/commit/f2b387dd4fff6a59459809ca739d03e15e7e1082))
+* ✨ automatically scroll spinner output ([79a9dcd](https://github.com/folke/ultra-runner/commit/79a9dcde86d139e4165a404b09ba6f0896cf11ea))
+* ✨ builds are skipped when no files were changed ([86c9966](https://github.com/folke/ultra-runner/commit/86c99661d1299f1fee8af30bdfd6ab3dd75d58de))
+* ✨ imply build when using --build. Same for --rebuild ([931ef32](https://github.com/folke/ultra-runner/commit/931ef32ede07028b444c6208c35738b6052a1338))
+* ✨ moved to yargs for cli, instead of commander ([cc2356a](https://github.com/folke/ultra-runner/commit/cc2356a94f81d3af2dc793d2f5c35d116022e727))
+* ✨ optimized ansi terminal rendering ([1e65903](https://github.com/folke/ultra-runner/commit/1e65903af7982f6723728359c55aba34aba2866b))
+* ✨ package filtering for --recursive ([4422d7c](https://github.com/folke/ultra-runner/commit/4422d7c7b14a87f82d4c850d368352492e3b665a))
+* ✨ show detected workspaces and package manager in --info ([6902c19](https://github.com/folke/ultra-runner/commit/6902c19a932239a4a29408f5165aa6355a4e127a))
+* ✨ use fast-glob to find packages ([c35da68](https://github.com/folke/ultra-runner/commit/c35da68a1a2f464682f9ea5a11042024eb6d238c))
+* ✨ you can now use "rebuild" which will trigger a forced build ([abde0e3](https://github.com/folke/ultra-runner/commit/abde0e3de58d7181ce96fac1e3d0f426d29feb91))
+
+
+### Bug Fixes
+
+* 🐛 don't stat .ultra.cache.json files and ignore top level directories ([5799c63](https://github.com/folke/ultra-runner/commit/5799c6396f73421c159a0a8b476cb329d2ba73cd))
+* 🐛 max resize listeners when running tests ([6044beb](https://github.com/folke/ultra-runner/commit/6044beb560120da3d30662e9cf6589dd74853f7f))
+* 🐛 properly kill child processes when exiting ([099f879](https://github.com/folke/ultra-runner/commit/099f879080a455b73da843e858dfa494a5e56254))
+* 🐛 removed circular dependency ([57e162c](https://github.com/folke/ultra-runner/commit/57e162cdfc1d78323ec0f9d69dfdc467716f08a8))
+
+
+### Other
+
+* 📚️ fixed linter errors ([e17ddc8](https://github.com/folke/ultra-runner/commit/e17ddc8508b8b67b42bc2d5e9e835f672b9f4365))
+* 📚️ updated for new release ([9afaa8b](https://github.com/folke/ultra-runner/commit/9afaa8b63337e8b11ebb64b472038e89b7d36307))
+* **deps:** 🔗 ➖ some deps ([31cd246](https://github.com/folke/ultra-runner/commit/31cd24623aeac1cc921286874a99f10bb874576a))
+* **deps:** update node.js to v13.10.0 ([#24](https://github.com/folke/ultra-runner/issues/24)) ([68b3333](https://github.com/folke/ultra-runner/commit/68b3333072f6317908faebb8d9e1dd1681cc2166))
+* ♻️ added Workspace class for managing packages in monorepo ([3f122c8](https://github.com/folke/ultra-runner/commit/3f122c8bd226e164798c775b3ef530ef5b624060))
+* ♻️ command output formatter to its own file ([01cd3d3](https://github.com/folke/ultra-runner/commit/01cd3d30846c5666df82587951ef88214b7e9437))
+* ♻️ filtering is now part of Workspace ([fa8b41b](https://github.com/folke/ultra-runner/commit/fa8b41b5d783a9b0ab5d689d03a096f2f214bcd5))
+* ♻️ refactored multiple classes ([083f567](https://github.com/folke/ultra-runner/commit/083f5678773eb8a3c90cb2fc5efc08ba65a407ee))
+* ♻️ use HASH_FILE constant for ignoring ultra cache files ([fbfa5b7](https://github.com/folke/ultra-runner/commit/fbfa5b7c377369c777ffee355fc5a08998532897))
+* ⚡️ dynamically import fast-glob ([51d01bb](https://github.com/folke/ultra-runner/commit/51d01bb31a96c7b5f8fcfef2ef0099d4869df72c))
+* ⚡️ dynamically load yaml and comment-json ([d443d61](https://github.com/folke/ultra-runner/commit/d443d61cd1e80af11842f29d3d3e1e1571a92710))
+* ⚡️ get package from root instead of loading it through workspaces ([a22ab34](https://github.com/folke/ultra-runner/commit/a22ab34aa183abe1eed0a7953ffa85c4fbe625dd))
+* ⚡️ get rid of cli-spinners, cli-cursor, and cursor-restore ([18d5424](https://github.com/folke/ultra-runner/commit/18d5424268aeedcedd5d16ff8804370f3a8da195))
+* ⚡️ no need to pipe stuff through through2 ([d469e69](https://github.com/folke/ultra-runner/commit/d469e69762a1a033ff57a82a0d78ffae7da03293))
+* ⚡️ only load yargs for more complex args ([cb6f204](https://github.com/folke/ultra-runner/commit/cb6f204e4eb234be8a6cb919c64067a87e9fb6a2))
+* 💥 ♻️ new command line options ([e1a81ac](https://github.com/folke/ultra-runner/commit/e1a81ac802197ef51c51d867aaf5b3727ba260ec))
+* 🚨 fixed tests for Win32 ([f1cf7e1](https://github.com/folke/ultra-runner/commit/f1cf7e184122a506a65e12ec9eb24729ee8c968a))
+* 🚨 fixed tests for Win32 ([a9a6799](https://github.com/folke/ultra-runner/commit/a9a67996aaca194c41cd32cea05881bd76b84cc3))
+* **deps:** 🔗 update ([b7dc359](https://github.com/folke/ultra-runner/commit/b7dc359e269138535156a896b669c7fedf365373))
+* **deps:** pin dependency @types/yargs to 15.0.4 ([#23](https://github.com/folke/ultra-runner/issues/23)) ([00f28df](https://github.com/folke/ultra-runner/commit/00f28df1412b409daf8b80fe536dbf3e559f4f71))
+* 🚨 added more tests for code coverage ([ca06588](https://github.com/folke/ultra-runner/commit/ca06588b481eb57c88179aa3edd048c702b17adf))
+* 🚨 added workspace test data ([1510390](https://github.com/folke/ultra-runner/commit/15103901ce918c8dd25ee7c8c9a105aef882965f))
+* 🚨 don't trigger --build during runner tests ([c4a2db3](https://github.com/folke/ultra-runner/commit/c4a2db38ba80a633a9ca1b488f6b9fbea1de7d3f))
+* 🚨 fix filtering for Windows paths ([815234e](https://github.com/folke/ultra-runner/commit/815234ee8ec8f86f68ac0b474e687b3cda0095e1))
+* 🚨 fix for Windows tests ([ed005a7](https://github.com/folke/ultra-runner/commit/ed005a7881ee58f9ec33c853cd8def7479b0e487))
+* 🚨 fixed tests for Win32 ([8813609](https://github.com/folke/ultra-runner/commit/8813609bbcd36b6be229605ac9bc2876a818c691))
+* 🚨 fixed tests for Win32 ([39e1394](https://github.com/folke/ultra-runner/commit/39e1394b4a81753ddffd5598f030361d424f4523))
+* 🚨 fixed tests for Win32 ([f1e0c5e](https://github.com/folke/ultra-runner/commit/f1e0c5e3ee740ea2c0c69d4d168d0f23cf9ff700))
+* 🚨 set jest threshold to 75 for now ([2af5ff4](https://github.com/folke/ultra-runner/commit/2af5ff417e6ec85deeaf5d7356e594b891a6772e))
+* 🚨 updated jest tests ([084ef92](https://github.com/folke/ultra-runner/commit/084ef92e6e8c63d1a0e50b04d4dca133a5008ad9))
+* 🚨 updated tests ([23fd06b](https://github.com/folke/ultra-runner/commit/23fd06b5420d579dc4ba6d85eb5d7ad1f09385c9))
+* **deps:** 🔗 update ([4770196](https://github.com/folke/ultra-runner/commit/47701964a8a688829a333ca590e00f94fccd5abd))
+* **deps:** 🔗 updates ([43223f5](https://github.com/folke/ultra-runner/commit/43223f591ed22b30e27b2fcc7eeb2d33d7344a80))
+* **deps:** pin dependencies ([#19](https://github.com/folke/ultra-runner/issues/19)) ([a395059](https://github.com/folke/ultra-runner/commit/a39505985a519fd3b5ab7421a18f86565508811d))
+* **deps:** pin dependencies ([#21](https://github.com/folke/ultra-runner/issues/21)) ([0716672](https://github.com/folke/ultra-runner/commit/0716672cf753f83e8f2f192765ccc07a08a45394))
+* **deps:** update all non-major dependencies ([#20](https://github.com/folke/ultra-runner/issues/20)) ([5212d4e](https://github.com/folke/ultra-runner/commit/5212d4e4ac60b7fe270e0ecd0cff20d9ef9072c8))
+* 🚨 fixed tests for Windows ([71612b4](https://github.com/folke/ultra-runner/commit/71612b409cc6779c0235b753c9787fa38792872a))
+* 🚨 set coverage treshold to 85 ([630ce18](https://github.com/folke/ultra-runner/commit/630ce187115e4734e748954471b46098d4a7ada8))
+* 🚨 updated tests ([ff9e055](https://github.com/folke/ultra-runner/commit/ff9e055985de0c5bc71fa8cf2dcead5c1c1097a6))
+* **deps:** pin dependencies ([#16](https://github.com/folke/ultra-runner/issues/16)) ([c2766be](https://github.com/folke/ultra-runner/commit/c2766be87b4e4c639090d290996d706e78f98615))
+* **deps:** update dependency eslint-plugin-jest to v23.8.1 ([#18](https://github.com/folke/ultra-runner/issues/18)) ([8b3d44d](https://github.com/folke/ultra-runner/commit/8b3d44da69539d991f4f15f9f1172d97daf45169))
+* **deps:** update node.js to v13.9.0 ([#17](https://github.com/folke/ultra-runner/issues/17)) ([2d740b0](https://github.com/folke/ultra-runner/commit/2d740b04de4d2dbd97d4e23ebbc9db5253578f70))
+
 ## [1.1.0](https://github.com/folke/ultra-runner/compare/v1.0.8...v1.1.0) (2020-01-27)
 
 
