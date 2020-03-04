@@ -1,4 +1,3 @@
-import fastGlob from "fast-glob"
 import fs from "fs"
 import path from "path"
 
@@ -16,8 +15,10 @@ export type PackageJsonWithRoot = PackageJson & {
   root: string
 }
 
-interface FindPackagesOption extends fastGlob.Options {
+interface FindPackagesOption {
   includeRoot?: boolean
+  ignore?: string[]
+  cwd?: string
 }
 
 const DEFAULT_IGNORE = [
@@ -32,6 +33,7 @@ export async function findPackages(
   patterns: string[],
   options?: FindPackagesOption
 ) {
+  const fastGlob = (await import("fast-glob")).default
   if (!options) options = {}
 
   if (!options.ignore) options.ignore = []
