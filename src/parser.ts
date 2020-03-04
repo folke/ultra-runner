@@ -1,7 +1,7 @@
 import { existsSync } from "fs"
 import * as path from "path"
 import Shellwords from "shellwords-ts"
-import { PackageJson } from "./workspace"
+import { PackageJson } from "./package"
 
 export enum CommandType {
   script = "script",

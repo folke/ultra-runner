@@ -3,25 +3,21 @@ import { existsSync } from "fs"
 import { basename, relative } from "path"
 import { performance } from "perf_hooks"
 import Shellwords from "shellwords-ts"
-import { needsBuild, ChangeType } from "./build"
-import { filter } from "./filter"
+import { ChangeType, needsBuild } from "./build"
 import { CommandFormatter } from "./formatter"
 import { defaults, RunnerOptions } from "./options"
+import { PackageJson } from "./package"
 import { Command, CommandParser, CommandType } from "./parser"
 import { Spawner } from "./spawn"
 import { OutputSpinner, Spinner } from "./spinner"
-import {
-  findPackageUp,
-  getWorkspace,
-  Workspace,
-  PackageJson,
-} from "./workspace"
+import { getWorkspace, Workspace } from "./workspace"
+import { WorkspaceProviderType } from "./workspace.providers"
 
 export class Runner {
-  MAX_CONCURRENCY = 10
   spinner = new OutputSpinner()
   options: RunnerOptions
   workspace?: Workspace
+  buildCmd = "build"
 
   constructor(public _options: Partial<RunnerOptions> = {}) {
     this.options = { ...defaults, ..._options }
@@ -38,6 +34,17 @@ export class Runner {
 
   async runCommand(cmd: Command, level = -2, parentSpinner?: Spinner) {
     if (cmd.type == CommandType.op) return
+
+    const isBuildScript =
+      cmd.type == CommandType.script && cmd.name == this.buildCmd
+
+    const changes = isBuildScript
+      ? await needsBuild(
+          cmd.cwd || process.cwd(),
+          this.workspace,
+          this.options.rebuild
+        )
+      : undefined
 
     await cmd.beforeRun()
 
@@ -73,14 +80,7 @@ export class Runner {
       spinner,
       this.options
     )
-    const isBuildScript = cmd.type == CommandType.script && cmd.name == "build"
-    const changes = isBuildScript
-      ? await needsBuild(
-          cmd.cwd || process.cwd(),
-          this.workspace,
-          this.options.rebuild
-        )
-      : undefined
+
     if (isBuildScript) {
       if (!changes) formatter.write("No changes. Skipping build...")
       else {
@@ -96,15 +96,17 @@ export class Runner {
               })
               .join("\n")
         )
+        // formatter.write(chalk.red("\nWaiting for\n"))
       }
     }
+
     try {
       if (!isBuildScript || changes) {
         const promises = []
         for (const child of cmd.children) {
           promises.push(this.runCommand(child, level + 1, spinner))
           if (!cmd.concurrent) await promises[promises.length - 1]
-          else if (promises.length > this.MAX_CONCURRENCY) {
+          else if (promises.length > this.options.concurrency) {
             await Promise.all(promises)
             promises.length = 0
           }
@@ -140,7 +142,7 @@ export class Runner {
     cwd?: string,
     spinner?: Spinner
   ) {
-    const spawner = new Spawner(cmd, args, this.options.cwd || cwd)
+    const spawner = new Spawner(cmd, args, cwd)
     const formatter = new CommandFormatter(cmd, level, spinner, this.options)
 
     if (this.options.pretty)
@@ -171,12 +173,14 @@ export class Runner {
   }
 
   async list() {
-    const workspace = await getWorkspace(process.cwd(), this.options.recursive)
+    const workspace = await getWorkspace({
+      includeRoot: this.options.root,
+      type: this.options.recursive ? undefined : WorkspaceProviderType.single,
+    })
     if (!workspace) throw new Error("Cannot find package.json")
 
-    if (this.options.filter) filter(workspace, this.options.filter)
     let counter = 0
-    workspace?.packages?.forEach(p => {
+    workspace?.getPackages(this.options.filter).forEach(p => {
       console.log(
         `${chalk.bgGray.cyanBright(` ${counter++} `)} ${chalk.green(
           `${p.name}`
@@ -191,29 +195,36 @@ export class Runner {
   }
 
   async run(cmd: string, pkg?: PackageJson) {
-    if (!pkg) pkg = findPackageUp() || {}
-    const parser = new CommandParser(pkg)
-    await this._run(parser.parse(cmd))
+    if (!pkg) {
+      pkg = (
+        await getWorkspace({
+          type: WorkspaceProviderType.single,
+          includeRoot: this.options.root,
+        })
+      )?.getPackages()[0]
+    }
+    if (pkg) {
+      const parser = new CommandParser(pkg)
+      return await this._run(parser.parse(cmd))
+    }
+    throw new Error(`Could not find package`)
   }
 
   async info() {
-    const workspace = await getWorkspace(process.cwd(), true)
+    const workspace = await getWorkspace({ includeRoot: true })
     if (workspace) {
-      if (this.options.filter) filter(workspace, this.options.filter)
-      const localPackages = workspace.packages.map(p => p.name)
       let counter = 0
-      workspace.packages.forEach(p => {
+      workspace.getPackages(this.options.filter).forEach(p => {
+        let at = relative(workspace.root, p.root)
+        if (!at.length) at = "."
         console.log(
           `${chalk.bgGray.cyanBright(` ${counter++} `)} ${chalk.green(
             `${p.name}`
-          )} at ./${chalk.whiteBright(relative(workspace.root, p.root))}`
+          )} at ${chalk.whiteBright(at)}`
         )
-        Object.keys(p.dependencies || {})
-          .filter(dep => localPackages.includes(dep))
-          .sort()
-          .forEach(s => {
-            console.log(`  ❯ ${chalk.grey(s)}`)
-          })
+        workspace.getDepTree(p.name).forEach(s => {
+          console.log(`  ❯ ${chalk.grey(s)}`)
+        })
       })
     }
   }
@@ -221,38 +232,56 @@ export class Runner {
   deps = new Map<string | undefined, Promise<void>>()
 
   async runRecursive(cmd: string) {
-    this.workspace = await getWorkspace(process.cwd(), true)
+    this.workspace = await getWorkspace({ includeRoot: this.options.root })
+    const workspace = this.workspace
+    if (this.options.build) this.buildCmd = cmd
 
-    if (!this.workspace?.packages?.length)
+    if (!workspace || !workspace?.packages?.size)
       throw new Error(
         "Could not find packages in your workspace. Supported: yarn, pnpm, lerna"
       )
-    if (this.options.filter) filter(this.workspace, this.options.filter)
     const command = new Command([], CommandType.script)
+    const done = new Set<string>()
+    // setInterval(() => {
+    //   console.log([...this.deps.keys()].filter(d => !done.has(d as string)))
+    // }, 2000)
 
-    const workspacePackages = this.workspace.packages.map(p => p.name)
     let hasScript = false
-    command.children = this.workspace.packages
+    const buildPackages = new Set<string>()
+    command.children = workspace
+      .getPackages(this.options.filter)
       .map(pkg => {
         const command = new CommandParser(pkg, pkg.root)
           .parse(cmd)
           .setCwd(pkg.root)
-        command.name = chalk.cyanBright(pkg.name || "Package")
+        command.name = `${chalk.cyanBright(pkg.name)} at ${chalk.grey(
+          relative(workspace.root, pkg.root)
+        )}`
         command.type = CommandType.script
-        if (cmd.startsWith("build"))
+        if (
+          this.options.build &&
+          command.children.some(c => c.type == CommandType.script)
+        ) {
+          buildPackages.add(pkg.name)
           command.beforeRun = async () => {
             this.deps.set(
               pkg.name,
               new Promise(resolve => {
-                command.afterRun = () => resolve()
+                command.afterRun = () => {
+                  done.add(pkg.name)
+                  resolve()
+                }
               })
             )
             await Promise.all(
-              Object.keys(pkg.dependencies || [])
-                .filter(dep => workspacePackages.includes(dep))
+              workspace
+                .getDepTree(pkg.name)
+                .filter(dep => buildPackages.has(dep))
                 .map(dep => this.deps.get(dep))
+                .filter(p => p)
             )
           }
+        }
         hasScript =
           hasScript || command.children.some(c => c.type == CommandType.script)
         return command

@@ -54,24 +54,16 @@ function getChanges(existingDeps: PackageFiles, newDeps: PackageFiles) {
 }
 
 function getDependencies(root: string, workspace?: Workspace) {
-  const packages = new Map(
-    workspace?.packages.map(p => [p.name || "", p]) ?? []
-  )
   const deps: { [key: string]: number } = {}
-  workspace?.packages.some(p => {
-    if (p.root == root) {
-      Object.keys(p.dependencies || {})
-        .filter(d => packages.has(d))
-        .forEach(d => {
-          const pkg = packages.get(d)
-          if (pkg && pkg.root) {
-            const p = path.resolve(pkg.root, HASH_FILE)
-            deps[d] = fs.existsSync(p) ? fs.lstatSync(p).mtimeMs : 0
-          }
-        })
-      return true
-    }
-  })
+  const pkgName = workspace?.getPackageForRoot(root)
+  if (pkgName)
+    workspace?.getDeps(pkgName).forEach(d => {
+      const pkg = workspace.packages.get(d)
+      if (pkg && pkg.root) {
+        const p = path.resolve(pkg.root, HASH_FILE)
+        deps[d] = fs.existsSync(p) ? fs.lstatSync(p).mtimeMs : 0
+      }
+    })
   return deps
 }
 
