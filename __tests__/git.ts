@@ -49,7 +49,6 @@ test("getGitFiles", async () => {
 
 test("cache", async () => {
   const files = f(await cache.getFiles(path.resolve(workspaceRoot, "apps")))
-  console.log(files)
   expect(files["app1/package.json"]).toMatch(/^[a-z0-9]*$/u)
   expect(files["app2/package.json"]).toMatch(/^[a-z0-9]*$/u)
   expect(Object.keys(files)).toHaveLength(2)

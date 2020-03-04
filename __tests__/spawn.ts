@@ -37,7 +37,7 @@ test("test exit code 1", async () => {
 })
 
 test("raw echo foo ", async () => {
-  const spawner = new Spawner("echo", ["foo"])
+  const spawner = new Spawner("true", [])
   await spawner.spawn(true)
   expect(spawner.output).toBe("")
   expect(spawner.exitCode).toBe(0)

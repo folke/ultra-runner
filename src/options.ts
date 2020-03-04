@@ -17,6 +17,7 @@ export const defaults = {
   concurrency: 10,
   debug: false,
   root: false,
+  help: false,
 }
 
 export type RunnerOptions = typeof defaults
