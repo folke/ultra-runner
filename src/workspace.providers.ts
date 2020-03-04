@@ -34,7 +34,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
   },
 
   pnpm: async cwd => {
-    const yaml = await import("yaml")
+    const yaml = await import("yamljs")
     const root = findUp("pnpm-workspace.yaml", cwd)
     if (root) {
       const y = yaml.parse(
@@ -55,15 +55,17 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
   },
 
   rush: async cwd => {
-    const { parse } = await import("comment-json")
+    const json5 = (await import("json5")).default
     const root = findUp("rush.json", cwd)
-    if (root)
+
+    if (root) {
       return {
         root,
-        patterns: parse(
-          fs.readFileSync(path.resolve(root, "rush.json")).toString()
-        )?.projects.map((p: { projectFolder?: string }) => p.projectFolder),
+        patterns: json5
+          .parse(fs.readFileSync(path.resolve(root, "rush.json")).toString())
+          ?.projects.map((p: { projectFolder?: string }) => p.projectFolder),
       }
+    }
   },
 
   recursive: cwd => {
