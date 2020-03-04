@@ -17,6 +17,7 @@ export class Terminal {
       this.output += data
       cb()
     })
+    stream.setMaxListeners(50)
     stream.on("resize", () => (this.resized = true))
   }
 
