@@ -10,3 +10,4 @@ build
 .clinic
 stats.html
 tsconfig.build.tsbuildinfo
+.ultra.cache.json
