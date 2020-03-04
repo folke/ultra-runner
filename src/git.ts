@@ -2,7 +2,7 @@ import { exec } from "child_process"
 import fs from "fs"
 import path from "path"
 import { findUp } from "./package"
-import { HASH_FILE } from "./build"
+import { HASH_FILE } from "./options"
 
 const regex = /^([A-Z?])\s+(\d{6})\s+([a-z0-9]{40})\s+(\d+)\s+(.*)$/u
 

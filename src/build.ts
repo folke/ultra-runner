@@ -2,8 +2,7 @@ import fs from "fs"
 import path from "path"
 import { cache } from "./git"
 import { Workspace } from "./workspace"
-
-export const HASH_FILE = ".ultra.cache.json"
+import { HASH_FILE } from "./options"
 
 interface PackageFiles {
   files: {

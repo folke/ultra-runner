@@ -1,9 +1,11 @@
 import chalk from "chalk"
 
+export const HASH_FILE = ".ultra.cache.json"
+
 export const defaults = {
   recursive: false,
   filter: undefined as string | undefined,
-  color: chalk.supportsColor,
+  color: chalk.supportsColor !== undefined,
   pretty: process.stdout.isTTY,
   raw: false,
   silent: false,
