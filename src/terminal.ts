@@ -58,6 +58,9 @@ export class Terminal {
     if (this.resized) {
       this.lines = []
       this.resized = false
+      readline.moveCursor(this.stream, 0, -this.lines.length + 1)
+      readline.cursorTo(this.stream, 0)
+      readline.clearScreenDown(this.stream)
     }
     const lines = Array.isArray(text) ? text : text.split("\n")
 
