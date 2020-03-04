@@ -6,7 +6,7 @@ import Shellwords from "shellwords-ts"
 import { ChangeType, needsBuild } from "./build"
 import { CommandFormatter } from "./formatter"
 import { defaults, RunnerOptions } from "./options"
-import { PackageJson } from "./package"
+import { PackageJson, findUp, getPackage } from "./package"
 import { Command, CommandParser, CommandType } from "./parser"
 import { Spawner } from "./spawn"
 import { OutputSpinner, Spinner } from "./spinner"
@@ -196,12 +196,8 @@ export class Runner {
 
   async run(cmd: string, pkg?: PackageJson) {
     if (!pkg) {
-      pkg = (
-        await getWorkspace({
-          type: WorkspaceProviderType.single,
-          includeRoot: this.options.root,
-        })
-      )?.getPackages()[0]
+      const root = findUp("package.json")
+      if (root) pkg = getPackage(root)
     }
     if (pkg) {
       const parser = new CommandParser(pkg)
