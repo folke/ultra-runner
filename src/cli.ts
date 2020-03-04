@@ -9,11 +9,25 @@ export async function run(argv: string[] = process.argv) {
       "-r|--recursive",
       "Run command in every workspace folder concurrently"
     )
-    .option("--info", "Show workspace dependencies")
+    .option(
+      "--root",
+      "When using --recursive, also include the root package of the workspace"
+    )
+    .option("-i|--info", "Show workspace dependencies")
     .option("-l|--list", "List package scripts. Also works with --recusive")
     .option(
       "-f|--filter <filter>",
       "Filter package name or directory using wildcard pattern"
+    )
+    .option(
+      "-b|--build",
+      "Use dependency tree to build packages in correct order"
+    )
+    .option("--rebuild", "Triggers a build without checking for file changes")
+    .option(
+      "--concurrency",
+      `Set the maximum number of concurrency. Default is ${defaults.concurrency}. For unlimited concurrency use Infinity`,
+      defaults.concurrency
     )
     .option(
       "--pretty",
@@ -25,7 +39,6 @@ export async function run(argv: string[] = process.argv) {
       "disables pretty output, spinners and seperate command output. Default when not a TTY. Useful for logging",
       !defaults.pretty
     )
-    .option("--cwd <directory>", "Run in directory")
     .option("--raw", "Output only raw command output")
     .option(
       "-s|--silent",
@@ -35,10 +48,18 @@ export async function run(argv: string[] = process.argv) {
     .option("--no-color", "don't colorize output")
     .option("-d|--dry-run", "output what would be executed")
     .version(require("../package.json").version, "-v|--version")
+    .arguments("<cmd> [cmd-options]")
+    .action(() => {
+      return
+    })
+
+  const idx = argv.indexOf("--debug")
+  const isDebug = idx >= 0
+  if (isDebug) argv.splice(idx, 1)
 
   let offset = 2
   for (offset = 2; offset < argv.length; offset++) {
-    if (["--cwd", "--filter", "-f"].includes(argv[offset])) {
+    if (["--filter", "-f", "--concurrency"].includes(argv[offset])) {
       offset++
       continue
     }
@@ -46,11 +67,19 @@ export async function run(argv: string[] = process.argv) {
   }
   program.parse(argv.slice(0, offset))
   const options = program.opts() as RunnerOptions
+  options.concurrency = +options.concurrency
+  options.debug = isDebug
+
+  if (options.rebuild) options.build = true
 
   const args = argv.slice(offset)
-  if (args[0] == "rebuild") {
-    args[0] = "build"
-    options.rebuild = true
+  if (args[0]) {
+    if (args[0] == "build" || args[0].startsWith("build ")) options.build = true
+    if (args[0] == "rebuild" || args[0].startsWith("rebuild ")) {
+      args[0] = args[0].slice(2)
+      options.build = true
+      options.rebuild = true
+    }
   }
   const runner = new Runner(options)
   try {
@@ -71,6 +100,7 @@ export async function run(argv: string[] = process.argv) {
     if (error instanceof Error) {
       console.error(chalk.red("error ") + error.message)
     } else console.error(chalk.red("error ") + error)
+    if (isDebug) console.log(error)
     // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1)
   }
