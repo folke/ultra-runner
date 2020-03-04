@@ -27,7 +27,11 @@
     "runner",
     "scripts",
     "terminal",
-    "yarn"
+    "yarn",
+    "lerna",
+    "pnpm",
+    "monorepo",
+    "build"
   ],
   "husky": {
     "hooks": {
