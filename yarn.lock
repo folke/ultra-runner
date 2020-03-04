@@ -637,11 +637,6 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.10.tgz#1122da40faabb81795580dc9f06c1e71e2ebbbe4"
   integrity sha512-TlWWgb21+0LdkuFqEqfmy7NEgfB/7Jjux15fWQAh3P93gbmXuwTM/vxEdzW89APIcI2BgKR48yjeAkdeH+4qvQ==
 
-"@types/cli-spinners@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@types/cli-spinners/-/cli-spinners-1.3.0.tgz#631f5eec89e519447d326b12b2051ce40c88c0ea"
-  integrity sha512-hs+1QSCZC5/yZPNqTOC6Q/ic8DmRna65H2GpvC8zlXjgWZrQyYBD5T5dJafo70bfDTXrBO9c/j5cw3/nY/qMiA==
-
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -824,13 +819,6 @@
   integrity sha512-0UYi01LCFytj+15S0dEGzSAAITVW9gJg8EGEU5brWhT2C1BMWuMt19YGVSTYBF9EoP0Ni+PFvQPpjmOU33tSMg==
   dependencies:
     "@types/conventional-changelog-config-spec" "*"
-    "@types/node" "*"
-
-"@types/through2@2.0.34":
-  version "2.0.34"
-  resolved "https://registry.yarnpkg.com/@types/through2/-/through2-2.0.34.tgz#9c2a259a238dace2a05a2f8e94b786961bc27ac4"
-  integrity sha512-nhRG8+RuG/L+0fAZBQYaRflXKjTrHOKH8MFTChnf+dNVMxA3wHYYrfj0tztK0W51ABXjGfRCDc0vRkecCOrsow==
-  dependencies:
     "@types/node" "*"
 
 "@types/webgl-ext@0.0.30":
@@ -8643,7 +8631,7 @@ through2@^2.0.0, through2@^2.0.2, through2@^2.0.3, through2@^2.0.5, through2@~2.
     readable-stream "~2.3.6"
     xtend "~4.0.1"
 
-through2@^3.0.0, through2@^3.0.1:
+through2@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/through2/-/through2-3.0.1.tgz#39276e713c3302edf9e388dd9c812dd3b825bd5a"
   integrity sha512-M96dvTalPT3YbYLaKaCuwu+j06D/8Jfib0o/PxbVt6Amhv3dUAtW6rTV1jPgJSBG83I/e04Y6xkVdVhSRhi0ww==
