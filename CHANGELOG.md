@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/folke/ultra-runner/compare/v2.0.0...v2.0.1) (2020-03-04)
+
+
+### Bug Fixes
+
+* 🐛 properly clear down and reset cursor to [0,0] on terminal resize ([c3addab](https://github.com/folke/ultra-runner/commit/c3addabf9c2cc26f3376aaecc7e4daca640a2641))
+
+
+### Other
+
+* ♻️ use yamljs and json5 instead of yaml and comment-json. smaller deps ([b6d3994](https://github.com/folke/ultra-runner/commit/b6d3994b8bd9e439c21ac722681ae3bd6ce1dc02))
+
 ## [2.0.0](https://github.com/folke/ultra-runner/compare/v1.1.0...v2.0.0) (2020-03-04)
 
 
