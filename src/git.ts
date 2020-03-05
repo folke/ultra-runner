@@ -60,23 +60,25 @@ class FilesCache {
       this.cache.set(root, await getGitFiles(root))
     }
     const files = this.cache.get(root) || {}
-    return Object.fromEntries(
-      Object.entries(files)
-        .filter(([file]) => {
-          const filePath = path.resolve(root, file)
-          return (
-            filePath == directory || filePath.startsWith(directory + path.sep)
-          )
-        })
-        .map(([file, hash]) => [
-          path.relative(directory, path.resolve(root, file)),
-          hash,
-        ])
-        .filter(
-          ([file]) =>
-            file.length && !exclude.includes(file) && !file.endsWith(HASH_FILE)
+    const ret: GitFiles = {}
+
+    Object.entries(files)
+      .filter(([file]) => {
+        const filePath = path.resolve(root, file)
+        return (
+          filePath == directory || filePath.startsWith(directory + path.sep)
         )
-    )
+      })
+      .map(([file, hash]) => [
+        path.relative(directory, path.resolve(root, file)),
+        hash,
+      ])
+      .filter(
+        ([file]) =>
+          file.length && !exclude.includes(file) && !file.endsWith(HASH_FILE)
+      )
+      .forEach(([file, hash]) => (ret[file] = hash))
+    return ret
   }
 }
 

@@ -4,11 +4,10 @@ import path from "path"
 const workspaceRoot = path.resolve(__dirname, "workspace")
 
 function f(files: Record<string, unknown>) {
-  return files
-    ? Object.fromEntries(
-        Object.entries(files).map(([k, v]) => [k.replace(/\\/gu, "/"), v])
-      )
-    : files
+  if (!files) return files
+  const ret: Record<string, unknown> = {}
+  Object.entries(files).forEach(([k, v]) => (ret[k.replace(/\\/gu, "/")] = v))
+  return ret
 }
 
 test("parseGitFiles", () => {
