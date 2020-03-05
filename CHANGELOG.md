@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/folke/ultra-runner/compare/v2.0.1...v2.1.0) (2020-03-05)
+
+
+### Features
+
+* ✨ expose ultra-runner as a module as well, including type definitions ([9bb6076](https://github.com/folke/ultra-runner/commit/9bb6076cf3d68c140c4930c0e5e5285e3a9342c4))
+
+
+### Other
+
+* **deps:** 🔗 update ([a7b748e](https://github.com/folke/ultra-runner/commit/a7b748eb834826230b5c845dd40cd7373c461654))
+* **deps:** 🔗 yarn.lock ([8a4f33a](https://github.com/folke/ultra-runner/commit/8a4f33aaffa8f0e29060fe7b7da597bc1f1ff568))
+* **deps:** pin dependencies ([2d55797](https://github.com/folke/ultra-runner/commit/2d5579729eb754ae16b67999c7ddd19d3ba3ff6d))
+* **deps:** update node.js to v13.10.1 ([#26](https://github.com/folke/ultra-runner/issues/26)) ([f2fe227](https://github.com/folke/ultra-runner/commit/f2fe22759812651fe77573ab44b4ff40e785077e))
+* **merge:** 🔧 Merge branch 'master' of github.com:folke/ultra-runner ([7b6e9e4](https://github.com/folke/ultra-runner/commit/7b6e9e4ad041bdc17130ea9896756f572602e9e7))
+* ♻️ don't use Object.fromEntries ([a829863](https://github.com/folke/ultra-runner/commit/a8298630f68c572feda9d33602fa5aae5f6c9942))
+* 📚️ added todo ([5237479](https://github.com/folke/ultra-runner/commit/5237479d472da00854135d500c3a2ce7c125ab56))
+* 🚨 🐛 issue with parallel running of jest tests ([785a389](https://github.com/folke/ultra-runner/commit/785a389b6fd018f9f72a61b0f12abe6fa2499184))
+
 ### [2.0.1](https://github.com/folke/ultra-runner/compare/v2.0.0...v2.0.1) (2020-03-04)
 
 
