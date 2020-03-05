@@ -7,14 +7,13 @@
     "importHelpers": true, // Use tslib instead of adding helpers to every emitted js file
     "module": "CommonJS", // Should be CommonJS for NodeJS apps
     "strict": true,
-    "target": "ES2019", // any node version after 2016 is supported
+    "target": "ES6", // any node version after 2016 is supported
     "moduleResolution": "node", // should be node
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "./build",
-    "sourceMap": true,
-    "plugins": []
+    "sourceMap": true
   },
   "exclude": ["node_modules", "lib"]
 }
