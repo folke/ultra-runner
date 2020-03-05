@@ -1,0 +1,9 @@
+
+Performance:
+  ☐ Only rebuild partial file cache for build files
+  ☐ Or when file execution stops
+
+Docs:
+  ☐ script runner and missing scripts
+  ☐ scrolling output
+
