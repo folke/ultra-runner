@@ -56,7 +56,7 @@ test("advanced build --dry-run", async () => {
 })
 
 test("advanced build --no-pretty", async () => {
-  const runner = new Runner()
+  const runner = new Runner({ pretty: false })
   await runner.run("buildit", advancedPackage)
 
   stubs.log.should.be.calledWith("❯ lint")
