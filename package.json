@@ -2,12 +2,15 @@
   "name": "ultra-runner",
   "description": "Smart and beautiful script runner that hijacks any `npm run`, `yarn` and `npx` calls for ultra fast execution",
   "version": "2.0.1",
-  "main": "lib/cli.js",
+  "main": "lib/index.js",
   "repository": "http://github.com/folke/ultra-runner",
   "author": "Folke Lemaitre <folke.lemaitre@gmail.com>",
   "license": "MIT",
   "bin": {
     "ultra": "bin/ultra.js"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "files": [
     "lib",
@@ -52,15 +55,13 @@
     "generate:config": "npx ts-interface-builder src/config-options.ts",
     "prebuild": "yarn clean && yarn lint && yarn test",
     "build:rollup": "npx rollup -c",
-    "build": "yarn build:rollup",
-    "build:ts": "npx tsc -p tsconfig.build.json",
+    "build": "npx tsc -p tsconfig.build.json",
     "clean": "npx rimraf lib coverage *.log build 0x",
     "test": "npx jest",
     "test:cov": "npx jest --coverage --coverageProvider v8",
-    "lint": "yarn lint:ts && yarn lint:eslint && yarn lint:docs",
+    "lint": "yarn lint:eslint && yarn lint:docs",
     "lint:eslint": "npx eslint bin/*.js src/*.ts __tests__/*.ts --cache",
     "lint:docs": "npx markdownlint README.md",
-    "lint:ts": "npx tsc -p tsconfig.build.json",
     "lint:fix": "yarn lint:eslint --fix",
     "prerelease": "yarn build",
     "release": "npx standard-version",
