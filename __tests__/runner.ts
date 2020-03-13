@@ -34,7 +34,7 @@ const advancedPackage: PackageJson = {
   name: "advanced-package",
   scripts: {
     prebuildit: "yarn clean && yarn lint && yarn test",
-    "build:rollup": "npx rollup -c",
+    "build:rollup": "npx tsc -c",
     buildit: "yarn build:rollup",
     clean: "npx rimraf lib",
     test: "npx jest",
@@ -97,7 +97,7 @@ test("advanced build --no-pretty", async () => {
   stubs.spawn
     .getCall(5)
     .should.be.calledWith(
-      path.resolve(process.cwd(), "./node_modules/.bin/rollup"),
+      path.resolve(process.cwd(), "./node_modules/.bin/tsc"),
       ["-c"]
     )
 })
@@ -142,7 +142,7 @@ test("advanced build --pretty", async () => {
   stubs.spawn
     .getCall(5)
     .should.be.calledWith(
-      path.resolve(process.cwd(), "./node_modules/.bin/rollup"),
+      path.resolve(process.cwd(), "./node_modules/.bin/tsc"),
       ["-c"]
     )
 })
@@ -185,7 +185,7 @@ test("advanced build --raw", async () => {
   stubs.spawn
     .getCall(5)
     .should.be.calledWith(
-      path.resolve(process.cwd(), "./node_modules/.bin/rollup"),
+      path.resolve(process.cwd(), "./node_modules/.bin/tsc"),
       ["-c"]
     )
 })
