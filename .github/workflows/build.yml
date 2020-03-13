@@ -28,7 +28,7 @@ jobs:
       - name: Test
         run: yarn test --coverage --coverageProvider v8
       - name: Build
-        run: yarn build
+        run: yarn build:ts
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
         with:
