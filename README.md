@@ -16,6 +16,7 @@
 * **faster script execution**: `ultra` hijacks any `npm`, `pnpm`, `yarn` and `npx` calls for faster execution.
 * **concurrency within scripts**: you can add optional configuration to `package.json` to run parts of a script in parallel. No need to change the actual `scripts`
 * **filtering**: filter on package names or subdirectories
+* **monitoring**: node process monitor *(like `top` for node)*
 * **output zooming** when executing multiple commands in parallel, `ultra` will try to keep as much concurrent output on the screen as possible, by only showing the last lines of the commands. Once the commands complete running, a full log is written to the terminal. This is very useful when building a bunch of packages with `--watch` for instance.
 * **missing scripts** when executing scripts recursively, only packages that have the script defined, will execute it.
 
@@ -96,6 +97,14 @@ $ ultra -r --build mycustombuildscript
 ```
 
 If for some reason you want to rebuild a package, use `--rebuild` or `rebuild`.
+
+## :bar_chart: Monitor
+
+With `ultra --monitor` you can easily monitor all running node processes on your machine.
+
+For every process, you can also see the package where the command was executed and a clean command line.
+
+![Monitor](assets/monitor.png)
 
 ## :zap: Fast
 
@@ -182,6 +191,8 @@ Workspace:
 Status:
   --info  Show workspace dependencies                                                                      [boolean]
   --list  List package scripts. Also works with --recusive                                                 [boolean]
+  --monitor           Show node process list, updated every 2 seconds                                      [boolean]
+  --monitor-interval  Set process list interval in seconds                                     [number] [default: 2]
 
 Build:
   --build, -b  Use dependency tree to build packages in correct order                                      [boolean]
