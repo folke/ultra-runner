@@ -3,7 +3,7 @@
     "noEmit": false,
     "outDir": "lib",
     "rootDir": "src",
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "types": ["node"]
   },
   "extends": "./tsconfig.json",

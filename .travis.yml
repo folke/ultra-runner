@@ -1,8 +1,0 @@
-language: node_js
-cache:
-  yarn: true
-script:
-  - yarn lint
-  - yarn test --coverage --coverageProvider v8
-  - cat ./coverage/lcov.info | npx coveralls
-  - yarn build:rollup
