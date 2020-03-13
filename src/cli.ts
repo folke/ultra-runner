@@ -9,7 +9,9 @@ async function showHelp(exitCode: number) {
 export async function run(argv: string[] = process.argv) {
   let offset = 2
   for (offset = 2; offset < argv.length; offset++) {
-    if (["--filter", "--concurrency"].includes(argv[offset])) {
+    if (
+      ["--filter", "--concurrency", "--monitor-interval"].includes(argv[offset])
+    ) {
       offset++
       continue
     }
@@ -38,6 +40,12 @@ export async function run(argv: string[] = process.argv) {
 
   if (options.help || args.includes("-h") || args.includes("--help"))
     await showHelp(0)
+
+  if (options.monitor) {
+    return (await import("./process-list")).nodeTop(
+      (options.monitorInterval || defaults.monitorInterval) * 1000
+    )
+  }
 
   if (args[0]) {
     if (args[0] == "build" || args[0].startsWith("build ")) options.build = true

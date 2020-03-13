@@ -70,7 +70,17 @@ const program = yargs
     type: "boolean",
     description: "List package scripts. Also works with --recusive",
   })
-  .group(["info", "list"], "Status:")
+  .option("monitor", {
+    type: "boolean",
+    description: "Show node process list, updated every 2 seconds",
+  })
+  .option("monitor-interval", {
+    type: "number",
+    default: defaults.monitorInterval,
+    requiresArg: true,
+    description: "Set process list interval in seconds",
+  })
+  .group(["info", "list", "monitor", "monitor-interval"], "Status:")
   .option("build", {
     type: "boolean",
     description: "Use dependency tree to build packages in correct order",
