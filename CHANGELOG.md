@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/folke/ultra-runner/compare/v2.1.2...v2.2.0) (2020-03-13)
+
+
+### Features
+
+* ✨ added new node process monitoring feature ([c36ca83](https://github.com/folke/ultra-runner/commit/c36ca831cf5db4c23504f2ccd017c6fe94b085d8))
+
+
+### Other
+
+* ♻️ moved hideCursor code to terminal ([9d201bf](https://github.com/folke/ultra-runner/commit/9d201bf7935bdab821b4954debcd3acb556f7898))
+* ♻️ moved onProcessExit to its own file ([daf786a](https://github.com/folke/ultra-runner/commit/daf786a26457eec17224e33440b84202b1725bbd))
+* 👷 :del: yarn cache ([23b501f](https://github.com/folke/ultra-runner/commit/23b501f323d4ed47e3eb7ef9597b6bce71bab75b))
+* 👷 don't run full build in CI ([1939805](https://github.com/folke/ultra-runner/commit/19398051431646690f6962f8ca65cd70988ccc52))
+* 📚️ added --monitor ([8a1b63f](https://github.com/folke/ultra-runner/commit/8a1b63ffb988d99c3a0aa56bf30237f2110d0961))
+* 🚨 fixed issue with runner test and rollup ([1227509](https://github.com/folke/ultra-runner/commit/1227509eabdae89069b3b02c15ceba5da104a2b0))
+* 🚨 lowered code coverage ([ba16c52](https://github.com/folke/ultra-runner/commit/ba16c5279e9f2dda1f239cce804c942daee6a7e5))
+* **deps:** update all non-major dependencies ([#28](https://github.com/folke/ultra-runner/issues/28)) ([c6084a9](https://github.com/folke/ultra-runner/commit/c6084a992af037d71566f2aaa860f60fbb774a5e))
+* **deps:** update dependency eslint-plugin-unicorn to v17 ([#31](https://github.com/folke/ultra-runner/issues/31)) ([4f4818c](https://github.com/folke/ultra-runner/commit/4f4818c45eb37eff8aac84cd4afea2138f7039cf))
+* 📚️ added missing info on output zooming ([36bb8e9](https://github.com/folke/ultra-runner/commit/36bb8e9f269e97740be0d7c7d885c554d7ca330d))
+
 ### [2.1.2](https://github.com/folke/ultra-runner/compare/v2.1.1...v2.1.2) (2020-03-05)
 
 ### [2.1.1](https://github.com/folke/ultra-runner/compare/v2.1.0...v2.1.1) (2020-03-05)
