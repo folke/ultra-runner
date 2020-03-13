@@ -5,14 +5,38 @@ import readline from "readline"
 // eslint-disable-next-line import/default
 import ansiLength from "string-width"
 
+export function showCursor(stream = process.stderr) {
+  stream.isTTY && stream.write("\u001B[?25h")
+}
+
+export function hideCursor(stream = process.stderr) {
+  if (!stream.isTTY) return
+  ;(["SIGTERM", "SIGINT"] as const).forEach(event =>
+    process.once(event, () => showCursor(stream))
+  )
+  process.once("exit", () => showCursor(stream))
+  stream.write("\u001B[?25l")
+}
+
 export class Terminal {
   lines: string[] = []
   output = ""
   resized = false
 
-  constructor(public stream = process.stdout) {
+  constructor(
+    public stream = process.stdout,
+    public options = { clearScreen: false }
+  ) {
     stream.setMaxListeners(50)
     stream.on("resize", () => (this.resized = true))
+    hideCursor(stream)
+    if (options.clearScreen) this.clearScreen()
+  }
+
+  clearScreen() {
+    readline.cursorTo(this.stream, 0, 0)
+    readline.clearScreenDown(this.stream)
+    this.lines = []
   }
 
   diff(from: string, to: string) {
@@ -58,9 +82,13 @@ export class Terminal {
     if (this.resized) {
       this.lines = []
       this.resized = false
-      readline.moveCursor(this.stream, 0, -this.lines.length + 1)
-      readline.cursorTo(this.stream, 0)
-      readline.clearScreenDown(this.stream)
+      if (this.options.clearScreen) {
+        this.clearScreen()
+      } else {
+        readline.moveCursor(this.stream, 0, -this.lines.length + 1)
+        readline.cursorTo(this.stream, 0)
+        readline.clearScreenDown(this.stream)
+      }
     }
     const lines = Array.isArray(text) ? text : text.split("\n")
 

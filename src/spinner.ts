@@ -10,19 +10,6 @@ export enum SpinnerResult {
   warning,
 }
 
-function showCursor(stream = process.stderr) {
-  stream.isTTY && stream.write("\u001B[?25h")
-}
-
-function hideCursor(stream = process.stderr) {
-  if (!stream.isTTY) return
-  ;(["SIGTERM", "SIGINT"] as const).forEach(event =>
-    process.once(event, () => showCursor(stream))
-  )
-  process.once("exit", () => showCursor(stream))
-  stream.write("\u001B[?25l")
-}
-
 export class Spinner {
   result?: SpinnerResult
   start: number
@@ -160,7 +147,6 @@ export class OutputSpinner {
     /* c8 ignore next */
     if (this.running) return
     this.running = true
-    hideCursor(this.stream)
     this.interval = setInterval(() => {
       /* c8 ignore next 2 */
       this.frame = ++this.frame % this.spinner.frames.length
@@ -173,7 +159,6 @@ export class OutputSpinner {
       if (this.interval) clearInterval(this.interval)
       this.render(true)
       this.interval = undefined
-      showCursor(this.stream)
       this.running = false
       this.spinnerMap.clear()
     }
