@@ -1,5 +1,6 @@
 import chalk from "chalk"
 import { spawn, ChildProcess } from "child_process"
+import { onProcessExit } from "./process"
 
 export class Spawner {
   static children = new Map<number, ChildProcess>()
@@ -36,15 +37,8 @@ export class Spawner {
       stdio: raw ? "inherit" : "pipe",
       cwd: this.cwd,
     })
-    if (!Spawner.children.size) {
-      ;(["SIGTERM", "SIGINT"] as const).forEach(event =>
-        process.once(event, () => {
-          Spawner.exit(event)
-          process.exit(1)
-        })
-      )
-      process.once("exit", () => Spawner.exit("exit"))
-    }
+    if (!Spawner.children.size) onProcessExit(reason => Spawner.exit(reason))
+
     Spawner.children.set(child.pid, child)
 
     const processData = (data: string) => {
