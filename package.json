@@ -135,5 +135,8 @@
     "wrap-ansi": "^6.2.0",
     "yamljs": "^0.3.0",
     "yargs": "^15.1.0"
+  },
+  "resolutions": {
+    "minimist": "^1.2.2"
   }
 }
