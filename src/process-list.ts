@@ -76,7 +76,12 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
 }
 
 async function getProcessList(): Promise<ProcessInfo[]> {
-  const procs = (await pslist()).filter(proc => proc.name == "node")
+  const procs = (await pslist())
+    .map(proc => {
+      const name = proc.cmd?.length ? proc.cmd?.split(" ")?.[0] : proc.name
+      return { ...proc, name }
+    })
+    .filter(proc => basename(proc.name) == "node")
   return await Promise.all(procs.map(proc => parseCommand(proc)))
 }
 
