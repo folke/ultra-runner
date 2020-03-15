@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/folke/ultra-runner/compare/v2.2.1...v2.3.0) (2020-03-15)
+
+
+### Features
+
+* ✨ sort by total cpu for parent process including its children ([755dc60](https://github.com/folke/ultra-runner/commit/755dc6030f43094f6f00f72f8652aeb654fda637))
+
 ### [2.2.1](https://github.com/folke/ultra-runner/compare/v2.2.0...v2.2.1) (2020-03-15)
 
 
