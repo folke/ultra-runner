@@ -97,7 +97,7 @@
     "clinic": "5.0.0",
     "conventional-changelog-cli": "2.0.31",
     "coveralls": "3.0.9",
-    "devmoji": "2.1.5",
+    "devmoji": "2.1.6",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-chai-expect": "2.1.0",
