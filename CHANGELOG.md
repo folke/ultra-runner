@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/folke/ultra-runner/compare/v2.2.0...v2.2.1) (2020-03-15)
+
+
+### Bug Fixes
+
+* 🐛 some node processes were not shown due to issue with ps-list ([e4d4f54](https://github.com/folke/ultra-runner/commit/e4d4f54c853a91e93235835d88d3fbcd690284e2))
+* 🐛 tree rendering should now always be correct ([6e1fe43](https://github.com/folke/ultra-runner/commit/6e1fe437f4208ff600283cf5505966ef83035479))
+
+
+### Other
+
+* **deps:** 🔗 update ([4f6f824](https://github.com/folke/ultra-runner/commit/4f6f824d76c1ebc9709a5d2caa774fcb10a28ba6))
+* **deps:** 🔗 update ([139d590](https://github.com/folke/ultra-runner/commit/139d59025eee75458f2b03629cb4c7390f223706))
+* **deps:** update dependency @types/chai to v4.2.11 ([#32](https://github.com/folke/ultra-runner/issues/32)) ([5b8c607](https://github.com/folke/ultra-runner/commit/5b8c6072091d276465c70b9d7328d11feff52842))
+* **deps:** update dependency devmoji to v2.1.6 ([#33](https://github.com/folke/ultra-runner/issues/33)) ([ecc9dab](https://github.com/folke/ultra-runner/commit/ecc9dab3378095bbb5073ba2c302fa96962cc10b))
+
 ## [2.2.0](https://github.com/folke/ultra-runner/compare/v2.1.2...v2.2.0) (2020-03-13)
 
 
