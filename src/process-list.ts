@@ -24,8 +24,6 @@ type ProcessInfo = ProcessListInfo & {
   project?: string
   cwd?: string
   children: ProcessInfo[]
-  depth?: number
-  last?: boolean
   prefix?: string
 }
 
@@ -89,6 +87,13 @@ async function getProcessList(): Promise<ProcessInfo[]> {
   return await Promise.all(procs.map(proc => parseCommand(proc)))
 }
 
+function getTotalCpu(proc: ProcessInfo): number {
+  return (
+    (proc.cpu || 0) +
+    proc.children.reduce((p, c) => (getTotalCpu(c) || 0) + p, 0)
+  )
+}
+
 async function getProcessTree() {
   const procs = await getProcessList()
   const pids = new Map(procs.map(proc => [proc.pid, proc]))
@@ -96,12 +101,13 @@ async function getProcessTree() {
   procs.forEach(proc => {
     if (pids.has(proc.ppid)) {
       pids.get(proc.ppid)?.children.push(proc)
+
       children.add(proc.pid)
     }
   })
   return procs
     .filter(proc => !children.has(proc.pid))
-    .sort((a, b) => (b.cpu || 0) - (a.cpu || 0))
+    .sort((a, b) => getTotalCpu(b) - getTotalCpu(a))
 }
 
 function flatten(proc: ProcessInfo) {
@@ -142,7 +148,9 @@ function table(procs: ProcessInfo[]) {
     header,
     ...procs.map(proc => [
       `${chalk.magenta(proc.pid)}`,
-      ((proc.cpu ?? 0) > 10 ? chalk.red : chalk.green)(`${proc.cpu}%`),
+      ((proc.cpu ?? 0) > 10 ? chalk.red : chalk.green)(
+        `${proc.cpu}%`.padEnd(5)
+      ),
       ((proc.memory ?? 0) > 10 ? chalk.red : chalk.green)(`${proc.memory}%`),
       chalk.blue(proc.project ? proc.project : ""),
       proc.prefix || "",
