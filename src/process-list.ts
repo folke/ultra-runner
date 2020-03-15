@@ -1,6 +1,6 @@
 import pslist = require("ps-list")
 import chalk from "chalk"
-import { basename, normalize, resolve } from "path"
+import { basename, normalize, relative, resolve } from "path"
 import readline from "readline"
 import { join, split } from "shellwords-ts"
 import { findUp } from "./package"
@@ -26,6 +26,7 @@ type ProcessInfo = ProcessListInfo & {
   children: ProcessInfo[]
   depth?: number
   last?: boolean
+  prefix?: string
 }
 
 async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
@@ -67,8 +68,11 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
   ret.cwd = await pidCwd(proc.pid)
   if (ret.cwd) {
     const root = findUp("package.json", ret.cwd)
-    if (root)
+    if (root) {
       ret.project = (await import(resolve(ret.cwd, "package.json"))).name
+      if (ret.argv[0].startsWith(root))
+        ret.argv[0] = relative(root, ret.argv[0])
+    }
     if (!ret.project) ret.project = basename(ret.cwd)
   }
 
@@ -100,27 +104,35 @@ async function getProcessTree() {
     .sort((a, b) => (b.cpu || 0) - (a.cpu || 0))
 }
 
-function flattenTree(procs: ProcessInfo[], depth = 0): ProcessInfo[] {
-  const ret: ProcessInfo[] = []
-  procs.forEach((proc, p) => {
-    proc.depth = depth
-    proc.last = p == procs.length - 1
-    ret.push(proc)
-    if (proc.children.length) ret.push(...flattenTree(proc.children, depth + 1))
+function flatten(proc: ProcessInfo) {
+  proc.prefix = proc.children.length ? "─┬" : "─"
+  const ret = [proc]
+  proc.children.forEach((child, c) => {
+    const flatChildren = flatten(child)
+    flatChildren.forEach((other, o) => {
+      if (o == 0)
+        other.prefix =
+          (c == proc.children.length - 1 ? " └" : " ├") + other.prefix
+      else
+        other.prefix =
+          (c == proc.children.length - 1 ? "  " : " │") + other.prefix
+    })
+    ret.push(...flatChildren)
   })
   return ret
 }
 
-function treePrefix(
-  depth: number,
-  isLast: boolean,
-  hasChildren: boolean
-): string {
-  // │ │ │ ├───
-  let ret = "│ ".repeat(depth)
-  ret += isLast ? "└─" : "├─"
-  if (hasChildren) ret += "┬"
-  return ret
+function flattenTree(procs: ProcessInfo[]): ProcessInfo[] {
+  const root: ProcessInfo = {
+    pid: 0,
+    name: "",
+    ppid: 0,
+    argv: [],
+    children: procs,
+  }
+
+  const ret: ProcessInfo[] = flatten(root)
+  return ret.slice(1)
 }
 
 function table(procs: ProcessInfo[]) {
@@ -133,11 +145,7 @@ function table(procs: ProcessInfo[]) {
       ((proc.cpu ?? 0) > 10 ? chalk.red : chalk.green)(`${proc.cpu}%`),
       ((proc.memory ?? 0) > 10 ? chalk.red : chalk.green)(`${proc.memory}%`),
       chalk.blue(proc.project ? proc.project : ""),
-      treePrefix(
-        proc.depth || 0,
-        proc.last as boolean,
-        proc.children?.length ? true : false
-      ),
+      proc.prefix || "",
       join(proc.argv),
     ]),
   ]
