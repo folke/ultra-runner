@@ -1914,15 +1914,15 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-5.0.0.tgz#dbf1909b49e5044f8fdaf0adc809f0c0722bdfd0"
+  integrity sha512-JrDGPAKjMGSP1G0DUoaceEJ3DZgAfr/q6X7FVk4+U5KxUSKviYGM2k6zWkfyyBHy5rAtzgYJFa1ro2O9PtoxwQ==
+
 commander@^2.20.0, commander@~2.20.3:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
-
-commander@^4.1.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
-  integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
 commander@~2.17.1:
   version "2.17.1"
@@ -2744,14 +2744,14 @@ detective@^5.2.0:
     defined "^1.0.0"
     minimist "^1.1.1"
 
-devmoji@2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/devmoji/-/devmoji-2.1.5.tgz#e328d3b4d4a3fcb6cea7f7eaddb6dc0c1f1bc4f5"
-  integrity sha512-XM2qCC2feghqoCEVTwFiu5d7sxPqnt/b7ueXmDa5Nq838YZRT4Iii+9q9jLjODPChfbQB+DGeM/6yMuF9Nr96Q==
+devmoji@2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/devmoji/-/devmoji-2.1.6.tgz#92b7a31d0c581441bd2762911bd8c4a8e3881807"
+  integrity sha512-7ShRIa1qi2NugLjmUg5CxhyQyRmJgqXCKah/63TgSu+7XanLb7nwj636LChnX6V1Y1/lLVBbXgHYFZeVdRerUQ==
   dependencies:
     chalk "^3.0.0"
-    commander "^4.1.0"
-    ts-interface-checker "^0.1.10"
+    commander "5.0.0"
+    ts-interface-checker "0.1.10"
 
 diff-sequences@^25.1.0:
   version "25.1.0"
@@ -8500,7 +8500,7 @@ trim-off-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
-ts-interface-checker@^0.1.10:
+ts-interface-checker@0.1.10:
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.10.tgz#b68a49e37e90a05797e590f08494dd528bf383cf"
   integrity sha512-UJYuKET7ez7ry0CnvfY6fPIUIZDw+UI3qvTUQeS2MyI4TgEeWAUBqy185LeaHcdJ9zG2dgFpPJU/AecXU0Afug==
