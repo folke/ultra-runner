@@ -56,9 +56,9 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
   ret.argv = ret.argv.map(arg => arg.replace(/.*node_modules\//u, ""))
 
   // Replace common binaries
-  const runners = ["npx", "npm"]
-  runners.forEach(r => {
-    if (new RegExp(`${r}(.[tj]s)?$`, "u").test(ret.argv[0])) ret.argv[0] = r
+  const knownBins = ["npx", "npm"]
+  knownBins.forEach(r => {
+    if (new RegExp(`/${r}(.[tj]s)?$`, "u").test(ret.argv[0])) ret.argv[0] = r
   })
 
   ret.argv[0] = ret.argv[0].replace(/^\.bin\//u, "")
