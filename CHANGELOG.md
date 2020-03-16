@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/folke/ultra-runner/compare/v2.3.0...v2.3.1) (2020-03-16)
+
+
+### Bug Fixes
+
+* 🐛 stricter regex for known binaries ([5d5fc92](https://github.com/folke/ultra-runner/commit/5d5fc9244d994f5cf50d54442974da51689cd9f9))
+
 ## [2.3.0](https://github.com/folke/ultra-runner/compare/v2.2.1...v2.3.0) (2020-03-15)
 
 
