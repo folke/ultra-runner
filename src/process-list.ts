@@ -83,7 +83,7 @@ async function getProcessList(): Promise<ProcessInfo[]> {
       const name = proc.cmd?.length ? proc.cmd?.split(" ")?.[0] : proc.name
       return { ...proc, name }
     })
-    .filter(proc => basename(proc.name) == "node")
+    .filter(proc => /node(\.exe)?/iu.test(basename(proc.name)))
   return await Promise.all(procs.map(proc => parseCommand(proc)))
 }
 
@@ -148,10 +148,16 @@ function table(procs: ProcessInfo[]) {
     header,
     ...procs.map(proc => [
       `${chalk.magenta(proc.pid)}`,
-      ((proc.cpu ?? 0) > 10 ? chalk.red : chalk.green)(
-        `${proc.cpu}%`.padEnd(5)
-      ),
-      ((proc.memory ?? 0) > 10 ? chalk.red : chalk.green)(`${proc.memory}%`),
+      proc.cpu === undefined
+        ? ""
+        : ((proc.cpu ?? 0) > 10 ? chalk.red : chalk.green)(
+            `${proc.cpu}%`.padEnd(5)
+          ),
+      proc.memory === undefined
+        ? ""
+        : ((proc.memory ?? 0) > 10 ? chalk.red : chalk.green)(
+            `${proc.memory}%`
+          ),
       chalk.blue(proc.project ? proc.project : ""),
       proc.prefix || "",
       join(proc.argv),
