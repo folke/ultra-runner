@@ -1,6 +1,7 @@
 import chalk from "chalk"
-import { spawn, ChildProcess } from "child_process"
+import { ChildProcess } from "child_process"
 import { onProcessExit } from "./process"
+import { spawn } from "cross-spawn"
 
 export class Spawner {
   static children = new Map<number, ChildProcess>()
