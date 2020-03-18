@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.2](https://github.com/folke/ultra-runner/compare/v2.3.1...v2.3.2) (2020-03-18)
+
+
+### Bug Fixes
+
+* 🐛 process-list now shows node processes on windows ([03d8087](https://github.com/folke/ultra-runner/commit/03d8087afdf202950f3fbf5fcea5436599192296))
+* 🐛 use cross-spawn for better windows support ([d5b6450](https://github.com/folke/ultra-runner/commit/d5b6450e01a34a309032a45da1c1a622bb12a384))
+
 ### [2.3.1](https://github.com/folke/ultra-runner/compare/v2.3.0...v2.3.1) (2020-03-16)
 
 
