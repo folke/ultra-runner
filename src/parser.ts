@@ -31,7 +31,8 @@ export class Command {
   constructor(
     public args: string[],
     public type: CommandType,
-    public bin?: string
+    public bin?: string,
+    public env: Record<string, string> = {}
   ) {
     this.name = args[0]
   }
@@ -112,58 +113,84 @@ export class CommandParser {
     return args
   }
 
-  createScript(name: string, args: string[] = []) {
+  createScript(
+    name: string,
+    args: string[] = [],
+    env: Record<string, string> = {}
+  ) {
     const script = this.getScript(name)
     const ret = this.createGroup(`${script} ${args.join(" ")}`, false)
     ret.name = name
     ret.type = CommandType.script
     if (this.getScript(`pre${name}`))
-      ret.children.unshift(this.createScript(`pre${name}`))
+      ret.children.unshift(this.createScript(`pre${name}`, [], env))
     if (this.getScript(`post${name}`))
-      ret.children.push(this.createScript(`post${name}`))
+      ret.children.push(this.createScript(`post${name}`, [], env))
     ret.concurrent = this.pkg.ultra?.concurrent?.includes(name) ?? false
     return ret
   }
 
-  createCommand(cmd: string[], allowScriptCmd: boolean) {
+  createCommand(
+    cmd: string[],
+    allowScriptCmd: boolean,
+    env: Record<string, string>
+  ) {
     hook: for (const [prefix, types] of this.hooks) {
       for (const [i, p] of prefix.entries()) {
         if (p != cmd[i]) continue hook
       }
       const c = cmd[prefix.length]
       if (this.isScript(c) && types.includes(CommandType.script)) {
-        return this.createScript(c, cmd.slice(prefix.length + 1))
+        return this.createScript(c, cmd.slice(prefix.length + 1), env)
       }
 
       if (types.includes(CommandType.bin) && this.isBin(c)) {
         return new Command(
           cmd.slice(prefix.length),
           CommandType.bin,
-          this.getBin(c)
+          this.getBin(c),
+          env
         )
       }
     }
     if (allowScriptCmd && this.isScript(cmd[0]))
-      return this.createScript(cmd[0], cmd.slice(1))
+      return this.createScript(cmd[0], cmd.slice(1), env)
     if (this.isBin(cmd[0]))
-      return new Command(cmd, CommandType.bin, this.getBin(cmd[0]))
-    return new Command(cmd, CommandType.system)
+      return new Command(cmd, CommandType.bin, this.getBin(cmd[0]), env)
+    return new Command(cmd, CommandType.system, undefined, env)
+  }
+
+  parseEnvVar(arg: string): [string, string] | undefined {
+    return /^([a-z_0-9-]+)=(.+)$/iu.exec(arg)?.slice(1, 3) as
+      | [string, string]
+      | undefined
+  }
+
+  isEnvVar(arg: string) {
+    return this.parseEnvVar(arg) !== undefined
   }
 
   createGroup(cmd: string, allowScriptCmd = true) {
     const args = this.parseArgs(cmd)
     const group = new Command([], CommandType.unknown)
     let cmdArgs: string[] = []
+    const env: Record<string, string> = {}
+    let canBeEnvVar = true
     for (const a of args) {
+      const envVar = this.parseEnvVar(a)
+      if (canBeEnvVar && envVar) {
+        env[envVar[0]] = envVar[1]
+        continue
+      } else canBeEnvVar = false
       if (this.ops.includes(a)) {
         if (cmdArgs.length)
-          group.children.push(this.createCommand(cmdArgs, allowScriptCmd))
+          group.children.push(this.createCommand(cmdArgs, allowScriptCmd, env))
         cmdArgs = []
         group.children.push(new Command([a], CommandType.op))
       } else cmdArgs.push(a)
     }
     if (cmdArgs.length)
-      group.children.push(this.createCommand(cmdArgs, allowScriptCmd))
+      group.children.push(this.createCommand(cmdArgs, allowScriptCmd, env))
     return group
   }
 

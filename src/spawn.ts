@@ -29,12 +29,13 @@ export class Spawner {
   constructor(
     public cmd: string,
     public args: string[] = [],
-    public cwd = process.cwd()
+    public cwd = process.cwd(),
+    public env?: Record<string, string>
   ) {}
 
   spawn(raw = false) {
     const child = spawn(this.cmd, this.args, {
-      env: { ...process.env, FORCE_COLOR: `${chalk.level}` },
+      env: { ...process.env, FORCE_COLOR: `${chalk.level}`, ...this.env },
       stdio: raw ? "inherit" : "pipe",
       cwd: this.cwd,
     })

@@ -60,7 +60,14 @@ export class Runner {
         const cmdSpinner = this.formatStart(cmd, level, parentSpinner)
         try {
           if (!this.options.dryRun) {
-            await this.spawn(args[0], args.slice(1), level, cmd.cwd, cmdSpinner)
+            await this.spawn(
+              args[0],
+              args.slice(1),
+              level,
+              cmd.cwd,
+              cmdSpinner,
+              cmd.env
+            )
           }
 
           if (cmdSpinner) {
@@ -140,9 +147,10 @@ export class Runner {
     args: string[],
     level: number,
     cwd?: string,
-    spinner?: Spinner
+    spinner?: Spinner,
+    env?: Record<string, string>
   ) {
-    const spawner = new Spawner(cmd, args, cwd)
+    const spawner = new Spawner(cmd, args, cwd, env)
     const formatter = new CommandFormatter(cmd, level, spinner, this.options)
 
     if (this.options.pretty)
