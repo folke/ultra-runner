@@ -67,6 +67,20 @@ test("test npx bin ", () => {
   expect(cmd.debug()).toStrictEqual("bin:jest")
 })
 
+test("AA=123 test npx bin ", () => {
+  const parser = new CommandParser({ name: "test", scripts: {} })
+  const cmd = parser.parse("AA=123 npx jest")
+  expect(cmd.children[0].env).toStrictEqual({ AA: "123" })
+  expect(cmd.debug()).toStrictEqual("bin:jest")
+})
+
+test("AA=123 foobar", () => {
+  const parser = new CommandParser({ name: "test", scripts: {} })
+  const cmd = parser.parse("AA=123 foobar")
+  expect(cmd.children[0].env).toStrictEqual({ AA: "123" })
+  expect(cmd.debug()).toStrictEqual("system:foobar")
+})
+
 test("test op", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("npx jest && npx foo")
