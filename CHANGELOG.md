@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/folke/ultra-runner/compare/v2.3.2...v2.3.3) (2020-03-22)
+
+
+### Bug Fixes
+
+* 🐛 added support for specifying env vars before the command ([edcb0bf](https://github.com/folke/ultra-runner/commit/edcb0bf16c72c8abc8899ea7142f837bd30cb6ef))
+
+
+### Other
+
+* 🎨 Prettier 2.0 ([8b19431](https://github.com/folke/ultra-runner/commit/8b194318dca9e81727cc9a4b38afe38ae2ea50bc))
+* 🚨 added tests for env vars prefixes ([e3d2335](https://github.com/folke/ultra-runner/commit/e3d23350678c821114f0a839ee53ad341a931329))
+* **deps:** pin dependency @types/cross-spawn to 6.0.1 ([#36](https://github.com/folke/ultra-runner/issues/36)) ([547f539](https://github.com/folke/ultra-runner/commit/547f5398e7e8df134f640e94015f4ecf4b59aaed))
+* **deps:** update all non-major dependencies ([#34](https://github.com/folke/ultra-runner/issues/34)) ([ca36459](https://github.com/folke/ultra-runner/commit/ca364593645c300d86ae6d43d7376b0b34ef3538))
+* **deps:** update all non-major dependencies ([#38](https://github.com/folke/ultra-runner/issues/38)) ([7327851](https://github.com/folke/ultra-runner/commit/73278514a8e92754a0c6654086c79a6e6e1e5916))
+* **deps:** update dependency @types/rimraf to v3 ([#39](https://github.com/folke/ultra-runner/issues/39)) ([0459b43](https://github.com/folke/ultra-runner/commit/0459b43f404a1642430697db77445f7620b6f1d1))
+* **deps:** update dependency prettier to v2 ([#40](https://github.com/folke/ultra-runner/issues/40)) ([6642656](https://github.com/folke/ultra-runner/commit/6642656d588b4bc685dfacf557fc6623f1b2c18a))
+
 ### [2.3.2](https://github.com/folke/ultra-runner/compare/v2.3.1...v2.3.2) (2020-03-18)
 
 
