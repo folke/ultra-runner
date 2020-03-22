@@ -39,7 +39,7 @@ export class Spawner {
       stdio: raw ? "inherit" : "pipe",
       cwd: this.cwd,
     })
-    if (!Spawner.children.size) onProcessExit(reason => Spawner.exit(reason))
+    if (!Spawner.children.size) onProcessExit((reason) => Spawner.exit(reason))
 
     Spawner.children.set(child.pid, child)
 
@@ -61,11 +61,11 @@ export class Spawner {
     return new Promise((resolve, reject) => {
       child.stdout?.on("data", processData)
       child.stderr?.on("data", processData)
-      child.on("error", err => {
+      child.on("error", (err) => {
         Spawner.children.delete(child.pid)
         reject(this.onError(err))
       })
-      child.on("close", code => {
+      child.on("close", (code) => {
         this.exitCode = code
         if (this.buffer.length) this.onLine(`${this.buffer}\n`)
         this.buffer = ""
@@ -77,7 +77,7 @@ export class Spawner {
   }
 
   static exit(_reason: string) {
-    Spawner.children.forEach(child => {
+    Spawner.children.forEach((child) => {
       // console.log(`[${reason}] Killing ${child.pid}`)
       child.kill()
     })

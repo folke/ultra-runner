@@ -94,7 +94,7 @@ export class Runner {
         formatter.write(
           chalk.blue("changes:\n") +
             changes.changes
-              .map(c => {
+              .map((c) => {
                 let str = "  "
                 if (c.type == ChangeType.added) str += chalk.green("+")
                 else if (c.type == ChangeType.deleted) str += chalk.red("-")
@@ -133,7 +133,7 @@ export class Runner {
     if (cmd.type == CommandType.script) return chalk.white.bold(`${cmd.name}`)
     return `${chalk.grey(`$ ${cmd.args[0]}`)} ${cmd.args
       .slice(1)
-      .map(x => {
+      .map((x) => {
         if (x.startsWith("-")) return chalk.cyan(x)
         if (existsSync(x)) return chalk.magenta(x)
         if (x.includes("*")) return chalk.yellow(x)
@@ -188,7 +188,7 @@ export class Runner {
     if (!workspace) throw new Error("Cannot find package.json")
 
     let counter = 0
-    workspace?.getPackages(this.options.filter).forEach(p => {
+    workspace?.getPackages(this.options.filter).forEach((p) => {
       console.log(
         `${chalk.bgGray.cyanBright(` ${counter++} `)} ${chalk.green(
           `${p.name}`
@@ -196,7 +196,7 @@ export class Runner {
       )
       Object.keys(p.scripts || {})
         .sort()
-        .forEach(s => {
+        .forEach((s) => {
           console.log(`  ❯ ${chalk.grey(s)}`)
         })
     })
@@ -224,13 +224,12 @@ export class Runner {
     const workspace = await getWorkspace({ includeRoot: true })
     if (workspace) {
       console.log(
-        `${chalk.blue("Workspace ") +
-          chalk.magenta(workspace.type)} with ${chalk.magenta(
-          workspace.getPackageManager()
-        )}`
+        `${
+          chalk.blue("Workspace ") + chalk.magenta(workspace.type)
+        } with ${chalk.magenta(workspace.getPackageManager())}`
       )
       let counter = 0
-      workspace.getPackages(this.options.filter).forEach(p => {
+      workspace.getPackages(this.options.filter).forEach((p) => {
         let at = relative(workspace.root, p.root)
         if (!at.length) at = "."
         console.log(
@@ -238,7 +237,7 @@ export class Runner {
             `${p.name}`
           )} at ${chalk.whiteBright(at)}`
         )
-        workspace.getDeps(p.name).forEach(s => {
+        workspace.getDeps(p.name).forEach((s) => {
           console.log(`  ❯ ${chalk.grey(s)}`)
         })
       })
@@ -266,7 +265,7 @@ export class Runner {
     const buildPackages = new Set<string>()
     command.children = workspace
       .getPackages(this.options.filter)
-      .map(pkg => {
+      .map((pkg) => {
         const command = new CommandParser(pkg, pkg.root)
           .parse(cmd)
           .setCwd(pkg.root)
@@ -276,13 +275,13 @@ export class Runner {
         command.type = CommandType.script
         if (
           this.options.build &&
-          command.children.some(c => c.type == CommandType.script)
+          command.children.some((c) => c.type == CommandType.script)
         ) {
           buildPackages.add(pkg.name)
           command.beforeRun = async () => {
             this.deps.set(
               pkg.name,
-              new Promise(resolve => {
+              new Promise((resolve) => {
                 command.afterRun = () => {
                   done.add(pkg.name)
                   resolve()
@@ -292,18 +291,20 @@ export class Runner {
             await Promise.all(
               workspace
                 .getDepTree(pkg.name)
-                .filter(dep => buildPackages.has(dep))
-                .map(dep => this.deps.get(dep))
-                .filter(p => p)
+                .filter((dep) => buildPackages.has(dep))
+                .map((dep) => this.deps.get(dep))
+                .filter((p) => p)
             )
           }
         }
         hasScript =
-          hasScript || command.children.some(c => c.type == CommandType.script)
+          hasScript ||
+          command.children.some((c) => c.type == CommandType.script)
         return command
       })
       .filter(
-        c => !hasScript || c.children.some(c => c.type == CommandType.script)
+        (c) =>
+          !hasScript || c.children.some((c) => c.type == CommandType.script)
       )
     command.concurrent = true
     this._run(command, -1)

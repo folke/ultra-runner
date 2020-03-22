@@ -98,7 +98,7 @@ export class CommandParser {
 
   parseArgs(cmd: string) {
     const args: string[] = []
-    Shellwords.split(cmd, rawPart => {
+    Shellwords.split(cmd, (rawPart) => {
       rawPart = rawPart.trim()
       // Fix incorrect handling of ops
       for (const op of this.ops) {
