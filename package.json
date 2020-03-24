@@ -111,7 +111,7 @@
     "husky": "4.2.3",
     "jest": "25.1.0",
     "markdownlint-cli": "0.22.0",
-    "prettier": "2.0.1",
+    "prettier": "2.0.2",
     "rimraf": "3.0.2",
     "sinon": "9.0.1",
     "sinon-chai": "3.5.0",
