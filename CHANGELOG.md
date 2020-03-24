@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.4](https://github.com/folke/ultra-runner/compare/v2.3.3...v2.3.4) (2020-03-24)
+
+
+### Bug Fixes
+
+* 🐛 always extend PATH with local node_modules/.bin directory for commands that execute child processes like nyc [#35](https://github.com/folke/ultra-runner/issues/35) ([b375017](https://github.com/folke/ultra-runner/commit/b375017f61eedcd9ec73ac1f803c5f8b8ba4aa35))
+
+
+### Other
+
+* **deps:** update all non-major dependencies to v2.25.0 ([#42](https://github.com/folke/ultra-runner/issues/42)) ([2d869ae](https://github.com/folke/ultra-runner/commit/2d869aebee30d19478fdeb834a48b8a353f15d9d))
+* **deps:** update dependency @types/prettier to v1.19.1 ([#41](https://github.com/folke/ultra-runner/issues/41)) ([d6266f4](https://github.com/folke/ultra-runner/commit/d6266f43576617d1400e6755e29e7790e24aa3be))
+* **deps:** update dependency prettier to v2.0.2 ([#43](https://github.com/folke/ultra-runner/issues/43)) ([239d833](https://github.com/folke/ultra-runner/commit/239d8337f331ec809677d4bc61576d51b1c4c31b))
+
 ### [2.3.3](https://github.com/folke/ultra-runner/compare/v2.3.2...v2.3.3) (2020-03-22)
 
 
