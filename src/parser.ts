@@ -67,6 +67,14 @@ export class Command {
     }
     return cmd
   }
+
+  isPreScript() {
+    return this.type == CommandType.script && this.name.startsWith("pre")
+  }
+
+  isPostScript() {
+    return this.type == CommandType.script && this.name.startsWith("post")
+  }
 }
 
 export class CommandParser {

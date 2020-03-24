@@ -3,6 +3,10 @@ Performance:
   ☐ Only rebuild partial file cache for build files
   ☐ Or when file execution stops
 
+Runner:
+  ☐ refactor Runner.runCommand
+  ☐ make better jest mocks for easier cross platform testing
+
 Docs:
   ✔ script runner and missing scripts @done(20-03-05 20:57)
   ✔ scrolling output @done(20-03-05 20:56)

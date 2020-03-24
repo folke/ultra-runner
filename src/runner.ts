@@ -32,6 +32,7 @@ export class Runner {
     } else return this.spinner.start(title, level, parentSpinner)
   }
 
+  // TODO: refactor the method below. Move to its own class
   async runCommand(cmd: Command, level = -2, parentSpinner?: Spinner) {
     if (cmd.type == CommandType.op) return
 
@@ -111,8 +112,10 @@ export class Runner {
       if (!isBuildScript || changes) {
         const promises = []
         for (const child of cmd.children) {
-          promises.push(this.runCommand(child, level + 1, spinner))
-          if (!cmd.concurrent) await promises[promises.length - 1]
+          if (child.isPostScript()) await Promise.all(promises)
+          const promise = this.runCommand(child, level + 1, spinner)
+          promises.push(promise)
+          if (!cmd.concurrent || child.isPreScript()) await promise
           else if (promises.length > this.options.concurrency) {
             await Promise.all(promises)
             promises.length = 0

@@ -42,12 +42,9 @@
     }
   },
   "scripts": {
-    "ultra:sleep": "sleep 2 && sleep 2",
-    "ultra:a": "yarn ultra:sleep",
-    "ultra:b": "sleep 3",
-    "ultra:c": "sleep 3",
-    "preultra": "echo pre",
-    "ultra": "yarn ultra:a && yarn ultra:b && yarn ultra:c",
+    "preultra": "sleep 2",
+    "postultra": "sleep 2",
+    "ultra": "sleep 2 && sleep 2 && sleep 2",
     "true": "true",
     "profile": "0x -o --output-dir \"0x/{name}{pid}\"",
     "tn": "ts-node --transpile-only",
