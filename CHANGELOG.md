@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.6](https://github.com/folke/ultra-runner/compare/v2.3.5...v2.3.6) (2020-03-24)
+
+
+### Bug Fixes
+
+* 🐛 correctly handle post and pre scripts when running concurrently (fixes [#45](https://github.com/folke/ultra-runner/issues/45)) ([9a5c670](https://github.com/folke/ultra-runner/commit/9a5c6707c7bc834f5a8e209afac8e9f531d39240))
+
 ### [2.3.5](https://github.com/folke/ultra-runner/compare/v2.3.4...v2.3.5) (2020-03-24)
 
 
