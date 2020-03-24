@@ -2,6 +2,7 @@ import chalk from "chalk"
 import { ChildProcess } from "child_process"
 import { onProcessExit } from "./process"
 import { spawn } from "cross-spawn"
+import npmPath = require("npm-run-path")
 
 export class Spawner {
   static children = new Map<number, ChildProcess>()
@@ -34,8 +35,14 @@ export class Spawner {
   ) {}
 
   spawn(raw = false) {
+    const env: Record<string, string> = {
+      ...process.env,
+      FORCE_COLOR: `${chalk.level}`,
+      ...this.env,
+    }
+    env.PATH = npmPath({ cwd: this.cwd })
     const child = spawn(this.cmd, this.args, {
-      env: { ...process.env, FORCE_COLOR: `${chalk.level}`, ...this.env },
+      env,
       stdio: raw ? "inherit" : "pipe",
       cwd: this.cwd,
     })

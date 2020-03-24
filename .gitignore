@@ -11,3 +11,4 @@ build
 stats.html
 tsconfig.build.tsbuildinfo
 .ultra.cache.json
+.nyc_output
