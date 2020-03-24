@@ -36,11 +36,10 @@ export class Spawner {
 
   spawn(raw = false) {
     const env: Record<string, string> = {
-      ...process.env,
+      ...npmPath.env({ cwd: this.cwd }),
       FORCE_COLOR: `${chalk.level}`,
       ...this.env,
     }
-    env.PATH = npmPath({ cwd: this.cwd })
     const child = spawn(this.cmd, this.args, {
       env,
       stdio: raw ? "inherit" : "pipe",
