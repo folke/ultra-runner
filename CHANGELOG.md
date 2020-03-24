@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.5](https://github.com/folke/ultra-runner/compare/v2.3.4...v2.3.5) (2020-03-24)
+
+
+### Bug Fixes
+
+* 🐛 use correct PATH key on all platforms. It's "Path" instead of "PATH" on Windows ([a90a310](https://github.com/folke/ultra-runner/commit/a90a310513c9774dab4a5b09c85221860339494d))
+
+
+### Other
+
+* **deps:** update dependency devmoji to v2.1.7 ([#44](https://github.com/folke/ultra-runner/issues/44)) ([5a2d994](https://github.com/folke/ultra-runner/commit/5a2d994e0f56eb38116a960301698717b162b613))
+
 ### [2.3.4](https://github.com/folke/ultra-runner/compare/v2.3.3...v2.3.4) (2020-03-24)
 
 
