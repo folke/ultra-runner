@@ -51,6 +51,12 @@ const program = yargs
     requiresArg: true,
     description: "Set the maximum number of concurrency",
   })
+  .option("serial", {
+    type: "boolean",
+    default: false,
+    description:
+      "Set the maximum number of concurrency to 1. Same as --concurrency 1",
+  })
   .option("filter", {
     type: "string",
     requiresArg: true,
@@ -61,7 +67,7 @@ const program = yargs
     description:
       "When using --recursive, also include the root package of the workspace",
   })
-  .group(["recursive", "filter", "root", "concurrency"], "Workspace:")
+  .group(["recursive", "filter", "root", "concurrency", "serial"], "Workspace:")
   .option("info", {
     type: "boolean",
     description: "Show workspace dependencies",

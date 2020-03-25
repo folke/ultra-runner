@@ -20,6 +20,7 @@ export const defaults = {
   help: false,
   monitor: false,
   monitorInterval: 2,
+  serial: false,
 }
 
 export type RunnerOptions = typeof defaults

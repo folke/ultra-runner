@@ -38,6 +38,8 @@ export async function run(argv: string[] = process.argv) {
     }
   }
 
+  if (options.serial) options.concurrency = 1
+
   if (options.help || args.includes("-h") || args.includes("--help"))
     await showHelp(0)
 
