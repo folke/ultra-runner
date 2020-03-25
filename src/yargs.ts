@@ -119,8 +119,8 @@ const program = yargs
   })
 
 const ret: Record<string, string> = {}
-styles.forEach(style =>
-  style.strings.forEach(str => (ret[str] = style.style(str)))
+styles.forEach((style) =>
+  style.strings.forEach((str) => (ret[str] = style.style(str)))
 )
 program.updateStrings(ret)
 export function showHelp(exitCode = 1) {
@@ -128,7 +128,7 @@ export function showHelp(exitCode = 1) {
   // @ts-ignore
   program.showHelp((str: string) =>
     process.stdout.write(
-      `${str.replace(/--[a-zA-Z-]+| -[a-z]/gu, str => {
+      `${str.replace(/--[a-zA-Z-]+| -[a-z]/gu, (str) => {
         return chalk.gray.bold(str)
       })}\n\n`
     )

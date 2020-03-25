@@ -64,7 +64,7 @@ export class OutputSpinner {
     const symbol = chalk.yellow(this.spinner.frames[this.frame])
 
     let lineCount = 0
-    const spinnerLines = this.spinners.map(spinner => {
+    const spinnerLines = this.spinners.map((spinner) => {
       const text = `${spinner.format(symbol)}`
       const lines = text.split("\n")
       lineCount += Math.min(lines.length, 3)
@@ -73,7 +73,7 @@ export class OutputSpinner {
 
     while (lineCount < process.stdout.rows) {
       const loopLineCount = +lineCount
-      spinnerLines.every(s => {
+      spinnerLines.every((s) => {
         if (s.lines.length > s.count) {
           s.count++
           lineCount++
@@ -90,7 +90,7 @@ export class OutputSpinner {
     }
 
     let text = `${spinnerLines
-      .map(s => (full ? s.lines : limitLines(s.lines, s.count)).join("\n"))
+      .map((s) => (full ? s.lines : limitLines(s.lines, s.count)).join("\n"))
       .join("\n")}\n`
 
     if (!full) text = text.trim()

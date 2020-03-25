@@ -41,9 +41,11 @@ export async function findPackages(
 
   if (options.includeRoot) patterns.push(".")
 
-  patterns = patterns.map(pattern => pattern.replace(/\/?$/u, "/package.json"))
+  patterns = patterns.map((pattern) =>
+    pattern.replace(/\/?$/u, "/package.json")
+  )
 
-  return (await fastGlob(patterns, options)).map(file =>
+  return (await fastGlob(patterns, options)).map((file) =>
     path.resolve(options?.cwd || process.cwd(), path.dirname(file))
   )
 }

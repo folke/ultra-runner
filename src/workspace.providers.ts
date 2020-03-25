@@ -19,7 +19,7 @@ type WorkspaceProvider = (
 ) => WorkspaceProviderInfo | Promise<WorkspaceProviderInfo>
 
 export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
-  yarn: cwd => {
+  yarn: (cwd) => {
     let root = findUp("package.json", cwd)
     while (root) {
       const pkg = getPackage(root)
@@ -33,7 +33,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     }
   },
 
-  pnpm: async cwd => {
+  pnpm: async (cwd) => {
     const yaml = await import("yamljs")
     const root = findUp("pnpm-workspace.yaml", cwd)
     if (root) {
@@ -44,7 +44,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     }
   },
 
-  lerna: cwd => {
+  lerna: (cwd) => {
     const root = findUp("lerna.json", cwd)
     if (root)
       return {
@@ -54,7 +54,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
       }
   },
 
-  rush: async cwd => {
+  rush: async (cwd) => {
     const json5 = (await import("json5")).default
     const root = findUp("rush.json", cwd)
 
@@ -68,11 +68,11 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     }
   },
 
-  recursive: cwd => {
+  recursive: (cwd) => {
     return { root: cwd, patterns: ["*/**"] }
   },
 
-  single: cwd => {
+  single: (cwd) => {
     const root = findUp("package.json", cwd)
     if (root) return { root, patterns: [root] }
   },

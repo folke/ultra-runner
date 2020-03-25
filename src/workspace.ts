@@ -24,7 +24,7 @@ export class Workspace {
     packages: PackageJsonWithRoot[],
     public type: WorkspaceProviderType
   ) {
-    packages.forEach(p => {
+    packages.forEach((p) => {
       if (!p.name) p.name = p.root
       this.packages.set(p.name, p)
       this.roots.set(p.root, p.name)
@@ -34,7 +34,7 @@ export class Workspace {
     ;[...this.packages.entries()].forEach(([name]) => {
       if (!this.order.includes(name)) {
         ;[...this.getDepTree(name), name].forEach(
-          n => this.order.includes(n) || this.order.push(n)
+          (n) => this.order.includes(n) || this.order.push(n)
         )
       }
     })
@@ -47,7 +47,7 @@ export class Workspace {
       pnpm: ["pnpm-lock.yaml"],
     }
     for (const [type, files] of Object.entries(pms)) {
-      if (files.some(f => existsSync(path.resolve(this.root, f)))) return type
+      if (files.some((f) => existsSync(path.resolve(this.root, f)))) return type
     }
   }
 
@@ -77,7 +77,7 @@ export class Workspace {
         if (options.includeRoot) info.patterns.push(".")
         const packages = (
           await findPackages(info.patterns, { cwd: info.root })
-        ).map(p => getPackage(p)) as PackageJsonWithRoot[]
+        ).map((p) => getPackage(p)) as PackageJsonWithRoot[]
         return new Workspace(info.root, packages, type)
       }
     }
@@ -89,7 +89,7 @@ export class Workspace {
 
   getDeps(pkgName: string) {
     return Object.keys(this.packages.get(pkgName)?.dependencies || {}).filter(
-      dep => this.packages.has(dep) && dep !== pkgName
+      (dep) => this.packages.has(dep) && dep !== pkgName
     )
   }
 
@@ -98,9 +98,9 @@ export class Workspace {
     seen.push(pkgName)
 
     const ret: string[] = []
-    this.getDeps(pkgName).forEach(d => {
+    this.getDeps(pkgName).forEach((d) => {
       ;[...this._getDepTree(d, seen), d].forEach(
-        dd => ret.includes(dd) || ret.push(dd)
+        (dd) => ret.includes(dd) || ret.push(dd)
       )
     })
     return ret
@@ -119,7 +119,7 @@ export class Workspace {
     if (filter) {
       const regex: RegExp = globrex(filter, { filepath: true }).regex
       ret = ret.filter(
-        p =>
+        (p) =>
           regex.test(p.name || "") ||
           regex.test(path.relative(this.root, p.root).replace(/\\/gu, "/"))
       )

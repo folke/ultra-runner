@@ -10,7 +10,7 @@ type GitFiles = Record<string, string>
 
 export function parseFiles(data: string, root: string): GitFiles {
   const ret: GitFiles = {}
-  data.split("\n").forEach(line => {
+  data.split("\n").forEach((line) => {
     const m = regex.exec(line)
     if (m) {
       const file = m[5]

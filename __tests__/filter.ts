@@ -9,7 +9,7 @@ test("filter dir", async () => {
   if (workspace) {
     const dirs = workspace
       .getPackages("apps/*")
-      .map(p =>
+      .map((p) =>
         path.relative("__tests__/workspace", p.root).replace(/\\/gu, "/")
       )
     dirs.sort()
@@ -25,7 +25,7 @@ test("filter pkg", async () => {
   if (workspace) {
     const dirs = workspace
       .getPackages("@scoped/*")
-      .map(p =>
+      .map((p) =>
         path.relative("__tests__/workspace", p.root).replace(/\\/gu, "/")
       )
     dirs.sort()

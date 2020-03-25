@@ -25,7 +25,7 @@ test("lerna", async () => {
   )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p =>
+    const dirs = packages.map((p) =>
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
@@ -48,7 +48,7 @@ test("yarn", async () => {
   )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p =>
+    const dirs = packages.map((p) =>
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
@@ -71,7 +71,7 @@ test("pnpm", async () => {
   )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p =>
+    const dirs = packages.map((p) =>
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
@@ -94,7 +94,7 @@ test("recursive", async () => {
   )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p =>
+    const dirs = packages.map((p) =>
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
@@ -114,7 +114,7 @@ test("workspace", async () => {
   )?.getPackages()
   expect(packages).toBeDefined()
   if (packages) {
-    const dirs = packages.map(p =>
+    const dirs = packages.map((p) =>
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()

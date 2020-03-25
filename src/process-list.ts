@@ -32,7 +32,7 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
 
   const ret: ProcessInfo = {
     ...proc,
-    argv: split(proc.cmd).map(ss => normalize(ss)),
+    argv: split(proc.cmd).map((ss) => normalize(ss)),
     children: [],
   }
 
@@ -53,11 +53,11 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
   )
 
   // Compact all node_modules stuff
-  ret.argv = ret.argv.map(arg => arg.replace(/.*node_modules\//u, ""))
+  ret.argv = ret.argv.map((arg) => arg.replace(/.*node_modules\//u, ""))
 
   // Replace common binaries
   const knownBins = ["npx", "npm"]
-  knownBins.forEach(r => {
+  knownBins.forEach((r) => {
     if (new RegExp(`/${r}(.[tj]s)?$`, "u").test(ret.argv[0])) ret.argv[0] = r
   })
 
@@ -79,12 +79,12 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
 
 async function getProcessList(): Promise<ProcessInfo[]> {
   const procs = (await pslist())
-    .map(proc => {
+    .map((proc) => {
       const name = proc.cmd?.length ? proc.cmd?.split(" ")?.[0] : proc.name
       return { ...proc, name }
     })
-    .filter(proc => /node(\.exe)?/iu.test(basename(proc.name)))
-  return await Promise.all(procs.map(proc => parseCommand(proc)))
+    .filter((proc) => /node(\.exe)?/iu.test(basename(proc.name)))
+  return await Promise.all(procs.map((proc) => parseCommand(proc)))
 }
 
 function getTotalCpu(proc: ProcessInfo): number {
@@ -96,9 +96,9 @@ function getTotalCpu(proc: ProcessInfo): number {
 
 async function getProcessTree() {
   const procs = await getProcessList()
-  const pids = new Map(procs.map(proc => [proc.pid, proc]))
+  const pids = new Map(procs.map((proc) => [proc.pid, proc]))
   const children = new Set<number>()
-  procs.forEach(proc => {
+  procs.forEach((proc) => {
     if (pids.has(proc.ppid)) {
       pids.get(proc.ppid)?.children.push(proc)
 
@@ -106,7 +106,7 @@ async function getProcessTree() {
     }
   })
   return procs
-    .filter(proc => !children.has(proc.pid))
+    .filter((proc) => !children.has(proc.pid))
     .sort((a, b) => getTotalCpu(b) - getTotalCpu(a))
 }
 
@@ -142,11 +142,13 @@ function flattenTree(procs: ProcessInfo[]): ProcessInfo[] {
 }
 
 function table(procs: ProcessInfo[]) {
-  const header = ["pid", "cpu", "mem", "project", "cmd"].map(h => chalk.red(h))
+  const header = ["pid", "cpu", "mem", "project", "cmd"].map((h) =>
+    chalk.red(h)
+  )
 
   let items: string[][] = [
     header,
-    ...procs.map(proc => [
+    ...procs.map((proc) => [
       `${chalk.magenta(proc.pid)}`,
       proc.cpu === undefined
         ? ""
@@ -165,7 +167,7 @@ function table(procs: ProcessInfo[]) {
   ]
 
   const widths = new Array<number>()
-  items.forEach(item =>
+  items.forEach((item) =>
     item.forEach(
       (value, col) =>
         (widths[col] = Math.max(widths[col] || 0, stringWidth(value)))
@@ -176,7 +178,7 @@ function table(procs: ProcessInfo[]) {
     process.stdout.columns -
     widths
       .slice(0, -1)
-      .map(v => v + 1)
+      .map((v) => v + 1)
       .reduce((p, c) => p + c) -
     8
 
@@ -202,7 +204,7 @@ function table(procs: ProcessInfo[]) {
         ret += `\n${chalk.gray(
           widths
             .slice(0, -1)
-            .map(w => "─".repeat(w))
+            .map((w) => "─".repeat(w))
             .join("─┼─")
         )}`
       return ret
@@ -213,10 +215,7 @@ function table(procs: ProcessInfo[]) {
 async function updater() {
   const list = flattenTree(await getProcessTree())
   let text = table(list)
-  text = text
-    .split("\n")
-    .slice(0, process.stdout.rows)
-    .join("\n")
+  text = text.split("\n").slice(0, process.stdout.rows).join("\n")
   // terminal.clearScreen()
   readline.cursorTo(process.stdout, 0, 0)
   readline.clearScreenDown(process.stdout)

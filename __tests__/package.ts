@@ -2,7 +2,7 @@ import { findPackages, findUp, getPackage } from "../src/package"
 import path from "path"
 
 function fa(files: string[]) {
-  return files.map(f => f.replace(/\\/gu, "/"))
+  return files.map((f) => f.replace(/\\/gu, "/"))
 }
 
 test("findPackages without options ", async () => {
@@ -12,7 +12,7 @@ test("findPackages without options ", async () => {
       cwd: root,
     })
   )
-    .map(p => path.relative(root, p))
+    .map((p) => path.relative(root, p))
     .sort()
   expect(fa(packages)).toStrictEqual([
     "",

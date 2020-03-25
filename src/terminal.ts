@@ -11,7 +11,7 @@ export function showCursor(stream = process.stderr) {
 
 export function hideCursor(stream = process.stderr) {
   if (!stream.isTTY) return
-  ;(["SIGTERM", "SIGINT"] as const).forEach(event =>
+  ;(["SIGTERM", "SIGINT"] as const).forEach((event) =>
     process.once(event, () => showCursor(stream))
   )
   process.once("exit", () => showCursor(stream))

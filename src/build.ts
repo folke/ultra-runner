@@ -39,7 +39,7 @@ function getChanges(existingDeps: PackageFiles, newDeps: PackageFiles) {
     }
   })
   changes.push(
-    ...[...files.keys()].map(file => ({ file, type: ChangeType.deleted }))
+    ...[...files.keys()].map((file) => ({ file, type: ChangeType.deleted }))
   )
 
   // Dependencies
@@ -56,7 +56,7 @@ function getDependencies(root: string, workspace?: Workspace) {
   const deps: { [key: string]: number } = {}
   const pkgName = workspace?.getPackageForRoot(root)
   if (pkgName)
-    workspace?.getDeps(pkgName).forEach(d => {
+    workspace?.getDeps(pkgName).forEach((d) => {
       const pkg = workspace.packages.get(d)
       if (pkg && pkg.root) {
         const p = path.resolve(pkg.root, HASH_FILE)
