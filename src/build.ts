@@ -99,7 +99,10 @@ export async function needsBuild(
 
   const changes = getChanges(existingDeps, deps)
 
-  if (changes.length) {
+  const doBuild =
+    changes.length || forceRebuild || Object.keys(deps.files).length == 0
+
+  if (doBuild) {
     return {
       changes,
       // eslint-disable-next-line @typescript-eslint/require-await
