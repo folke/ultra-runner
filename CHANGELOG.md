@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/folke/ultra-runner/compare/v2.3.6...v3.0.0) (2020-03-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* 💥 🐛 --concurrency was one of. Concurrency of 1 is now correct
+
+### Features
+
+* ✨ added --serial option that is the same as --concurrency 1 ([10e09a7](https://github.com/folke/ultra-runner/commit/10e09a7ef36a2a05fffd84aba9c43833ffef06f9))
+* ✨ quit --monitor on [q] ([7703f40](https://github.com/folke/ultra-runner/commit/7703f40d91f85044f4804589c94f5d328b769ad0))
+
+
+### Bug Fixes
+
+* 🐛 force build when package has not been added to Git ([17d5dea](https://github.com/folke/ultra-runner/commit/17d5dead928478d5bfdb7309f5d88063f27f9a68))
+* 💥 🐛 --concurrency was one of. Concurrency of 1 is now correct ([d85781c](https://github.com/folke/ultra-runner/commit/d85781cdd04cd06378f2849d3a3230a724add7e9))
+
+
+### Other
+
+* **deps:** update dependency @types/node to v13.9.4 ([#46](https://github.com/folke/ultra-runner/issues/46)) ([86d8ec2](https://github.com/folke/ultra-runner/commit/86d8ec2a9bf298f99cb10026338b584238039bdb))
+* 🎨 prettier 2.0 ([b2d2d3b](https://github.com/folke/ultra-runner/commit/b2d2d3be7fe517dc4dfe51b2e09920712f3409cf))
+
 ### [2.3.6](https://github.com/folke/ultra-runner/compare/v2.3.5...v2.3.6) (2020-03-24)
 
 
