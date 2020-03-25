@@ -6,6 +6,13 @@ Performance:
 Runner:
   ☐ refactor Runner.runCommand
   ☐ make better jest mocks for easier cross platform testing
+  ✔ --concurrency 0 is actual 1 @done(20-03-25 16:11)
+
+Build:
+  ✔ No changes. Skipping build... @done(20-03-25 16:11)
+
+Monitor:
+  ✔ type [q] to quit @done(20-03-25 16:28)
 
 Docs:
   ✔ script runner and missing scripts @done(20-03-05 20:57)

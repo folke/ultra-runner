@@ -44,7 +44,7 @@ export async function run(argv: string[] = process.argv) {
     await showHelp(0)
 
   if (options.monitor) {
-    return (await import("./process-list")).nodeTop(
+    return (await import("./monitor")).nodeTop(
       (options.monitorInterval || defaults.monitorInterval) * 1000
     )
   }

@@ -1,7 +1,7 @@
 import pslist = require("ps-list")
 import chalk from "chalk"
 import { basename, normalize, relative, resolve } from "path"
-import readline from "readline"
+import readline, { Key } from "readline"
 import { join, split } from "shellwords-ts"
 import { findUp } from "./package"
 import { onProcessExit } from "./process"
@@ -233,4 +233,14 @@ export function nodeTop(ms = 2000) {
     updater()
   }, ms)
   onProcessExit(() => clearInterval(interval))
+
+  readline.emitKeypressEvents(process.stdin)
+  if (process.stdin.isTTY) process.stdin.setRawMode(true)
+  process.stdin.on("keypress", (_event, key: Key) => {
+    if (key.name === "q" || (key.ctrl && key.name == "c")) {
+      clearInterval(interval)
+      // eslint-disable-next-line unicorn/no-process-exit
+      process.exit(0)
+    }
+  })
 }
