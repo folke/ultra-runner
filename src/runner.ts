@@ -116,7 +116,7 @@ export class Runner {
           const promise = this.runCommand(child, level + 1, spinner)
           promises.push(promise)
           if (!cmd.concurrent || child.isPreScript()) await promise
-          else if (promises.length > this.options.concurrency) {
+          else if (promises.length >= this.options.concurrency) {
             await Promise.all(promises)
             promises.length = 0
           }
