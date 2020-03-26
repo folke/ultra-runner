@@ -45,7 +45,7 @@ export class OutputSpinner {
           frames: ["-", "\\", "|", "/"],
         }
       : {
-          interval: 80,
+          interval: 120,
           frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
         }
 
