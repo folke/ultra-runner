@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/folke/ultra-runner/compare/v3.0.0...v3.0.1) (2020-03-26)
+
+
+### Bug Fixes
+
+* 🐛 terminal now properly updates changed lines ([d366be7](https://github.com/folke/ultra-runner/commit/d366be7b94106cf26281f56d64d175c08ef695cf))
+
+
+### Other
+
+* **deps:** update dependency eslint-plugin-unicorn to v18 ([#49](https://github.com/folke/ultra-runner/issues/49)) ([a66a9ee](https://github.com/folke/ultra-runner/commit/a66a9eee7efb03555bc2e09b5e3cc91c5daaf259))
+* **deps:** update dependency jest to v25.2.2 ([#47](https://github.com/folke/ultra-runner/issues/47)) ([2810354](https://github.com/folke/ultra-runner/commit/281035494e95a0dd5fd1ec379475b593d8f48835))
+* ⚡️ set spinner interval to 120 instead of 80 ([6c916e9](https://github.com/folke/ultra-runner/commit/6c916e98508abac6b73c383f1e5163ec6115418d))
+
 ## [3.0.0](https://github.com/folke/ultra-runner/compare/v2.3.6...v3.0.0) (2020-03-25)
 
 
