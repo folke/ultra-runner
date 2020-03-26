@@ -62,7 +62,7 @@ export class Terminal {
           right += toParts[i].length
         } else break
       }
-    }
+    } else return
     // Even idx is a non-ansi string, so add previous ansi string to result
     if (leftP > 0 && leftP % 2 == 0) {
       left -= toParts[leftP - 1].length
@@ -70,9 +70,8 @@ export class Terminal {
     return left > 0 || right > 0
       ? {
           left: leftWidth,
-          str: to.slice(left, -right),
-          leftStr: left,
-          leftLen: to.slice(left, -right).length,
+          str: to.slice(left),
+          // FIX: str: to.slice(left, -right + 1),
         }
       : undefined
   }
