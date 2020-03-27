@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/folke/ultra-runner/compare/v3.0.1...v3.1.0) (2020-03-27)
+
+
+### Features
+
+* ✨ expose PackageJson from type-fest ([a792cc5](https://github.com/folke/ultra-runner/commit/a792cc56b58f2191309e0fa3e738a6ebca1cb945))
+* ✨ include dev dependencies in dep topology ([4b5a566](https://github.com/folke/ultra-runner/commit/4b5a566f9ca21cf256c25054ce6b0e36298064f0))
+
+
+### Other
+
+* **deps:** 🔗 update ([ccbaafd](https://github.com/folke/ultra-runner/commit/ccbaafd2cadd8510e81816e31afd35e02039e0c2))
+* **deps:** update all non-major dependencies ([#50](https://github.com/folke/ultra-runner/issues/50)) ([a90f735](https://github.com/folke/ultra-runner/commit/a90f735aea864023d1130bec83bcc3ffbfd13363))
+
 ### [3.0.1](https://github.com/folke/ultra-runner/compare/v3.0.0...v3.0.1) (2020-03-26)
 
 
