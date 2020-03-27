@@ -88,9 +88,10 @@ export class Workspace {
   }
 
   getDeps(pkgName: string) {
-    return Object.keys(this.packages.get(pkgName)?.dependencies || {}).filter(
-      (dep) => this.packages.has(dep) && dep !== pkgName
-    )
+    return Object.keys({
+      ...this.packages.get(pkgName)?.dependencies,
+      ...this.packages.get(pkgName)?.devDependencies,
+    }).filter((dep) => this.packages.has(dep) && dep !== pkgName)
   }
 
   _getDepTree(pkgName: string, seen: string[] = []) {
