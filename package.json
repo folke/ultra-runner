@@ -132,6 +132,7 @@
     "string-width": "^4.2.0",
     "strip-json-comments": "^3.0.1",
     "tslib": "1.11.1",
+    "type-fest": "^0.12.0",
     "wrap-ansi": "^6.2.0",
     "yamljs": "^0.3.0",
     "yargs": "^15.1.0"

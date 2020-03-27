@@ -1,14 +1,13 @@
 import fs from "fs"
 import path from "path"
 
-export type PackageJson = {
+import { PackageJson as PJson } from "type-fest"
+
+export type PackageJson = PJson & {
   name: string
-  scripts?: { [key: string]: string }
-  dependencies?: { [key: string]: string }
   ultra?: {
     concurrent?: string[]
   }
-  workspaces?: string[] | { packages?: string[] }
 }
 
 export type PackageJsonWithRoot = PackageJson & {
