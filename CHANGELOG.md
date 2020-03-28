@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/folke/ultra-runner/compare/v3.1.0...v3.2.0) (2020-03-28)
+
+
+### Features
+
+* ✨ add all vscode node procs under one combined vscode root ([b1e499b](https://github.com/folke/ultra-runner/commit/b1e499b35d3b1ef7d3c5d8608b5b7d5aa7fbd989))
+
+
+### Other
+
+* **deps:** update dependency @types/node to v13.9.5 ([#51](https://github.com/folke/ultra-runner/issues/51)) ([379caa0](https://github.com/folke/ultra-runner/commit/379caa0b42aec800130057633482d125dc91c471))
+
 ## [3.1.0](https://github.com/folke/ultra-runner/compare/v3.0.1...v3.1.0) (2020-03-27)
 
 
