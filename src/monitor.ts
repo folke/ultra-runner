@@ -36,32 +36,36 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
     children: [],
   }
 
-  // shift node binary
-  ret.argv.shift()
+  if (proc.cmd?.includes("Visual Studio Code")) {
+    ret.argv = ["vscode"]
+  } else {
+    // shift node binary
+    ret.argv.shift()
 
-  if (!ret.argv.length) ret.argv[0] = proc.cmd || proc.name
+    if (!ret.argv.length) ret.argv[0] = proc.cmd || proc.name
 
-  // shift all node options
-  while (ret.argv.length && ret.argv[0].startsWith("-")) ret.argv.shift()
+    // shift all node options
+    while (ret.argv.length && ret.argv[0].startsWith("-")) ret.argv.shift()
 
-  if (!ret.argv.length) ret.argv[0] = proc.cmd || proc.name
+    if (!ret.argv.length) ret.argv[0] = proc.cmd || proc.name
 
-  // Compact node_modules scripts
-  ret.argv[0] = ret.argv[0].replace(
-    /^.*node_modules\/.*\/([^/]+?)(\.[tj]s)?$/u,
-    (_str, bin) => bin
-  )
+    // Compact node_modules scripts
+    ret.argv[0] = ret.argv[0].replace(
+      /^.*node_modules\/.*\/([^/]+?)(\.[tj]s)?$/u,
+      (_str, bin) => bin
+    )
 
-  // Compact all node_modules stuff
-  ret.argv = ret.argv.map((arg) => arg.replace(/.*node_modules\//u, ""))
+    // Compact all node_modules stuff
+    ret.argv = ret.argv.map((arg) => arg.replace(/.*node_modules\//u, ""))
 
-  // Replace common binaries
-  const knownBins = ["npx", "npm"]
-  knownBins.forEach((r) => {
-    if (new RegExp(`/${r}(.[tj]s)?$`, "u").test(ret.argv[0])) ret.argv[0] = r
-  })
+    // Replace common binaries
+    const knownBins = ["npx", "npm"]
+    knownBins.forEach((r) => {
+      if (new RegExp(`/${r}(.[tj]s)?$`, "u").test(ret.argv[0])) ret.argv[0] = r
+    })
 
-  ret.argv[0] = ret.argv[0].replace(/^\.bin\//u, "")
+    ret.argv[0] = ret.argv[0].replace(/^\.bin\//u, "")
+  }
 
   ret.cwd = await pidCwd(proc.pid)
   if (ret.cwd) {
@@ -83,7 +87,11 @@ async function getProcessList(): Promise<ProcessInfo[]> {
       const name = proc.cmd?.length ? proc.cmd?.split(" ")?.[0] : proc.name
       return { ...proc, name }
     })
-    .filter((proc) => /node(\.exe)?/iu.test(basename(proc.name)))
+    .filter(
+      (proc) =>
+        proc.cmd?.includes("Visual Studio Code") ||
+        /node(\.exe)?/iu.test(basename(proc.name))
+    )
   return await Promise.all(procs.map((proc) => parseCommand(proc)))
 }
 
@@ -95,13 +103,45 @@ function getTotalCpu(proc: ProcessInfo): number {
 }
 
 async function getProcessTree() {
-  const procs = await getProcessList()
+  let procs = await getProcessList()
+
+  const vscode: ProcessInfo = {
+    pid: -1,
+    name: "vscode",
+    ppid: 0,
+    argv: ["vscode"],
+    children: [],
+    cpu: 0,
+    memory: 0,
+  }
+
+  procs
+    .filter((proc) => proc.argv[0] == "vscode")
+    .forEach((proc) => {
+      vscode.pid = proc.pid
+      vscode.cpu = (vscode.cpu || 0) + (proc.cpu || 0)
+      vscode.memory = (vscode.memory || 0) + (proc.memory || 0)
+    })
+
+  vscode.cpu = Math.round((vscode.cpu || 0) * 10) / 10
+  vscode.memory = Math.round((vscode.memory || 0) * 10) / 10
+
+  const vscodePids = new Set(
+    procs.filter((proc) => proc.argv[0] == "vscode").map((proc) => proc.pid)
+  )
+
+  procs.forEach((proc) => {
+    if (vscodePids.has(proc.ppid)) proc.ppid = vscode.pid
+  })
+
+  procs = procs.filter((proc) => proc.argv[0] != "vscode")
+  procs.push(vscode)
+
   const pids = new Map(procs.map((proc) => [proc.pid, proc]))
   const children = new Set<number>()
   procs.forEach((proc) => {
     if (pids.has(proc.ppid)) {
       pids.get(proc.ppid)?.children.push(proc)
-
       children.add(proc.pid)
     }
   })
@@ -149,7 +189,7 @@ function table(procs: ProcessInfo[]) {
   let items: string[][] = [
     header,
     ...procs.map((proc) => [
-      `${chalk.magenta(proc.pid)}`,
+      proc.pid === -1 ? "" : `${chalk.magenta(proc.pid)}`,
       proc.cpu === undefined
         ? ""
         : ((proc.cpu ?? 0) > 10 ? chalk.red : chalk.green)(

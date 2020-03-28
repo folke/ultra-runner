@@ -4,17 +4,13 @@ Performance:
   ☐ Or when file execution stops
 
 Runner:
-  ☐ refactor Runner.runCommand
   ☐ make better jest mocks for easier cross platform testing
-  ✔ --concurrency 0 is actual 1 @done(20-03-25 16:11)
+  ☐ add option to continue on errors when doing -r
 
-Build:
-  ✔ No changes. Skipping build... @done(20-03-25 16:11)
-
-Monitor:
-  ✔ type [q] to quit @done(20-03-25 16:28)
-
-Docs:
-  ✔ script runner and missing scripts @done(20-03-05 20:57)
-  ✔ scrolling output @done(20-03-05 20:56)
-
+Archive:
+  ✔ on fail output is not full @done(20-03-26 17:19) @project(Runner)
+  ✔ --concurrency 0 is actual 1 @done(20-03-25 16:11) @project(Runner)
+  ✔ No changes. Skipping build... @done(20-03-25 16:11) @project(Build)
+  ✔ type [q] to quit @done(20-03-25 16:28) @project(Monitor)
+  ✔ script runner and missing scripts @done(20-03-05 20:57) @project(Docs)
+  ✔ scrolling output @done(20-03-05 20:56) @project(Docs)
