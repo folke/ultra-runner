@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.1](https://github.com/folke/ultra-runner/compare/v3.2.0...v3.2.1) (2020-04-02)
+
+
+### Bug Fixes
+
+* 🐛 make the Runner.runRecursive method asynchronous ([#56](https://github.com/folke/ultra-runner/issues/56)) ([10b8853](https://github.com/folke/ultra-runner/commit/10b88531d8ca0683b98eb593bf97051df61df9d4))
+* **deps:** update dependency chalk to v4 ([#54](https://github.com/folke/ultra-runner/issues/54)) ([8da7549](https://github.com/folke/ultra-runner/commit/8da75494826f152fb20fed56b6e3e4db51f22723))
+* **test:** 🐛 🚨 fix tests that call runner and expected a process.exit(1) ([8b1ed9b](https://github.com/folke/ultra-runner/commit/8b1ed9b2c6008d2c1f2cfd219a7f0d9fd5f510c4))
+* 🐛 make runRecursive return a promise & move process.exit to cli ([9b4adf1](https://github.com/folke/ultra-runner/commit/9b4adf1490cad82250b0ddd4e0c3b6eea5e3e051))
+
+
+### Other
+
+* **deps:** 🔗 ➖ dep strip-json-comments ([8af4d1e](https://github.com/folke/ultra-runner/commit/8af4d1eaa61b87589d3406fec8c5e2de9c5b136f))
+* **deps:** 🔗 Merge branches 'master' and 'master' of github.com:folke/ultra-runner ([6b8d87e](https://github.com/folke/ultra-runner/commit/6b8d87e53d5145aa99a52a0de411f8b5e5d68629))
+* **deps:** update all non-major dependencies ([#52](https://github.com/folke/ultra-runner/issues/52)) ([6bbc7bf](https://github.com/folke/ultra-runner/commit/6bbc7bf82ed249e74aaa5b27180f163cce2ffe9e))
+* **deps:** update dependency @types/prettier to v2 ([#55](https://github.com/folke/ultra-runner/issues/55)) ([4c04e19](https://github.com/folke/ultra-runner/commit/4c04e1933bf6a94e17f1a4fad076ac4b2d411a70))
+* **deps:** update dependency @types/sinon to v9 ([#53](https://github.com/folke/ultra-runner/issues/53)) ([e872990](https://github.com/folke/ultra-runner/commit/e872990649d150822ad7015f7b36f439ebe8bfed))
+
 ## [3.2.0](https://github.com/folke/ultra-runner/compare/v3.1.0...v3.2.0) (2020-03-28)
 
 
