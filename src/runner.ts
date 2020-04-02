@@ -310,9 +310,7 @@ export class Runner {
           !hasScript || c.children.some((c) => c.type == CommandType.script)
       )
     command.concurrent = true
-    this._run(command, -1)
-
-    // process.exit(1)
+    return await this._run(command, -1)
   }
 
   async _run(command: Command, level = -1) {
@@ -327,13 +325,8 @@ export class Runner {
           `in ${this.formatDuration(performance.nodeTiming.duration / 1000)}`
         )
       }
-    } catch (error) {
+    } finally {
       this.spinner._stop()
-      if (error instanceof Error) {
-        console.error(chalk.red("error ") + error.message)
-      } else console.error(chalk.red("error ") + error)
-      // eslint-disable-next-line unicorn/no-process-exit
-      process.exit(1)
     }
   }
 }
