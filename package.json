@@ -82,7 +82,7 @@
     "@types/node": "13.11.0",
     "@types/prettier": "1.19.1",
     "@types/rimraf": "3.0.0",
-    "@types/sinon": "7.5.2",
+    "@types/sinon": "9.0.0",
     "@types/sinon-chai": "3.2.4",
     "@types/standard-version": "7.0.0",
     "@types/wrap-ansi": "3.0.0",
