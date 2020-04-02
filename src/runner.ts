@@ -310,7 +310,7 @@ export class Runner {
           !hasScript || c.children.some((c) => c.type == CommandType.script)
       )
     command.concurrent = true
-    this._run(command, -1)
+    return this._run(command, -1)
 
     // process.exit(1)
   }
