@@ -120,7 +120,7 @@
   },
   "dependencies": {
     "ansi-split": "^1.0.1",
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "cross-spawn": "^7.0.1",
     "fast-glob": "^3.2.2",
     "globrex": "^0.1.2",
