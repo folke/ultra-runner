@@ -2869,12 +2869,12 @@ detective@^5.2.0:
     defined "^1.0.0"
     minimist "^1.1.1"
 
-devmoji@2.1.7:
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/devmoji/-/devmoji-2.1.7.tgz#9f058a958b5c2f3f598b3d9f95fdebf6fa48bed7"
-  integrity sha512-YggS/WHtrlcnfWDEtpcXyLYCret2hCXdtQjzG6Zdys81eYpMtxKkZAILb8IhwWUX9kfOVgzIhg/c/CeOMzW+8A==
+devmoji@2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/devmoji/-/devmoji-2.1.9.tgz#ad45d6fe133bcddbb527aac5d4eafe292823b4c0"
+  integrity sha512-+HNa0/O79jMDN5OvyWWf2gR7yB79IjPN7hgesvQBDV6VJDwTBAEHsllziUfX0N1rcbsVoUIsFGSRYIyED4lq0A==
   dependencies:
-    chalk "^3.0.0"
+    chalk "^4.0.0"
     commander "5.0.0"
     ts-interface-checker "0.1.10"
 
