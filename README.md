@@ -162,7 +162,7 @@ Install with `npm` or `yarn`
 
 ```sh
 npm install -g ultra-runner
-yarn global install ultra-runner
+yarn global add ultra-runner
 ```
 
 > locally inside your project. use with `npx ultra`
