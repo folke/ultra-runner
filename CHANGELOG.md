@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.2](https://github.com/folke/ultra-runner/compare/v3.2.1...v3.2.2) (2020-04-28)
+
+
+### Bug Fixes
+
+* 🐛 increase max buffer for repo git file cache list to 1GB. (fixes [#66](https://github.com/folke/ultra-runner/issues/66)) ([a301cf7](https://github.com/folke/ultra-runner/commit/a301cf7f0e6debe323f2f17c3c6fb6154696c0e5))
+* **deps:** update dependency wrap-ansi to v7 ([#65](https://github.com/folke/ultra-runner/issues/65)) ([6596da0](https://github.com/folke/ultra-runner/commit/6596da00d07bdf3019e0fe7776b1ea0b78cc60b2))
+* Replace yarn command ([#64](https://github.com/folke/ultra-runner/issues/64)) ([ef35a17](https://github.com/folke/ultra-runner/commit/ef35a17fa16ff466151b15ef527d3c85e5beb81b))
+
+
+### Other
+
+* **deps:** update all non-major dependencies ([#58](https://github.com/folke/ultra-runner/issues/58)) ([3d18fed](https://github.com/folke/ultra-runner/commit/3d18fedafafcd7dc44461ac1037ace9c07019ee8))
+* **deps:** update all non-major dependencies ([#62](https://github.com/folke/ultra-runner/issues/62)) ([39d9da3](https://github.com/folke/ultra-runner/commit/39d9da374a3b9a84fa7f354a312c99714a09d04f))
+* **deps:** update dependency devmoji to v2.1.9 ([#61](https://github.com/folke/ultra-runner/issues/61)) ([c5cf382](https://github.com/folke/ultra-runner/commit/c5cf3820138592464ad06145038451806a2a2d57))
+* **deps:** update eslint ([#63](https://github.com/folke/ultra-runner/issues/63)) ([c7bf762](https://github.com/folke/ultra-runner/commit/c7bf76266c737bb9c4638637ccbfeb97233e6a91))
+* **lint:** 🎨 unicorn/no-null ([cf81451](https://github.com/folke/ultra-runner/commit/cf814512f5095a2acf7908aeaca4231d94f1a4a6))
+
 ### [3.2.1](https://github.com/folke/ultra-runner/compare/v3.2.0...v3.2.1) (2020-04-02)
 
 
