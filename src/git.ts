@@ -36,7 +36,7 @@ export async function getGitFiles(root: string): Promise<GitFiles> {
   return new Promise((resolve, reject) => {
     exec(
       "git ls-files --full-name -s -d -c -m -o --directory -t",
-      { cwd: root },
+      { cwd: root, maxBuffer: 1024 * 1024 * 1024 },
       (error, stdout) => {
         if (error) return reject(error)
         return resolve(parseFiles(stdout, root))
