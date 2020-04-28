@@ -9,7 +9,7 @@ export class Spawner {
 
   output = ""
   buffer = ""
-  exitCode: number | null = null
+  exitCode: number | undefined = undefined
 
   onData = (data: string) => {
     data
