@@ -195,7 +195,7 @@ export class Runner {
       console.log(
         `${chalk.bgGray.cyanBright(` ${counter++} `)} ${chalk.green(
           `${p.name}`
-        )} at ./${chalk.whiteBright(relative(workspace.root, p.root))}`
+        )} at ${chalk.whiteBright(relative(workspace.root, p.root))}`
       )
       Object.keys(p.scripts || {})
         .sort()
