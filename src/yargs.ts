@@ -74,7 +74,7 @@ const program = yargs
   })
   .option("list", {
     type: "boolean",
-    description: "List package scripts. Also works with --recusive",
+    description: "List package scripts. Also works with --recursive",
   })
   .option("monitor", {
     type: "boolean",

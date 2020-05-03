@@ -190,7 +190,7 @@ Workspace:
 
 Status:
   --info  Show workspace dependencies                                                                      [boolean]
-  --list  List package scripts. Also works with --recusive                                                 [boolean]
+  --list  List package scripts. Also works with --recursive                                                [boolean]
   --monitor           Show node process list, updated every 2 seconds                                      [boolean]
   --monitor-interval  Set process list interval in seconds                                     [number] [default: 2]
 
