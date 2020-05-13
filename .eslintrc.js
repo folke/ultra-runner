@@ -46,6 +46,7 @@ module.exports = {
     "prettier/prettier": "warn",
     "unicorn/prevent-abbreviations": "off",
     "unicorn/explicit-length-check": "off",
+    "unicorn/no-reduce": "off",
     "unicorn/consistent-function-scoping": "off",
     "lines-between-class-members": [
       "error",

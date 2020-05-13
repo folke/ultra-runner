@@ -102,6 +102,7 @@ export class OutputSpinner {
 
   get spinners(): Spinner[] {
     const ret = new Array<Spinner>()
+    // eslint-disable-next-line unicorn/no-useless-undefined
     const queue = this.spinnerMap.get(undefined)?.slice() ?? []
     while (queue.length) {
       const spinner = queue.shift() as Spinner
