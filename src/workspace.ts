@@ -118,12 +118,20 @@ export class Workspace {
     let ret = [...this.packages.values()]
 
     if (filter) {
+      const withDeps = filter.startsWith("+")
+      if (withDeps) filter = filter.slice(1)
       const regex: RegExp = globrex(filter, { filepath: true }).regex
-      ret = ret.filter(
-        (p) =>
+      const names = new Set<string>()
+      ret.forEach((p) => {
+        if (
           regex.test(p.name || "") ||
           regex.test(path.relative(this.root, p.root).replace(/\\/gu, "/"))
-      )
+        ) {
+          names.add(p.name)
+          if (withDeps) this.getDepTree(p.name).forEach((dep) => names.add(dep))
+        }
+      })
+      ret = ret.filter((p) => names.has(p.name))
     }
     return ret.sort(
       (a, b) => this.order.indexOf(a.name) - this.order.indexOf(b.name)

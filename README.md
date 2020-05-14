@@ -75,6 +75,10 @@ $ ultra -r --filter "apps/*" pwd
 ...
 ```
 
+When the filter is prefixed with a `+`, then all dependencies of the filtered packages will also be included.
+For example, let's say you have a package "app1" that depends on "lib1", then using the filter `+app1`, will execute the command
+on both `app1` **and** `lib1`, using the workspace topology.
+
 ## :package: Builds
 
 `Ultra` automatically detects workspace dependencies, while still allowing parallel builds. Packages are build concurrently as soon as their dependencies are build (also concurrently).

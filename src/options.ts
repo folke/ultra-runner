@@ -66,7 +66,8 @@ export const RunnerOptionDefs: Record<keyof RunnerOptions, RunnerOptionDef> = {
   },
   filter: {
     type: "string",
-    description: "Filter package name or directory using wildcard pattern",
+    description:
+      "Filter package name or directory using wildcard pattern. Prefix the filter with '+' to always include dependencies.",
   },
   root: {
     type: "boolean",
