@@ -54,7 +54,7 @@
     "build:ts": "npx tsc -p tsconfig.build.json",
     "build": "yarn build:ts",
     "clean": "npx rimraf lib coverage *.log build 0x",
-    "test": "npx jest",
+    "test": "npx jest --runInBand",
     "test:cov": "npx jest --coverage --coverageProvider v8",
     "lint": "yarn lint:eslint && yarn lint:docs",
     "lint:eslint": "npx eslint bin/*.js src/*.ts __tests__/*.ts --cache",
