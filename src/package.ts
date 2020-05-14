@@ -35,8 +35,7 @@ export async function findPackages(
   const fastGlob = (await import("fast-glob")).default
   if (!options) options = {}
 
-  if (!options.ignore) options.ignore = []
-  options.ignore.push(...DEFAULT_IGNORE)
+  if (!options.ignore) options.ignore = DEFAULT_IGNORE
 
   if (options.includeRoot) patterns.push(".")
 

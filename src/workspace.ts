@@ -76,7 +76,10 @@ export class Workspace {
       if (info) {
         if (options.includeRoot) info.patterns.push(".")
         const packages = (
-          await findPackages(info.patterns, { cwd: info.root })
+          await findPackages(info.patterns, {
+            cwd: info.root,
+            ignore: type == WorkspaceProviderType.recursive ? undefined : [],
+          })
         ).map((p) => getPackage(p)) as PackageJsonWithRoot[]
         return new Workspace(info.root, packages, type)
       }
