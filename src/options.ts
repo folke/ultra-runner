@@ -14,6 +14,7 @@ export const defaults = {
   rebuild: false,
   list: false,
   info: false,
+  topology: false,
   build: false,
   concurrency: 10,
   debug: false,
@@ -48,6 +49,11 @@ export const RunnerOptionDefs: Record<keyof RunnerOptions, RunnerOptionDef> = {
     type: "boolean",
     description: "Run command in every workspace folder concurrently",
     alias: "r",
+  },
+  topology: {
+    type: "boolean",
+    description:
+      "Run concurrently, automatically waiting for dependencies when needed. Defaults to 'true' for 'build'",
   },
   concurrency: {
     type: "number",

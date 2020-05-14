@@ -34,7 +34,10 @@ const program = yargs
   .alias("h", "help")
   .help(false)
   .version(require(path.resolve(__dirname, "../package.json")).version)
-  .group(["recursive", "filter", "root", "concurrency", "serial"], "Workspace:")
+  .group(
+    ["recursive", "filter", "root", "concurrency", "serial", "topology"],
+    "Workspace:"
+  )
   .group(["info", "list", "monitor", "monitor-interval"], "Status:")
   .group(["build", "rebuild"], "Build:")
   .group(["pretty", "raw", "silent", "color"], "Formatting:")

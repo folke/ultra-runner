@@ -12,6 +12,7 @@ import { Spawner } from "./spawn"
 import { OutputSpinner, Spinner } from "./spinner"
 import { getWorkspace, Workspace } from "./workspace"
 import { WorkspaceProviderType } from "./workspace.providers"
+import { createCommand } from "./concurrency"
 
 export class Runner {
   spinner = new OutputSpinner()
@@ -258,58 +259,8 @@ export class Runner {
       throw new Error(
         "Could not find packages in your workspace. Supported: yarn, pnpm, lerna"
       )
-    const command = new Command([], CommandType.script)
-    const done = new Set<string>()
-    // setInterval(() => {
-    //   console.log([...this.deps.keys()].filter(d => !done.has(d as string)))
-    // }, 2000)
 
-    let hasScript = false
-    const buildPackages = new Set<string>()
-    command.children = workspace
-      .getPackages(this.options.filter)
-      .map((pkg) => {
-        const command = new CommandParser(pkg, pkg.root)
-          .parse(cmd)
-          .setCwd(pkg.root)
-        command.name = `${chalk.cyanBright(pkg.name)} at ${chalk.grey(
-          relative(workspace.root, pkg.root)
-        )}`
-        command.type = CommandType.script
-        if (
-          this.options.build &&
-          command.children.some((c) => c.type == CommandType.script)
-        ) {
-          buildPackages.add(pkg.name)
-          command.beforeRun = async () => {
-            this.deps.set(
-              pkg.name,
-              new Promise((resolve) => {
-                command.afterRun = () => {
-                  done.add(pkg.name)
-                  resolve()
-                }
-              })
-            )
-            await Promise.all(
-              workspace
-                .getDepTree(pkg.name)
-                .filter((dep) => buildPackages.has(dep))
-                .map((dep) => this.deps.get(dep))
-                .filter((p) => p)
-            )
-          }
-        }
-        hasScript =
-          hasScript ||
-          command.children.some((c) => c.type == CommandType.script)
-        return command
-      })
-      .filter(
-        (c) =>
-          !hasScript || c.children.some((c) => c.type == CommandType.script)
-      )
-    command.concurrent = true
+    const command = createCommand(workspace, cmd, this.options)
     return await this._run(command, -1)
   }
 
