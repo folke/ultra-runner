@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/folke/ultra-runner/compare/v3.2.2...v3.3.0) (2020-05-14)
+
+
+### Features
+
+* ✨ added --topology to use workspace dependencies for parallell commands other than "build" ([c19f807](https://github.com/folke/ultra-runner/commit/c19f80779f2b07b8ffa34f93168fbd8b17e0ae14))
+* ✨ you can now prefix a filter with '+' to always inlcude the dependencies of the filtered packages (see [#79](https://github.com/folke/ultra-runner/issues/79)) ([dd9ca3f](https://github.com/folke/ultra-runner/commit/dd9ca3ffc92d86293a117764b6160f751208e336))
+* ✨ you can now prefix a filter with '+' to always inlcude the dependencies of the filtered packages (see [#79](https://github.com/folke/ultra-runner/issues/79)) ([5b50ff0](https://github.com/folke/ultra-runner/commit/5b50ff034a0b54f23e346c7b311651c28500688e))
+
+
+### Bug Fixes
+
+* 🐛 [#85](https://github.com/folke/ultra-runner/issues/85) - Use the default list of ignore patterns only for workspace type "recursive" ([d4afba9](https://github.com/folke/ultra-runner/commit/d4afba992fee66e28edc98505b774901013c6307))
+* **deps:** update dependency tslib to v2 ([#83](https://github.com/folke/ultra-runner/issues/83)) ([41bdd1f](https://github.com/folke/ultra-runner/commit/41bdd1f6e994a1597f7db0519033744b34ac2a82))
+* 🐛 consistency in messages ([#75](https://github.com/folke/ultra-runner/issues/75)) ([606accd](https://github.com/folke/ultra-runner/commit/606accd6d9c552bacc0e3ce79a67ea18736a4039))
+
+
+### Other
+
+* ⚡️ use yargs only for showing help. parse argv in options ([6d88ab5](https://github.com/folke/ultra-runner/commit/6d88ab5fe1c9b17d69e9330636f16a2d36494546))
+* 🎨 eslint update ([2dfc4d2](https://github.com/folke/ultra-runner/commit/2dfc4d2702b5ce3071225c72449048d7edecb55e))
+* 🚨 added tests for filter with dependencies ([4f551f1](https://github.com/folke/ultra-runner/commit/4f551f11d875e1d1408a26958d93e791a98c326b))
+* **deps:** update all non-major dependencies ([#68](https://github.com/folke/ultra-runner/issues/68)) ([f2fe266](https://github.com/folke/ultra-runner/commit/f2fe2663553be07049064c923fe974e99c014d72))
+* **deps:** update all non-major dependencies ([#71](https://github.com/folke/ultra-runner/issues/71)) ([d687f9c](https://github.com/folke/ultra-runner/commit/d687f9cebd99be4de335bfdae9eb2d21bf7612f0))
+* **deps:** update all non-major dependencies ([#82](https://github.com/folke/ultra-runner/issues/82)) ([17af133](https://github.com/folke/ultra-runner/commit/17af13379a452ce3de1d6565ab90bce9fc1f5d4e))
+* **deps:** update dependency jest to v26 ([#77](https://github.com/folke/ultra-runner/issues/77)) ([bba6f4a](https://github.com/folke/ultra-runner/commit/bba6f4acb386d6ba8e60fdbf3a466f56ec5ba682))
+* **deps:** update dependency standard-version to v8 ([#78](https://github.com/folke/ultra-runner/issues/78)) ([abc8abd](https://github.com/folke/ultra-runner/commit/abc8abd383b24e36631a2b717714c4aed60c9279))
+* **deps:** update eslint ([#80](https://github.com/folke/ultra-runner/issues/80)) ([5ad8690](https://github.com/folke/ultra-runner/commit/5ad869032b8df733bf18b0c422bc17181811ec8c))
+* 👷 added automatic management of stale issues ([ae1b176](https://github.com/folke/ultra-runner/commit/ae1b17612e889cc328a07e7f37bce10f9391c261))
+
 ### [3.2.2](https://github.com/folke/ultra-runner/compare/v3.2.1...v3.2.2) (2020-04-28)
 
 
