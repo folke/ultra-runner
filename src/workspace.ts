@@ -124,7 +124,8 @@ export class Workspace {
       const withDeps = filter.startsWith("+")
       if (withDeps) filter = filter.slice(1)
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-      const regex: RegExp = globrex(filter, { filepath: true }).regex
+      const regex: RegExp = globrex(filter, { filepath: true, extended: true })
+        .regex
       const names = new Set<string>()
       ret.forEach((p) => {
         if (
