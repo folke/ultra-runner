@@ -225,6 +225,7 @@ export class Runner {
       const root = findUp("package.json")
       if (root) pkg = getPackage(root)
     }
+    if (!pkg) pkg = { name: "" }
     if (pkg) {
       const parser = new CommandParser(pkg)
       return await this._run(parser.parse(cmd))
