@@ -13,7 +13,8 @@ export class CommandFormatter {
     public cmd: string,
     public level: number,
     public spinner: Spinner | undefined,
-    public options: RunnerOptions
+    public options: RunnerOptions,
+    public packageName?: string
   ) {}
 
   private format(prefix: string, text: string) {
@@ -32,7 +33,9 @@ export class CommandFormatter {
 
   write(data: string) {
     if (!this.options.pretty) {
-      const prefix = `${chalk.grey.dim(`[${basename(this.cmd)}]`)} `
+      let cmdName = basename(this.cmd)
+      if (this.packageName) cmdName = `${this.packageName}::${cmdName}`
+      const prefix = `${chalk.grey.dim(`[${cmdName}]`)} `
       data = prefix + this.format(prefix, data)
       this.output += `${data}\n`
       if (!this.options.silent) console.log(data)

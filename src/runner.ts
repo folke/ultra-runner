@@ -28,8 +28,11 @@ export class Runner {
     if (this.options.raw) return
     const title = this.formatCommand(cmd)
     if (!this.options.pretty) {
-      if (cmd.type == CommandType.script) console.log(`❯ ${title}`)
-      else console.log(title)
+      const prefix = cmd.packageName
+        ? `${chalk.grey.dim(` (${cmd.packageName})`)}`
+        : ""
+      if (cmd.type == CommandType.script) console.log(`❯ ${title}${prefix}`)
+      else console.log(title + prefix)
     } else return this.spinner.start(title, level, parentSpinner)
   }
 
@@ -62,12 +65,18 @@ export class Runner {
         const cmdSpinner = this.formatStart(cmd, level, parentSpinner)
         try {
           if (!this.options.dryRun) {
+            const formatter = new CommandFormatter(
+              args[0],
+              level,
+              cmdSpinner,
+              this.options,
+              cmd.packageName
+            )
             await this.spawn(
               args[0],
               args.slice(1),
-              level,
+              formatter,
               cmd.cwd,
-              cmdSpinner,
               cmd.env
             )
           }
@@ -87,7 +96,8 @@ export class Runner {
       cmd.name,
       level,
       spinner,
-      this.options
+      this.options,
+      cmd.packageName
     )
 
     if (isBuildScript) {
@@ -149,13 +159,11 @@ export class Runner {
   spawn(
     cmd: string,
     args: string[],
-    level: number,
+    formatter: CommandFormatter,
     cwd?: string,
-    spinner?: Spinner,
     env?: Record<string, string>
   ) {
     const spawner = new Spawner(cmd, args, cwd, env)
-    const formatter = new CommandFormatter(cmd, level, spinner, this.options)
 
     if (this.options.pretty)
       spawner.onData = (line: string) => formatter.write(line)

@@ -18,6 +18,8 @@ export class Command {
   children: Command[] = []
   concurrent = false
   cwd?: string
+  packageName?: string
+
   // eslint-disable-next-line @typescript-eslint/require-await
   beforeRun = async () => {
     return
@@ -46,6 +48,14 @@ export class Command {
     this.cwd = cwd
     for (const c of this.children) {
       c.setCwd(cwd)
+    }
+    return this
+  }
+
+  setPackageName(name: string) {
+    this.packageName = name
+    for (const c of this.children) {
+      c.setPackageName(name)
     }
     return this
   }

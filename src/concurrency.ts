@@ -22,6 +22,7 @@ export function createCommand(
       const command = new CommandParser(pkg, pkg.root)
         .parse(cmd)
         .setCwd(pkg.root)
+        .setPackageName(pkg.name)
       command.name = `${chalk.cyanBright(pkg.name)} at ${chalk.grey(
         relative(workspace.root, pkg.root)
       )}`
