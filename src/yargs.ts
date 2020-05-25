@@ -33,6 +33,7 @@ const program = yargs
   )
   .alias("h", "help")
   .help(false)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   .version(require(path.resolve(__dirname, "../package.json")).version)
   .group(
     ["recursive", "filter", "root", "concurrency", "serial", "topology"],
@@ -52,7 +53,7 @@ styles.forEach((style) =>
 )
 program.updateStrings(ret)
 export function showHelp(exitCode = 1) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   program.showHelp((str: string) =>
     process.stdout.write(

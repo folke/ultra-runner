@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import globrex from "globrex"
 import path from "path"
@@ -123,6 +123,7 @@ export class Workspace {
     if (filter) {
       const withDeps = filter.startsWith("+")
       if (withDeps) filter = filter.slice(1)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       const regex: RegExp = globrex(filter, { filepath: true }).regex
       const names = new Set<string>()
       ret.forEach((p) => {

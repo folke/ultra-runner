@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import chalk from "chalk"
 
 export const HASH_FILE = ".ultra.cache.json"

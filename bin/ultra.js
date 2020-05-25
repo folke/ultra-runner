@@ -1,2 +1,3 @@
 #!/usr/bin/env node
-require("../lib/cli").run()
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+void require("../lib/cli").run()

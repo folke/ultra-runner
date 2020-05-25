@@ -37,9 +37,11 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     const yaml = await import("yamljs")
     const root = findUp("pnpm-workspace.yaml", cwd)
     if (root) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const y = yaml.parse(
         fs.readFileSync(path.resolve(root, "pnpm-workspace.yaml"), "utf8")
       )
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
       if (y.packages) return { root, patterns: y.packages }
     }
   },
@@ -49,6 +51,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     if (root)
       return {
         root,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         patterns: require(path.resolve(root, "lerna.json"))
           .packages as string[],
       }
@@ -61,6 +64,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     if (root) {
       return {
         root,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
         patterns: json5
           .parse(fs.readFileSync(path.resolve(root, "rush.json")).toString())
           ?.projects.map((p: { projectFolder?: string }) => p.projectFolder),

@@ -53,5 +53,5 @@ export async function run(argv: string[] = process.argv) {
 
 /* c8 ignore next 3 */
 if (module === require.main) {
-  run()
+  void run()
 }

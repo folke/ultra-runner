@@ -1,4 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import splitAnsi from "ansi-split"
 import readline from "readline"

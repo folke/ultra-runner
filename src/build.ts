@@ -79,7 +79,7 @@ async function getPackageFiles(
 function loadPackageFiles(depsFile: string): PackageFiles {
   let ret: PackageFiles = { files: {}, deps: {} }
   if (fs.existsSync(depsFile)) {
-    ret = JSON.parse(fs.readFileSync(depsFile).toString())
+    ret = JSON.parse(fs.readFileSync(depsFile).toString()) as PackageFiles
     if (!ret.files) ret.files = {}
     if (!ret.deps) ret.deps = {}
   }

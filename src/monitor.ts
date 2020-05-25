@@ -52,7 +52,7 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
     // Compact node_modules scripts
     ret.argv[0] = ret.argv[0].replace(
       /^.*node_modules\/.*\/([^/]+?)(\.[tj]s)?$/u,
-      (_str, bin) => bin
+      (_str, bin: string) => bin
     )
 
     // Compact all node_modules stuff
@@ -71,7 +71,9 @@ async function parseCommand(proc: ProcessListInfo): Promise<ProcessInfo> {
   if (ret.cwd) {
     const root = findUp("package.json", ret.cwd)
     if (root) {
-      ret.project = (await import(resolve(ret.cwd, "package.json"))).name
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      ret.project = (await import(resolve(ret.cwd, "package.json")))
+        ?.name as string
       if (ret.argv[0].startsWith(root))
         ret.argv[0] = relative(root, ret.argv[0])
     }
@@ -266,11 +268,11 @@ export function nodeTop(ms = 2000) {
   ms = Math.max(ms, 1000)
   hideCursor()
   process.stdout.on("resize", () => {
-    updater()
+    void updater()
   })
-  updater()
+  void updater()
   const interval = setInterval(() => {
-    updater()
+    void updater()
   }, ms)
   onProcessExit(() => clearInterval(interval))
 
