@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.5.0](https://github.com/folke/ultra-runner/compare/v3.4.1...v3.5.0) (2020-05-25)
+
+
+### Features
+
+* ✨ enable extended globbing for --filter (implements [#91](https://github.com/folke/ultra-runner/issues/91)) ([4ce826c](https://github.com/folke/ultra-runner/commit/4ce826c52c053eb1a01e1e7e645901d8575b8cce))
+
 ### [3.4.1](https://github.com/folke/ultra-runner/compare/v3.4.0...v3.4.1) (2020-05-25)
 
 ## [3.4.0](https://github.com/folke/ultra-runner/compare/v3.3.0...v3.4.0) (2020-05-25)
