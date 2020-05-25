@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/folke/ultra-runner/compare/v3.3.0...v3.4.0) (2020-05-25)
+
+
+### Features
+
+* ✨ prefix output for `--no-pretty` with the package name when running concurrently [#90](https://github.com/folke/ultra-runner/issues/90) ([4aa68a2](https://github.com/folke/ultra-runner/commit/4aa68a29aa5f74c86179ae2c725e4058abc8ee7b))
+
+
+### Bug Fixes
+
+* 🐛 force full rebuild when not in a git repository [#87](https://github.com/folke/ultra-runner/issues/87) ([38952e8](https://github.com/folke/ultra-runner/commit/38952e895e079788167c4156c2bb050d69fba12e))
+* 🐛 ultra should work in any directory (fixes [#95](https://github.com/folke/ultra-runner/issues/95)) ([9de98ae](https://github.com/folke/ultra-runner/commit/9de98aea91c213c42c8ce2b86b4933a377b9279b))
+
+
+### Other
+
+* **deps:** update dependency eslint to v7.1.0 ([#94](https://github.com/folke/ultra-runner/issues/94)) ([a12edc8](https://github.com/folke/ultra-runner/commit/a12edc890d8b6dd6bab4c589f467f0de4320aa16))
+* 🎨 upgrade typescript-eslint ([faa2fca](https://github.com/folke/ultra-runner/commit/faa2fca5dc7f6ed2c04389988fb3c9ff90428683))
+* **deps:** update all non-major dependencies ([#86](https://github.com/folke/ultra-runner/issues/86)) ([5fbfd87](https://github.com/folke/ultra-runner/commit/5fbfd870086b25911b00a3762311636beb41b897))
+* **deps:** update dependency ts-jest to v26 ([#88](https://github.com/folke/ultra-runner/issues/88)) ([f62603d](https://github.com/folke/ultra-runner/commit/f62603d2abcd5cab0e34e12c45788430a4c6b7e3))
+* **deps:** update eslint to v3 ([#93](https://github.com/folke/ultra-runner/issues/93)) ([c70cb66](https://github.com/folke/ultra-runner/commit/c70cb6633a32a7aad4a87fff99f7000fdbed0fdb))
+
 ## [3.3.0](https://github.com/folke/ultra-runner/compare/v3.2.2...v3.3.0) (2020-05-14)
 
 
