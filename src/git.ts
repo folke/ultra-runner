@@ -8,6 +8,8 @@ const regex = /^([A-Z?])\s+(\d{6})\s+([a-z0-9]{40})\s+(\d+)\s+(.*)$/u
 
 type GitFiles = Record<string, string>
 
+export class NoGitError extends Error {}
+
 export function parseFiles(data: string, root: string): GitFiles {
   const ret: GitFiles = {}
   data.split("\n").forEach((line) => {
@@ -54,7 +56,7 @@ class FilesCache {
 
   async getFiles(directory: string, exclude: string[] = []): Promise<GitFiles> {
     const root = findUp(".git", directory)
-    if (!root) throw new Error(`Not a Git repository ${directory}`)
+    if (!root) throw new NoGitError(`Not a Git repository ${directory}`)
 
     if (!this.cache.has(root)) {
       this.cache.set(root, await getGitFiles(root))

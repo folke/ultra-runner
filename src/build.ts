@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import { cache } from "./git"
+import { cache, NoGitError } from "./git"
 import { Workspace } from "./workspace"
 import { HASH_FILE } from "./options"
 
@@ -95,18 +95,33 @@ export async function needsBuild(
   const existingDeps: PackageFiles = forceRebuild
     ? { files: {}, deps: {} }
     : loadPackageFiles(depsFile)
-  const deps = await getPackageFiles(root, workspace)
+  let deps: PackageFiles = { files: {}, deps: {} }
+
+  let isGitRepo = true
+
+  try {
+    deps = await getPackageFiles(root, workspace)
+  } catch (error) {
+    if (error instanceof NoGitError) {
+      isGitRepo = false
+    } else throw error
+  }
 
   const changes = getChanges(existingDeps, deps)
 
   const doBuild =
-    changes.length || forceRebuild || Object.keys(deps.files).length == 0
+    changes.length ||
+    !isGitRepo ||
+    forceRebuild ||
+    Object.keys(deps.files).length == 0
 
   if (doBuild) {
     return {
+      isGitRepo,
       changes,
       // eslint-disable-next-line @typescript-eslint/require-await
       onBuild: async () => {
+        if (!isGitRepo) return
         cache.clear()
         fs.writeFileSync(
           depsFile,

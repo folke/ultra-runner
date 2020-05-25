@@ -102,7 +102,13 @@ export class Runner {
 
     if (isBuildScript) {
       if (!changes) formatter.write("No changes. Skipping build...")
-      else {
+      else if (!changes.isGitRepo) {
+        formatter.write(
+          `${chalk.red(
+            "warning "
+          )}Not a Git repository, so build change detection is disabled. Forcing full rebuild.`
+        )
+      } else {
         formatter.write(
           chalk.blue("changes:\n") +
             changes.changes
