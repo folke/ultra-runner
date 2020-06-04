@@ -20,7 +20,7 @@
 * **output zooming** when executing multiple commands in parallel, `ultra` will try to keep as much concurrent output on the screen as possible, by only showing the last lines of the commands. Once the commands complete running, a full log is written to the terminal. This is very useful when building a bunch of packages with `--watch` for instance.
 * **missing scripts** when executing scripts recursively, only packages that have the script defined, will execute it.
 
-![Devmoji Ultra Build](assets/demo.svg?sanitize=true)
+🎥 [View Demo](assets/demo.svg?sanitize=true)
 
 ## Workspaces
 
