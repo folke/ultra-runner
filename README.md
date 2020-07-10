@@ -7,8 +7,8 @@
 ## :sparkles: Features
 
 * **zero-config**: works out of the box with your existing monorepo
-* **non-intrusive**: no need to make any changes to your packages.json files
-* **workspaces**: detects packages in existing `lerna`, `yarn` and `pnpm` workspaces, or recusrively searches them
+* **non-intrusive**: no need to make any changes to your package.json files
+* **workspaces**: detects packages in existing `lerna`, `yarn` and `pnpm` workspaces, or recursively searches them
 * **ultra fast builds**: `ultra` keeps track of file changes in your repo and only actually `build` a package when needed
 * **parallel builds**: `ultra` builds your packages concurrently by default
 * **workspace dependencies**: workspace dependencies are automatically resolved and used for parallel builds
@@ -150,7 +150,7 @@ There are three output formats that each can be combined with `--silent` to hide
 `--pretty` is the default. It shows output in a hieracrhical way and uses spinners to see exactly what's happening.
 Make sure to check out the animation at the top of this page. Every executed step shows the execution time.
 
-`--pretty` combined with `--silent` is useful if you're only interested to see the overview:
+`--pretty` combined with `--silent` is useful if you're only interested to see the overview.
 
 `--no-pretty` doesn't use spinners and prefixes command output with the command name. This is useful for logging purposes.
 
