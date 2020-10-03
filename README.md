@@ -147,7 +147,7 @@ Example builds:
 
 There are three output formats that each can be combined with `--silent` to hide command output.
 
-`--pretty` is the default. It shows output in a hieracrhical way and uses spinners to see exactly what's happening.
+`--pretty` is the default. It shows output in a hierarchical way and uses spinners to see exactly what's happening.
 Make sure to check out the animation at the top of this page. Every executed step shows the execution time.
 
 `--pretty` combined with `--silent` is useful if you're only interested to see the overview:
