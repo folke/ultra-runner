@@ -190,7 +190,7 @@ test("advanced build --raw", async () => {
     )
 })
 
-test("concurrent ", async () => {
+test("concurrent", async () => {
   const runner = new Runner({})
   await runner.run("test", {
     name: "test",

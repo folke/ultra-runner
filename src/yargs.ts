@@ -33,7 +33,7 @@ const program = yargs
   )
   .alias("h", "help")
   .help(false)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
   .version(require(path.resolve(__dirname, "../package.json")).version)
   .group(
     ["recursive", "filter", "root", "concurrency", "serial", "topology"],

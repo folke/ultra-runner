@@ -1,6 +1,6 @@
 import { CommandParser } from "../src/parser"
 
-test("should ", () => {
+test("should", () => {
   const parser = new CommandParser({ name: "test", scripts: { test: "foo" } })
   const cmd = parser.parse("sleep 10")
   expect(cmd.debug()).toStrictEqual("system:sleep 10")
@@ -14,7 +14,7 @@ test("no scripts", () => {
   expect(cmd.children[0].args).toStrictEqual(["sleep", "10"])
 })
 
-test("test pre ", () => {
+test("pre", () => {
   const parser = new CommandParser({
     name: "test",
     scripts: { pretest: "bar", test: "foo" },
@@ -25,7 +25,7 @@ test("test pre ", () => {
   })
 })
 
-test("test post ", () => {
+test("post", () => {
   const parser = new CommandParser({
     name: "test",
     scripts: { posttest: "bar", test: "foo" },
@@ -36,7 +36,7 @@ test("test post ", () => {
   })
 })
 
-test("test bin ", () => {
+test("bin", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("jest")
   expect(cmd.children).toHaveLength(1)
@@ -61,13 +61,13 @@ test("yarn script", () => {
   })
 })
 
-test("test npx bin ", () => {
+test("npx bin", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("npx jest")
   expect(cmd.debug()).toStrictEqual("bin:jest")
 })
 
-test("AA=123 test npx bin ", () => {
+test("AA=123 test npx bin", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("AA=123 npx jest")
   expect(cmd.children[0].env).toStrictEqual({ AA: "123" })
@@ -81,37 +81,37 @@ test("AA=123 foobar", () => {
   expect(cmd.debug()).toStrictEqual("system:foobar")
 })
 
-test("test op", () => {
+test("op", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("npx jest && npx foo")
   expect(cmd.debug()).toStrictEqual(["bin:jest", "op:&&", "system:npx foo"])
 })
 
-test("test op ;", () => {
+test("op ;", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("test ; test")
   expect(cmd.debug()).toStrictEqual(["system:test", "op:;", "system:test"])
 })
 
-test("test op &&", () => {
+test("op &&", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("jest && test")
   expect(cmd.debug()).toStrictEqual(["bin:jest", "op:&&", "system:test"])
 })
 
-test("test op ; 2", () => {
+test("op ; 2", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("test; test")
   expect(cmd.debug()).toStrictEqual(["system:test", "op:;", "system:test"])
 })
 
-test("test op only", () => {
+test("op only", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("&&")
   expect(cmd.debug()).toStrictEqual("op:&&")
 })
 
-test("test non top level script", () => {
+test("non top level script", () => {
   const parser = new CommandParser({ name: "test", scripts: { test: "foo" } })
   const cmd = parser.parse("test")
   expect(cmd.debug()).toStrictEqual({ "script:test": "system:foo" })

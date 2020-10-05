@@ -51,7 +51,7 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
     if (root)
       return {
         root,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
         patterns: require(path.resolve(root, "lerna.json"))
           .packages as string[],
       }

@@ -1,5 +1,5 @@
 import { defaults } from "../src/options"
 
-test("should ", () => {
+test("should", () => {
   expect(defaults).toBeDefined()
 })

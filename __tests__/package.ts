@@ -5,7 +5,7 @@ function fa(files: string[]) {
   return files.map((f) => f.replace(/\\/gu, "/"))
 }
 
-test("findPackages without options ", async () => {
+test("findPackages without options", async () => {
   const root = path.resolve("__tests__/workspace")
   const packages = (
     await findPackages(["**"], {

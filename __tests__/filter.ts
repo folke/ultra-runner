@@ -13,6 +13,7 @@ test("filter dir", async () => {
         path.relative("__tests__/workspace", p.root).replace(/\\/gu, "/")
       )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual(["apps/app1", "apps/app2"])
   }
 })
@@ -29,6 +30,7 @@ test("filter pkg", async () => {
         path.relative("__tests__/workspace", p.root).replace(/\\/gu, "/")
       )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual(["libs/lib3"])
   }
 })
@@ -45,6 +47,7 @@ test("filter pkg no deps", async () => {
         path.relative("__tests__/workspace", p.root).replace(/\\/gu, "/")
       )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual(["apps/app1"])
   }
 })
@@ -61,6 +64,7 @@ test("filter pkg with deps", async () => {
         path.relative("__tests__/workspace", p.root).replace(/\\/gu, "/")
       )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual(["apps/app1", "libs/lib1", "libs/lib2"])
   }
 })

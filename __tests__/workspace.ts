@@ -3,7 +3,7 @@ import path from "path"
 import { findUp } from "../src/package"
 import { WorkspaceProviderType } from "../src/workspace.providers"
 
-test("findUp ", () => {
+test("findUp", () => {
   const tests = [
     ["./foo/fa/boo", ".git", path.resolve(__dirname, "../")],
     [".", ".git", path.resolve(__dirname, "../")],
@@ -29,6 +29,7 @@ test("lerna", async () => {
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
       "__tests__/workspace/apps/app2",
@@ -52,6 +53,7 @@ test("yarn", async () => {
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
       "__tests__/workspace/apps/app2",
@@ -75,6 +77,7 @@ test("pnpm", async () => {
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
       "__tests__/workspace/apps/app2",
@@ -98,6 +101,7 @@ test("recursive", async () => {
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
       "__tests__/workspace/apps/app2",
@@ -118,6 +122,7 @@ test("workspace", async () => {
       path.relative(".", p.root).replace(/\\/gu, "/")
     )
     dirs.sort()
+    // eslint-disable-next-line jest/no-conditional-expect
     expect(dirs).toStrictEqual([
       "__tests__/workspace/apps/app1",
       "__tests__/workspace/apps/app2",

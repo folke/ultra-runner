@@ -61,6 +61,7 @@ export function findUp(name: string, cwd = process.cwd()): string | undefined {
 export function getPackage(root: string): PackageJsonWithRoot | undefined {
   const pkgPath = path.resolve(root, "package.json")
   if (fs.existsSync(pkgPath)) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const pkg = require(pkgPath) as PackageJsonWithRoot
     if (!pkg.name) pkg.name = root
     pkg.root = root
