@@ -8,7 +8,7 @@
 
 * **zero-config**: works out of the box with your existing monorepo
 * **non-intrusive**: no need to make any changes to your packages.json files
-* **workspaces**: detects packages in existing `lerna`, `yarn` and `pnpm` workspaces, or recusrively searches them
+* **workspaces**: detects packages in existing `lerna`, `yarn`, `npm@7` and `pnpm` workspaces, or recursively searches them
 * **ultra fast builds**: `ultra` keeps track of file changes in your repo and only actually `build` a package when needed
 * **parallel builds**: `ultra` builds your packages concurrently by default
 * **workspace dependencies**: workspace dependencies are automatically resolved and used for parallel builds
@@ -156,7 +156,7 @@ Make sure to check out the animation at the top of this page. Every executed ste
 
 Combining `--no-pretty` with `--silent` shows a flat overview.
 
-`--raw` will show the exact ouput as you would expect when running the commands stand alone. If the command you're executing is interactive (reads from stdin), then this is the mode you should use.
+`--raw` will show the exact output as you would expect when running the commands stand alone. If the command you're executing is interactive (reads from stdin), then this is the mode you should use.
 
 ## :dizzy: Getting Started
 
@@ -203,7 +203,7 @@ Build:
   --rebuild    Triggers a build without checking for file changes                                          [boolean]
 
 Formatting:
-  --pretty  enable pretty output, spinners and seperate command output. Default when a TTY [boolean] [default: true]
+  --pretty  enable pretty output, spinners and separate command output. Default when a TTY [boolean] [default: true]
   --raw     Output only raw command output                                                                 [boolean]
   --silent  Skip script output. ultra console logs will still be shown                                     [boolean]
   --color   colorize output                                                                [boolean] [default: true]
@@ -235,4 +235,4 @@ in your `package.json`.
 ```
 
 * `yarn build` will run the `lint` and `jest` commands sequentially
-* `ultra build` will run all `lint` commands concurrently and then execute `jest`. (note that we can also add `prebuild` to `concurrent`, since tests don't depend on linting. this way all commnands would run concurrently)
+* `ultra build` will run all `lint` commands concurrently and then execute `jest`. (note that we can also add `prebuild` to `concurrent`, since tests don't depend on linting. this way all commands would run concurrently)
