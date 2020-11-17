@@ -19,9 +19,9 @@ export function parseFiles(data: string, root: string): GitFiles {
       let hash = m[3]
       if (m[1] == "C") {
         const filePath = path.resolve(root, file)
-        if (fs.existsSync(filePath))
-          hash += `.${fs.lstatSync(filePath).mtimeMs}`
-        else hash += ".del"
+        hash += fs.existsSync(filePath)
+          ? `.${fs.lstatSync(filePath).mtimeMs}`
+          : ".del"
       }
       ret[file] = hash
     } else {

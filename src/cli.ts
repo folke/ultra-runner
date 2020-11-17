@@ -38,8 +38,9 @@ export async function run(argv: string[] = process.argv) {
     if (options.info) return await runner.info()
 
     if (args.length) {
-      if (options.recursive) await runner.runRecursive(args.join(" "))
-      else await runner.run(args.join(" "))
+      await (options.recursive
+        ? runner.runRecursive(args.join(" "))
+        : runner.run(args.join(" ")))
     } else await showHelp(1)
   } catch (error) {
     runner.spinner._stop()
