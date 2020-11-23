@@ -64,7 +64,7 @@ export class Spawner {
       this.onData(data)
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       child.stdout?.on("data", processData)
       child.stderr?.on("data", processData)
       child.on("error", (err) => {
