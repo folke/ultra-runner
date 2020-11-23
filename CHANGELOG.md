@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.5.1](https://github.com/folke/ultra-runner/compare/v3.5.0...v3.5.1) (2020-11-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency yargs to v16 ([#126](https://github.com/folke/ultra-runner/issues/126)) ([b77079c](https://github.com/folke/ultra-runner/commit/b77079c0498132127b7b66a1886a326601ef06bf))
+* **lint:** 🐛 updated packages and fixed linting errors ([d387c9c](https://github.com/folke/ultra-runner/commit/d387c9c230dc0489abc612c3f68cb423f840ba56))
+
+
+### Other
+
+* **deps:** update all non-major dependencies ([#135](https://github.com/folke/ultra-runner/issues/135)) ([6ee076f](https://github.com/folke/ultra-runner/commit/6ee076f32348269b1e6c0f19c07b2e8fe7aa7cfc))
+* 📚️ added npm@7 as supported ([d3e75d0](https://github.com/folke/ultra-runner/commit/d3e75d074679e8a77e1a33629ef2cbcc0616177a))
+* **deps:** update actions/checkout action to v2 ([#134](https://github.com/folke/ultra-runner/issues/134)) ([3b1b0d8](https://github.com/folke/ultra-runner/commit/3b1b0d8001ef865e11dcb45b760c94893a31d63d))
+* **deps:** update all non-major dependencies ([2d3a577](https://github.com/folke/ultra-runner/commit/2d3a57733329dc0d6e350360abb37c7fe208cbb7))
+* **deps:** update all non-major dependencies ([#124](https://github.com/folke/ultra-runner/issues/124)) ([332c44f](https://github.com/folke/ultra-runner/commit/332c44f52f8f1eccd24a7955d893bd9b9e5dfb2a))
+* **deps:** update all non-major dependencies ([#129](https://github.com/folke/ultra-runner/issues/129)) ([b700edd](https://github.com/folke/ultra-runner/commit/b700eddce25712284ec8f028c9d24b69ec8bdd3c))
+* **deps:** update all non-major dependencies ([#132](https://github.com/folke/ultra-runner/issues/132)) ([f4886a0](https://github.com/folke/ultra-runner/commit/f4886a02073071b02a759ec23faa3fda4806e610))
+* **deps:** update all non-major dependencies ([#96](https://github.com/folke/ultra-runner/issues/96)) ([c83f475](https://github.com/folke/ultra-runner/commit/c83f475d207b44cee0720cd65514c934720d4f0a))
+* **deps:** update dependency eslint-plugin-unicorn to v23 ([#133](https://github.com/folke/ultra-runner/issues/133)) ([e73d58d](https://github.com/folke/ultra-runner/commit/e73d58d7dc7ac532052767733846032752add183))
+* **deps:** update dependency standard-version to v8.0.2 ([#127](https://github.com/folke/ultra-runner/issues/127)) ([183ac76](https://github.com/folke/ultra-runner/commit/183ac76398841ebe84ddf6ab9903c57a77896a51))
+* **deps:** update dependency standard-version to v9 ([#128](https://github.com/folke/ultra-runner/issues/128)) ([3abd5f1](https://github.com/folke/ultra-runner/commit/3abd5f1687bc400131c77410dd33c666dac2e6c3))
+* **deps:** update dependency ts-node to v9 ([#118](https://github.com/folke/ultra-runner/issues/118)) ([db7fc3c](https://github.com/folke/ultra-runner/commit/db7fc3c8818c7e994297386dcf6e3f33a82d31c9))
+* **deps:** update dependency typescript to v4 ([#119](https://github.com/folke/ultra-runner/issues/119)) ([913d267](https://github.com/folke/ultra-runner/commit/913d267b1fb50cd94d5da1bfc554ec113de40502))
+* **deps:** update eslint ([#113](https://github.com/folke/ultra-runner/issues/113)) ([9891ea8](https://github.com/folke/ultra-runner/commit/9891ea884a0caeea1844e82bdac0d93ee48bd722))
+* **lint:** 🎨 linter updates ([a3c7e9c](https://github.com/folke/ultra-runner/commit/a3c7e9c96caee4ee13852eba8fd09a1018d04cd7))
+* changed animated SVG into a link ([f3860c2](https://github.com/folke/ultra-runner/commit/f3860c26d5e4d75819200ddd19f3646eda875cdd))
+* fixed typo ([#130](https://github.com/folke/ultra-runner/issues/130)) ([f2f18f5](https://github.com/folke/ultra-runner/commit/f2f18f5dc8d5f6c9dbc8bc728a2f5aa63caefba7))
+* **deps:** update jest ([#125](https://github.com/folke/ultra-runner/issues/125)) ([d837716](https://github.com/folke/ultra-runner/commit/d837716cadb6c21a8b1dc3b1078c73121bdd0fd0))
+
 ## [3.5.0](https://github.com/folke/ultra-runner/compare/v3.4.1...v3.5.0) (2020-05-25)
 
 
