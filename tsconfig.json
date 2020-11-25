@@ -2,8 +2,8 @@
   "compilerOptions": {
     "declaration": true,
     "noEmit": true,
-    "allowJs": true,
-    "checkJs": true,
+    "allowJs": false,
+    "checkJs": false,
     "importHelpers": true, // Use tslib instead of adding helpers to every emitted js file
     "module": "CommonJS", // Should be CommonJS for NodeJS apps
     "strict": true,

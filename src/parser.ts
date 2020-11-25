@@ -2,6 +2,7 @@ import { existsSync } from "fs"
 import * as path from "path"
 import Shellwords from "shellwords-ts"
 import { PackageJson } from "./package"
+import { getBinaries } from "./pnp"
 
 export enum CommandType {
   script = "script",
@@ -102,12 +103,16 @@ export class CommandParser {
     [["pnpm", "run"], [CommandType.script]],
   ]
 
-  bins: string[] = []
+  binPath: string[] = []
+  binsPnp = new Set<string>()
 
   constructor(public pkg: PackageJson, cwd = process.cwd()) {
     while (cwd != "/") {
       const p = path.resolve(cwd, "./node_modules/.bin")
-      if (existsSync(p)) this.bins.push(p)
+      if (existsSync(p)) this.binPath.push(p)
+      if (existsSync(path.resolve(cwd, ".pnp.js"))) {
+        this.binsPnp = new Set(getBinaries(cwd, pkg.name))
+      }
       const up = path.resolve(cwd, "../")
       if (up == cwd) break
       cwd = up
@@ -221,10 +226,12 @@ export class CommandParser {
   }
 
   private getBin(name: string) {
-    for (const dir of this.bins) {
+    for (const dir of this.binPath) {
       const bin = path.resolve(dir, name)
       if (existsSync(bin)) return bin
     }
+    // Special syntax for pnp binaries. Handles by spawn.ts
+    if (this.binsPnp.has(name)) return `yarn:${name}`
   }
 
   private isBin(name: string) {

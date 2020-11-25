@@ -40,6 +40,13 @@ export class Spawner {
       FORCE_COLOR: `${chalk.level}`,
       ...this.env,
     }
+
+    // Special handling for yarn pnp binaries
+    if (this.cmd.startsWith("yarn:")) {
+      this.args.unshift(this.cmd.slice(5))
+      this.args.unshift("run")
+      this.cmd = "yarn"
+    }
     const child = spawn(this.cmd, this.args, {
       env,
       stdio: raw ? "inherit" : "pipe",
