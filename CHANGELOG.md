@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.6.0](https://github.com/folke/ultra-runner/compare/v3.5.1...v3.6.0) (2020-11-25)
+
+
+### Features
+
+* ✨ added support for Yarn v2 with PnP (fixes [#137](https://github.com/folke/ultra-runner/issues/137)) ([27b51b0](https://github.com/folke/ultra-runner/commit/27b51b00a2d1ff82b9857406f30fb4c89173205f))
+
+
+### Other
+
+* **deps:** update all non-major dependencies ([#136](https://github.com/folke/ultra-runner/issues/136)) ([edf7dba](https://github.com/folke/ultra-runner/commit/edf7dbab1b6739e551fbf334cbf624ac839cc5cd))
+* **deps:** update all non-major dependencies ([#138](https://github.com/folke/ultra-runner/issues/138)) ([7edfc96](https://github.com/folke/ultra-runner/commit/7edfc96598b89be49cf22108ea3cbb1cf50de410))
+
 ### [3.5.1](https://github.com/folke/ultra-runner/compare/v3.5.0...v3.5.1) (2020-11-23)
 
 
