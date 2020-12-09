@@ -885,6 +885,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/pnpapi@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@types/pnpapi/-/pnpapi-0.0.1.tgz#86f7f9e166e1c0b4891d365e3382a09b99642527"
+  integrity sha512-EgO0GdWEV999f2lTFl5PZZ2SF9mElSnIx76F1THQDB55lhk2I8J/1+RFojjlTO24RlAADJSm9231Vo5Wdi/NWQ==
+
 "@types/prettier@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.1.5.tgz#b6ab3bba29e16b821d84e09ecfaded462b816b00"

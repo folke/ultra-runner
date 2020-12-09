@@ -1,5 +1,5 @@
 import { readFileSync } from "fs"
-import { resolve } from "path"
+import path, { resolve } from "path"
 import v8 from "v8"
 import zlib from "zlib"
 
@@ -19,7 +19,7 @@ type InstallState = {
 }
 
 export function getBinaries(workspaceRoot: string, packageName: string) {
-  const binaries = new Set<string>()
+  const binaries = new Map<string, string>()
 
   const serializedState = readFileSync(
     resolve(workspaceRoot, ".yarn", "install-state.gz")
@@ -40,12 +40,23 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
       })
     }
   }
-
+  const { resolveRequest } = require(path.resolve(workspaceRoot, ".pnp.js"))
   for (const h of hashes) {
     const p = installState.storedPackages.get(h)
+    console.log(p)
     if (p?.bin.size) {
-      ;[...p.bin.keys()].forEach((b) => binaries.add(b))
+      ;[...p.bin.keys()].forEach((b) => {
+        try {
+          const pkgName = p.scope ? `@${p.scope}/${p.name}` : p.name
+          const binPath = resolveRequest(
+            path.join(pkgName, p.bin.get(b)!),
+            process.cwd()
+          )
+          binaries.set(b, binPath)
+        } catch {}
+      })
     }
   }
-  return [...binaries]
+
+  return binaries
 }
