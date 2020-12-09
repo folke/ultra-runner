@@ -193,6 +193,7 @@ export class Runner {
         throw new Error(`cannot find .pnp.js file`)
       }
       args = ["-r", pnpFile, cmd, ...args]
+      // will fail with non js binaries, but yarn PnP already does not support them https://github.com/yarnpkg/berry/issues/882
       cmd = "node"
     }
 
