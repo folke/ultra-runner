@@ -80,7 +80,6 @@
     "@types/jest": "26.0.15",
     "@types/json5": "0.0.30",
     "@types/node": "13.13.33",
-    "@types/pnpapi": "^0.0.1",
     "@types/prettier": "2.1.5",
     "@types/rimraf": "3.0.0",
     "@types/sinon": "9.0.9",
