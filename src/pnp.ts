@@ -43,7 +43,6 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
   const { resolveRequest } = require(path.resolve(workspaceRoot, ".pnp.js"))
   for (const h of hashes) {
     const p = installState.storedPackages.get(h)
-    console.log(p)
     if (p?.bin.size) {
       ;[...p.bin.keys()].forEach((b) => {
         try {
