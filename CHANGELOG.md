@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.7.0](https://github.com/folke/ultra-runner/compare/v3.6.0...v3.7.0) (2020-12-13)
+
+
+### Features
+
+* ✨ yarn pnp commands run with `node -r .pnp.js` ([#142](https://github.com/folke/ultra-runner/issues/142)) ([cfbe921](https://github.com/folke/ultra-runner/commit/cfbe92187869e32dd3d0b420b7c5a73e292fe412))
+
+
+### Other
+
+* 🎨 fixed linting errors ([5cb2c40](https://github.com/folke/ultra-runner/commit/5cb2c4009f6f9383dd0b2dabbbbc4c6e5e19a099))
+* **deps:** update all non-major dependencies ([#139](https://github.com/folke/ultra-runner/issues/139)) ([6031ce4](https://github.com/folke/ultra-runner/commit/6031ce4a4b29d768ca0be94d5fb1b0548c2691cb))
+* **deps:** update dependency eslint-config-prettier to v7 ([#140](https://github.com/folke/ultra-runner/issues/140)) ([5d5e528](https://github.com/folke/ultra-runner/commit/5d5e52809bcfcd1de15cef9dab12dc7b9b9c80e7))
+
 ## [3.6.0](https://github.com/folke/ultra-runner/compare/v3.5.1...v3.6.0) (2020-11-25)
 
 
