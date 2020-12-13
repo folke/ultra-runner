@@ -104,14 +104,17 @@ export class CommandParser {
   ]
 
   binPath: string[] = []
-  binsPnp = new Set<string>()
+  binsPnp = new Map<string, string>()
 
   constructor(public pkg: PackageJson, cwd = process.cwd()) {
     while (cwd != "/") {
       const p = path.resolve(cwd, "./node_modules/.bin")
       if (existsSync(p)) this.binPath.push(p)
-      if (existsSync(path.resolve(cwd, ".pnp.js"))) {
-        this.binsPnp = new Set(getBinaries(cwd, pkg.name))
+      if (
+        existsSync(path.resolve(cwd, ".pnp.js")) ||
+        existsSync(path.resolve(cwd, ".pnp.cjs"))
+      ) {
+        this.binsPnp = getBinaries(cwd, pkg.name)
       }
       const up = path.resolve(cwd, "../")
       if (up == cwd) break
@@ -231,7 +234,7 @@ export class CommandParser {
       if (existsSync(bin)) return bin
     }
     // Special syntax for pnp binaries. Handles by spawn.ts
-    if (this.binsPnp.has(name)) return `yarn:${name}`
+    if (this.binsPnp.has(name)) return `yarn:${this.binsPnp.get(name)}`
   }
 
   private isBin(name: string) {

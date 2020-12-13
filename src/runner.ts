@@ -1,6 +1,6 @@
 import chalk from "chalk"
 import { existsSync } from "fs"
-import { basename, relative } from "path"
+import path, { basename, relative } from "path"
 import { performance } from "perf_hooks"
 import Shellwords from "shellwords-ts"
 import { ChangeType, needsBuild } from "./build"
@@ -162,6 +162,24 @@ export class Runner {
       .join(" ")}`
   }
 
+  // cached pnpFile location
+  private pnpFile: string | undefined
+
+  findPnpJsFile(cwd: string = process.cwd()): string | undefined {
+    if (this.pnpFile) {
+      return this.pnpFile
+    }
+    const dir1 = findUp(".pnp.js", cwd)
+    if (dir1) {
+      this.pnpFile = path.resolve(dir1, ".pnp.js")
+    }
+    const dir2 = findUp(".pnp.cjs", cwd)
+    if (dir2) {
+      this.pnpFile = path.resolve(dir2, ".pnp.cjs")
+    }
+    return this.pnpFile
+  }
+
   spawn(
     cmd: string,
     args: string[],
@@ -169,6 +187,18 @@ export class Runner {
     cwd?: string,
     env?: Record<string, string>
   ) {
+    // Special handling for yarn pnp binaries
+    if (cmd.startsWith("yarn:")) {
+      cmd = cmd.slice(5)
+      const pnpFile = this.findPnpJsFile(cwd)
+      if (!pnpFile) {
+        throw new Error(`cannot find .pnp.js file`)
+      }
+      args = ["-r", pnpFile, cmd, ...args]
+      // will fail with non js binaries, but yarn PnP already does not support them https://github.com/yarnpkg/berry/issues/882
+      cmd = "node"
+    }
+
     const spawner = new Spawner(cmd, args, cwd, env)
 
     if (this.options.pretty)

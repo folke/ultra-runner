@@ -1,5 +1,6 @@
+import { existsSync } from "fs"
 import { readFileSync } from "fs"
-import { resolve } from "path"
+import path, { resolve } from "path"
 import v8 from "v8"
 import zlib from "zlib"
 
@@ -19,7 +20,7 @@ type InstallState = {
 }
 
 export function getBinaries(workspaceRoot: string, packageName: string) {
-  const binaries = new Set<string>()
+  const binaries = new Map<string, string>()
 
   const serializedState = readFileSync(
     resolve(workspaceRoot, ".yarn", "install-state.gz")
@@ -40,12 +41,32 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
       })
     }
   }
-
+  const { resolveRequest } = getPnpApi(workspaceRoot)
   for (const h of hashes) {
     const p = installState.storedPackages.get(h)
     if (p?.bin.size) {
-      ;[...p.bin.keys()].forEach((b) => binaries.add(b))
+      ;[...p.bin.keys()].forEach((b) => {
+        try {
+          const pkgName = p.scope ? `@${p.scope}/${p.name}` : p.name
+          const binPath = resolveRequest(
+            path.join(pkgName, p.bin.get(b)!),
+            process.cwd()
+          )
+          binaries.set(b, binPath)
+        } catch {}
+      })
     }
   }
-  return [...binaries]
+
+  return binaries
+}
+
+function getPnpApi(workspaceRoot: string) {
+  const jsPath = path.resolve(workspaceRoot, ".pnp.js")
+  const cjsPath = path.resolve(workspaceRoot, ".pnp.cjs")
+  if (existsSync(jsPath)) {
+    return require(jsPath)
+  } else {
+    return require(cjsPath)
+  }
 }
