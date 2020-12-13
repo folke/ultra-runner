@@ -1,5 +1,4 @@
-import { existsSync } from "fs"
-import { readFileSync } from "fs"
+import { existsSync, readFileSync } from "fs"
 import path, { resolve } from "path"
 import v8 from "v8"
 import zlib from "zlib"
@@ -17,6 +16,10 @@ type InstallState = {
       dependencies?: Map<string, { descriptorHash: string }>
     }
   >
+}
+
+type PnpAPI = {
+  resolveRequest: (bin: string, dir: string) => string
 }
 
 export function getBinaries(workspaceRoot: string, packageName: string) {
@@ -49,10 +52,12 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
         try {
           const pkgName = p.scope ? `@${p.scope}/${p.name}` : p.name
           const binPath = resolveRequest(
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             path.join(pkgName, p.bin.get(b)!),
             process.cwd()
           )
           binaries.set(b, binPath)
+          // eslint-disable-next-line no-empty
         } catch {}
       })
     }
@@ -61,12 +66,8 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
   return binaries
 }
 
-function getPnpApi(workspaceRoot: string) {
+function getPnpApi(workspaceRoot: string): PnpAPI {
   const jsPath = path.resolve(workspaceRoot, ".pnp.js")
   const cjsPath = path.resolve(workspaceRoot, ".pnp.cjs")
-  if (existsSync(jsPath)) {
-    return require(jsPath)
-  } else {
-    return require(cjsPath)
-  }
+  return (existsSync(jsPath) ? require(jsPath) : require(cjsPath)) as PnpAPI
 }

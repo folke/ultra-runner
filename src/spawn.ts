@@ -40,7 +40,7 @@ export class Spawner {
       FORCE_COLOR: `${chalk.level}`,
       ...this.env,
     }
-    
+
     const child = spawn(this.cmd, this.args, {
       env,
       stdio: raw ? "inherit" : "pipe",
