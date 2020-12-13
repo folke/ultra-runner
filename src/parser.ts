@@ -110,7 +110,10 @@ export class CommandParser {
     while (cwd != "/") {
       const p = path.resolve(cwd, "./node_modules/.bin")
       if (existsSync(p)) this.binPath.push(p)
-      if (existsSync(path.resolve(cwd, ".pnp.js"))) {
+      if (
+        existsSync(path.resolve(cwd, ".pnp.js")) ||
+        existsSync(path.resolve(cwd, ".pnp.cjs"))
+      ) {
         this.binsPnp = getBinaries(cwd, pkg.name)
       }
       const up = path.resolve(cwd, "../")

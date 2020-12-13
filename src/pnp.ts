@@ -1,3 +1,4 @@
+import { existsSync } from "fs"
 import { readFileSync } from "fs"
 import path, { resolve } from "path"
 import v8 from "v8"
@@ -40,7 +41,7 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
       })
     }
   }
-  const { resolveRequest } = require(path.resolve(workspaceRoot, ".pnp.js"))
+  const { resolveRequest } = getPnpApi(workspaceRoot)
   for (const h of hashes) {
     const p = installState.storedPackages.get(h)
     if (p?.bin.size) {
@@ -58,4 +59,14 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
   }
 
   return binaries
+}
+
+function getPnpApi(workspaceRoot: string) {
+  const jsPath = path.resolve(workspaceRoot, ".pnp.js")
+  const cjsPath = path.resolve(workspaceRoot, ".pnp.cjs")
+  if (existsSync(jsPath)) {
+    return require(jsPath)
+  } else {
+    return require(cjsPath)
+  }
 }

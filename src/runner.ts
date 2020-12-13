@@ -169,11 +169,14 @@ export class Runner {
     if (this.pnpFile) {
       return this.pnpFile
     }
-    const dir = findUp(".pnp.js", cwd)
-    if (!dir) {
-      return
+    const dir1 = findUp(".pnp.js", cwd)
+    if (dir1) {
+      this.pnpFile = path.resolve(dir1, ".pnp.js")
     }
-    this.pnpFile = path.resolve(dir, ".pnp.js")
+    const dir2 = findUp(".pnp.cjs", cwd)
+    if (dir2) {
+      this.pnpFile = path.resolve(dir2, ".pnp.cjs")
+    }
     return this.pnpFile
   }
 
@@ -184,7 +187,6 @@ export class Runner {
     cwd?: string,
     env?: Record<string, string>
   ) {
-
     // Special handling for yarn pnp binaries
     if (cmd.startsWith("yarn:")) {
       cmd = cmd.slice(5)
