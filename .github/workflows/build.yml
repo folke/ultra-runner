@@ -27,7 +27,7 @@ jobs:
       - name: Lint
         run: pnpm lint
       - name: Test
-        run: pnpm test --collectCoverage
+        run: pnpm test -- --collectCoverage
       - name: Build
         run: pnpm build:ts
       - name: Coveralls Parallel
