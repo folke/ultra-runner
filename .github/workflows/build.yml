@@ -26,7 +26,7 @@ jobs:
       - name: Lint
         run: pnpm lint
       - name: Test
-        run: pnpm run test -- --coverage --coverageProvider v8
+        run: pnpm test --collectCoverage
       - name: Build
         run: pnpm build:ts
       - name: Coveralls Parallel
