@@ -20,15 +20,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
+      - run: npm install -g pnpm
+      - run: pnpm install
+      - run: pnpm run build
       - name: Install Dependencies
-        run: yarn
+        run: pnpm install
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
       - name: Test
-        run: yarn test --coverage --coverageProvider v8
+        run: pnpm test -- --coverage --coverageProvider v8
       - name: Build
-        run: yarn build:ts
+        run: pnpm build:ts
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
         with:
