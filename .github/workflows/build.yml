@@ -20,9 +20,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install -g pnpm
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: pnpm/action-setup@v1.2.1
+        with:
+          version: 5.13.5
+          run_install: true
       - name: Lint
         run: pnpm lint
       - name: Test
