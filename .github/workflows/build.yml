@@ -21,14 +21,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install -g pnpm
-      - run: pnpm install
-      - run: pnpm run build
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Lint
         run: pnpm lint
       - name: Test
-        run: pnpm test -- --coverage --coverageProvider v8
+        run: pnpm run test -- --coverage --coverageProvider v8
       - name: Build
         run: pnpm build:ts
       - name: Coveralls Parallel
