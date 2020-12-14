@@ -145,6 +145,7 @@ export class CommandParser {
     env: Record<string, string> = {}
   ) {
     const script = this.getScript(name)
+    if (args[0] == "--") args.shift()
     const ret = this.createGroup(`${script} ${args.join(" ")}`, false)
     ret.name = name
     ret.type = CommandType.script

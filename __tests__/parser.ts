@@ -14,6 +14,20 @@ test("no scripts", () => {
   expect(cmd.children[0].args).toStrictEqual(["sleep", "10"])
 })
 
+test("npm run with args", () => {
+  const parser = new CommandParser({
+    name: "test",
+    scripts: {
+      lint: "eslint",
+      fix: "npm run lint -- --fix",
+    },
+  })
+  const cmd = parser.parse("fix")
+  expect(cmd.debug()).toStrictEqual({
+    "script:fix": { "script:lint": "bin:eslint --fix" },
+  })
+})
+
 test("pre", () => {
   const parser = new CommandParser({
     name: "test",
