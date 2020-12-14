@@ -38,7 +38,7 @@
   ],
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "npx --no-install devmoji -e --lint"
+      "commit-msg": "npx --no-install devmoji -e --lint"
     }
   },
   "scripts": {
