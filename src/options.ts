@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import chalk from "chalk"
+import os from "os"
 
 export const HASH_FILE = ".ultra.cache.json"
 
@@ -16,7 +17,7 @@ export const defaults = {
   info: false,
   topology: false,
   build: false,
-  concurrency: 10,
+  concurrency: Math.min(Math.max(0, os.cpus().length), 10),
   debug: false,
   root: false,
   help: false,
@@ -58,7 +59,7 @@ export const RunnerOptionDefs: Record<keyof RunnerOptions, RunnerOptionDef> = {
   },
   concurrency: {
     type: "number",
-    description: "Set the maximum number of concurrency",
+    description: `Set the maximum number of concurrency (defaults to number of cores ${defaults.concurrency})`,
   },
   serial: {
     type: "boolean",
