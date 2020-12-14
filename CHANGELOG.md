@@ -1,3 +1,26 @@
+### [3.7.1](https://github.com/folke/ultra-runner/compare/v3.7.0...v3.7.1) (2020-12-14)
+
+
+### Bug Fixes
+
+* 🐛 support script run args `npm run test -- --help` (fixes [#143](https://github.com/folke/ultra-runner/issues/143)) ([b095a8a](https://github.com/folke/ultra-runner/commit/b095a8a396619369aff51df2df1eee99185ed4fa))
+
+
+### Other
+
+* 👷 fixed pnpm stuff ([994dc09](https://github.com/folke/ultra-runner/commit/994dc0948c386b2a538be958d953effa657074fc))
+* 👷 fixed pnpm test ([2cda3cb](https://github.com/folke/ultra-runner/commit/2cda3cb3d7de3611614b43f58060cb6b73eb1b6f))
+* 👷 pnpm recursive=false ([e93c8f5](https://github.com/folke/ultra-runner/commit/e93c8f5f216e3167621ff6455725ff603911c3e8))
+* 👷 use babel for code coverage ([c851fe1](https://github.com/folke/ultra-runner/commit/c851fe1d173c8c0381874f3f660f831c6cfacc22))
+* 👷 use pnpm action ([0f88b3f](https://github.com/folke/ultra-runner/commit/0f88b3fa15a6f934286298d5042a2b5184e89d16))
+* 📦️ semantic release config ([7f8e9c4](https://github.com/folke/ultra-runner/commit/7f8e9c49289a930494d229f9b3c785c70a57bc49))
+* **deps:** 🔗 update ([4187c20](https://github.com/folke/ultra-runner/commit/4187c20f124348dc64880790b09e39c3952abdcb))
+* 📦️ update to node v14.15.1 ([9ff679e](https://github.com/folke/ultra-runner/commit/9ff679ee67a4a4c828e3386990ef923565571f54))
+* 📦️ use pnpm instead of yarn ([32d5b6f](https://github.com/folke/ultra-runner/commit/32d5b6fd12f48f2ae08b839087bee6724a9711be))
+* 📦️ use pnpm instead of yarn ([0c14c19](https://github.com/folke/ultra-runner/commit/0c14c19b7d19e6f71ea008a82c1babca562a0c69))
+* 📦️ use semantic-release instead of standard-version ([cad9d7e](https://github.com/folke/ultra-runner/commit/cad9d7ed24b484ede6fff08c4475f0cf4157d5a0))
+* **deps:** update all non-major dependencies ([#145](https://github.com/folke/ultra-runner/issues/145)) ([003ecdd](https://github.com/folke/ultra-runner/commit/003ecdda90f5192068793941391a3ba64bcd4262))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
