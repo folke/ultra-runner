@@ -44,6 +44,7 @@ export const RunnerOptionDefs: Record<keyof RunnerOptions, RunnerOptionDef> = {
     type: "boolean",
     hidden: true,
     description: "Show help message",
+    alias: "h",
   },
   recursive: {
     type: "boolean",
