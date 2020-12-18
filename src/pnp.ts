@@ -54,7 +54,7 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
           const binPath = resolveRequest(
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             path.join(pkgName, p.bin.get(b)!),
-            process.cwd()
+            path.resolve(process.cwd(), "package.json")
           )
           binaries.set(b, binPath)
           // eslint-disable-next-line no-empty
