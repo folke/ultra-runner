@@ -61,7 +61,7 @@
     "lint:docs": "npx markdownlint README.md",
     "lint:fix": "yarn lint:eslint --fix",
     "prerelease": "yarn build",
-    "release": "npx semantic-version",
+    "release": "npx semantic-release",
     "postrelease": "git push --follow-tags origin master && npm publish"
   },
   "ultra": {
