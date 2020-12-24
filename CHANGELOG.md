@@ -1,3 +1,28 @@
+## [3.8.0](https://github.com/folke/ultra-runner/compare/v3.7.1...v3.8.0) (2020-12-24)
+
+
+### Features
+
+* ✨ set default concurrency to number of cpus ([a63c3d5](https://github.com/folke/ultra-runner/commit/a63c3d559b6685a7ca622eab0001dc128ecda541))
+
+
+### Bug Fixes
+
+* 🐛 add `-h` as alias for `--help` ([439f8cf](https://github.com/folke/ultra-runner/commit/439f8cf4919c8969832bbd05a60bafe4a8d01dc6))
+* 🐛 resolution in pnp subpackages ([#150](https://github.com/folke/ultra-runner/issues/150)) ([823def0](https://github.com/folke/ultra-runner/commit/823def070f49510f07f638de3076ea683d80710a))
+
+
+### Other
+
+* 📦️ fix semantic-release script ([8c1b81c](https://github.com/folke/ultra-runner/commit/8c1b81ccfe69e02ee7db9fa9cd37f27e01bde002))
+* 📦️ fix semantic-release script ([a90c790](https://github.com/folke/ultra-runner/commit/a90c7904ce3dd02cbcd2758c6b65b8ca3d680ea8))
+* 📦️ fix semantic-release script ([c13472b](https://github.com/folke/ultra-runner/commit/c13472b0aabfa5a6995e83303a623483b0a8de02))
+* **deps:** 🔗 udpates ([f7a062b](https://github.com/folke/ultra-runner/commit/f7a062bea1a594e720175728f9729f4aa123b823))
+* **deps:** pin dependencies ([#146](https://github.com/folke/ultra-runner/issues/146)) ([f44b70e](https://github.com/folke/ultra-runner/commit/f44b70e398ed45e996298fe880a64a8e491ea94c))
+* **deps:** update actions/setup-node action to v2 ([#148](https://github.com/folke/ultra-runner/issues/148)) ([d5b44b9](https://github.com/folke/ultra-runner/commit/d5b44b9d865d894b98f066708a3eaee12370e1d0))
+* **deps:** update all non-major dependencies ([#147](https://github.com/folke/ultra-runner/issues/147)) ([1d317e1](https://github.com/folke/ultra-runner/commit/1d317e109e5d682bfdcc52b349535549d432bd7d))
+* **deps:** update dependency eslint-plugin-unicorn to v24 ([#149](https://github.com/folke/ultra-runner/issues/149)) ([32eeb3d](https://github.com/folke/ultra-runner/commit/32eeb3d6167fc0ff6cde360888432026e1f3011a))
+
 ### [3.7.1](https://github.com/folke/ultra-runner/compare/v3.7.0...v3.7.1) (2020-12-14)
 
 
