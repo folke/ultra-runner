@@ -28,9 +28,9 @@ devDependencies:
   '@types/node': 13.13.38
   '@types/prettier': 2.1.6
   '@types/rimraf': 3.0.0
+  '@types/semantic-release': 17.2.0
   '@types/sinon': 9.0.10
   '@types/sinon-chai': 3.2.5
-  '@types/standard-version': 7.0.0
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
   '@types/yargs': 15.0.12
@@ -923,12 +923,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-G+ITQPXkwTrslfG5L/BksmbLUA0M1iybEsmCWPqzSxsRRhJZimBKJkoMi8fr/CPygPTj4zO5pJH7I2/cm9M7SQ==
-  /@types/conventional-changelog-config-spec/2.1.0:
-    dependencies:
-      '@types/json-schema': 7.0.6
-    dev: true
-    resolution:
-      integrity: sha512-JQLPvCqa8byksGs6ccQZ5VmawYEUJbZqAfn3PK+cUFdY4X6UYYiGDpc2YjnnZpP/xL5kldMgyphyux9n17kq1A==
   /@types/cross-spawn/6.0.2:
     dependencies:
       '@types/node': 13.13.36
@@ -1049,6 +1043,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7WhJ0MdpFgYQPXlF4Dx+DhgvlPCfz/x5mHaeDQAKhcenvQP1KCpLQ18JklAqeGMYSAT2PxLpzd0g2/HE7fj7hQ==
+  /@types/semantic-release/17.2.0:
+    dependencies:
+      '@types/node': 13.13.38
+    dev: true
+    resolution:
+      integrity: sha512-l+I+I+VDBW/k4EjXpN4CDEjBAcFtdulmzwSGWAxcyWfD4/gLc2i1v4ra6nZT466dPTe3fOF2nHDRMqtRGnpLgg==
   /@types/sinon-chai/3.2.5:
     dependencies:
       '@types/chai': 4.2.14
@@ -1076,13 +1076,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
-  /@types/standard-version/7.0.0:
-    dependencies:
-      '@types/conventional-changelog-config-spec': 2.1.0
-      '@types/node': 13.13.36
-    dev: true
-    resolution:
-      integrity: sha512-0UYi01LCFytj+15S0dEGzSAAITVW9gJg8EGEU5brWhT2C1BMWuMt19YGVSTYBF9EoP0Ni+PFvQPpjmOU33tSMg==
   /@types/wrap-ansi/3.0.0:
     dev: true
     resolution:
@@ -9007,9 +9000,9 @@ specifiers:
   '@types/node': 13.13.38
   '@types/prettier': 2.1.6
   '@types/rimraf': 3.0.0
+  '@types/semantic-release': 17.2.0
   '@types/sinon': 9.0.10
   '@types/sinon-chai': 3.2.5
-  '@types/standard-version': 7.0.0
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
   '@types/yargs': 15.0.12
