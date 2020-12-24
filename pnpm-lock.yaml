@@ -49,7 +49,7 @@ devDependencies:
   eslint-plugin-node: 11.1.0_eslint@7.16.0
   eslint-plugin-prettier: 3.3.0_eslint@7.16.0+prettier@2.2.1
   eslint-plugin-promise: 4.2.1
-  eslint-plugin-unicorn: 23.0.0_eslint@7.16.0
+  eslint-plugin-unicorn: 24.0.0_eslint@7.16.0
   husky: 4.3.6
   jest: 26.6.3_ts-node@9.1.1
   markdownlint-cli: 0.26.0
@@ -3332,7 +3332,7 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-VoM09vT7bfA7D+upt+FjeBO5eHIJQBUWki1aPvB+vbNiHS3+oGIJGIeyBtKQTME6UPXXy3vV07OL1tHd3ANuDw==
-  /eslint-plugin-unicorn/23.0.0_eslint@7.16.0:
+  /eslint-plugin-unicorn/24.0.0_eslint@7.16.0:
     dependencies:
       ci-info: 2.0.0
       clean-regexp: 1.0.0
@@ -3352,9 +3352,9 @@ packages:
     engines:
       node: '>=10'
     peerDependencies:
-      eslint: '>=7.11.0'
+      eslint: '>=7.15.0'
     resolution:
-      integrity: sha512-Vabo3cjl6cjyhcf+76CdQEY6suOFzK0Xh3xo0uL9VDYrDJP5+B6PjV0tHTYm82WZmFWniugFJM3ywHSNYTi/ZQ==
+      integrity: sha512-NfLjIZas/ZUwc3S+pUtbTRqgCkODxPEkJBJ5ZR8wIu90BmX4jmXp10hoOZMScR2CR1NYTtrx0OX4BQvBnbzZzA==
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -9031,7 +9031,7 @@ specifiers:
   eslint-plugin-node: 11.1.0
   eslint-plugin-prettier: 3.3.0
   eslint-plugin-promise: 4.2.1
-  eslint-plugin-unicorn: 23.0.0
+  eslint-plugin-unicorn: 24.0.0
   fast-glob: ^3.2.2
   globrex: ^0.1.2
   husky: 4.3.6
