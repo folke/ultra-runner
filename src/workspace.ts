@@ -4,7 +4,7 @@ import globrex from "globrex"
 import path from "path"
 import { getPackage, findPackages, PackageJsonWithRoot } from "./package"
 import { providers, WorkspaceProviderType } from "./workspace.providers"
-import { existsSync } from "fs"
+import { existsSync, readFileSync } from "fs"
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -122,7 +122,22 @@ export class Workspace {
 
     if (filter) {
       const withDeps = filter.startsWith("+")
-      if (withDeps) filter = filter.slice(1)
+      if (withDeps) {
+        if (filter === "+") {
+          if (!existsSync("./package.json")) {
+            throw new Error(
+              `Using --filter + uses the package.json in the current working directory but ./package.json does not exist`
+            )
+          }
+          const packageJSON = JSON.parse(
+            readFileSync("./package.json").toString()
+          )
+          filter = packageJSON.name || ""
+        } else {
+          filter = filter.slice(1)
+        }
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       const regex: RegExp = globrex(filter, { filepath: true, extended: true })
         .regex
