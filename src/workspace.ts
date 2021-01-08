@@ -126,7 +126,7 @@ export class Workspace {
         if (filter === "+") {
           if (!existsSync("./package.json")) {
             throw new Error(
-              `Using --filter + uses the package.json in the current working directory but ./package.json does not exist`
+              `'--filter +' requires a ./package.json file in the current working directory`
             )
           }
           const packageJSON = JSON.parse(
