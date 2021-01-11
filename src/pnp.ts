@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "fs"
-import * as pnpapi from "pnpapi"
+// eslint-disable-next-line import/no-unresolved
+import type * as pnpapi from "pnpapi"
 import memoize from "micro-memoize"
 import path, { resolve } from "path"
 import v8 from "v8"
@@ -29,9 +30,9 @@ const getInstallState = memoize((workspaceRoot: string) => {
   const serializedState = readFileSync(
     resolve(workspaceRoot, ".yarn", "install-state.gz")
   )
-  const installState: InstallState = v8.deserialize(
+  const installState = v8.deserialize(
     zlib.gunzipSync(serializedState)
-  )
+  ) as InstallState
   return installState
 })
 
@@ -46,7 +47,7 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
     getDependencyTreeRoots,
   } = getPnpApi(workspaceRoot)
 
-  let packageLocator = getDependencyTreeRoots().find(
+  const packageLocator = getDependencyTreeRoots().find(
     (x) => x.name === packageName
   )
 
@@ -94,8 +95,8 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
   return binaries
 }
 
-const getPnpApi = memoize(function getPnpApi(workspaceRoot: string): PnpAPI {
+const getPnpApi = memoize(function getPnpApi(workspaceRoot: string) {
   const jsPath = path.resolve(workspaceRoot, ".pnp.js")
   const cjsPath = path.resolve(workspaceRoot, ".pnp.cjs")
-  return existsSync(jsPath) ? require(jsPath) : require(cjsPath)
+  return (existsSync(jsPath) ? require(jsPath) : require(cjsPath)) as PnpAPI
 })
