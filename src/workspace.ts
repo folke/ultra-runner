@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import globrex from "globrex"
+import { existsSync } from "fs"
 import path from "path"
-import { getPackage, findPackages, PackageJsonWithRoot } from "./package"
+import { findPackages, getPackage, PackageJsonWithRoot } from "./package"
 import { providers, WorkspaceProviderType } from "./workspace.providers"
-import { existsSync, readFileSync } from "fs"
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -122,17 +122,15 @@ export class Workspace {
 
     if (filter) {
       const withDeps = filter.startsWith("+")
+      let useCwd = false
       if (withDeps) {
-        if (filter === "+") {
-          if (!existsSync("./package.json")) {
+        if (filter === "+" || filter === "+.") {
+          if (!existsSync(path.resolve(".", "package.json"))) {
             throw new Error(
               `'--filter +' requires a ./package.json file in the current working directory`
             )
           }
-          const packageJSON = JSON.parse(
-            readFileSync("./package.json").toString()
-          )
-          filter = packageJSON.name || ""
+          useCwd = true
         } else {
           filter = filter.slice(1)
         }
@@ -144,6 +142,7 @@ export class Workspace {
       const names = new Set<string>()
       ret.forEach((p) => {
         if (
+          (useCwd && p.root == process.cwd()) ||
           regex.test(p.name || "") ||
           regex.test(path.relative(this.root, p.root).replace(/\\/gu, "/"))
         ) {
