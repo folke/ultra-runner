@@ -9063,7 +9063,7 @@ specifiers:
   '@types/jest': 26.0.20
   '@types/json5': 0.0.30
   '@types/node': 13.13.39
-  '@types/pnpapi': ^0.0.1
+  '@types/pnpapi': 0.0.1
   '@types/prettier': 2.1.6
   '@types/rimraf': 3.0.0
   '@types/semantic-release': 17.2.0
