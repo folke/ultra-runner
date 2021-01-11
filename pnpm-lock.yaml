@@ -5,6 +5,7 @@ dependencies:
   fast-glob: 3.2.4
   globrex: 0.1.2
   json5: 2.1.3
+  micro-memoize: 4.0.9
   npm-run-path: 4.0.1
   pid-cwd: 1.2.0
   ps-list: 7.2.0
@@ -26,6 +27,7 @@ devDependencies:
   '@types/jest': 26.0.19
   '@types/json5': 0.0.30
   '@types/node': 13.13.38
+  '@types/pnpapi': 0.0.1
   '@types/prettier': 2.1.6
   '@types/rimraf': 3.0.0
   '@types/semantic-release': 17.2.0
@@ -47,7 +49,7 @@ devDependencies:
   eslint-plugin-import: 2.22.1_eslint@7.16.0
   eslint-plugin-jest: 24.1.3_eslint@7.16.0+typescript@4.1.3
   eslint-plugin-node: 11.1.0_eslint@7.16.0
-  eslint-plugin-prettier: 3.3.0_eslint@7.16.0+prettier@2.2.1
+  eslint-plugin-prettier: 3.3.0_5b3f35139cd1625c775fba319fb81002
   eslint-plugin-promise: 4.2.1
   eslint-plugin-unicorn: 24.0.0_eslint@7.16.0
   husky: 4.3.6
@@ -55,14 +57,14 @@ devDependencies:
   markdownlint-cli: 0.26.0
   prettier: 2.2.1
   rimraf: 3.0.2
-  semantic-release: 17.3.0
+  semantic-release: 17.3.0_semantic-release@17.3.0
   sinon: 9.2.2
   sinon-chai: 3.5.0_chai@4.2.0+sinon@9.2.2
   ts-jest: 26.4.4_jest@26.6.3+typescript@4.1.3
   ts-node: 9.1.1_typescript@4.1.3
   typescript: 4.1.3
   typesync: 0.8.0
-lockfileVersion: 5.2
+lockfileVersion: 5.1
 overrides:
   minimist: ^1.2.2
 packages:
@@ -453,7 +455,7 @@ packages:
       jest-haste-map: 26.6.2
       jest-message-util: 26.6.2
       jest-regex-util: 26.0.0
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-resolve-dependencies: 26.6.3
       jest-runner: 26.6.3_ts-node@9.1.1
       jest-runtime: 26.6.3_ts-node@9.1.1
@@ -525,7 +527,7 @@ packages:
       istanbul-lib-source-maps: 4.0.0
       istanbul-reports: 3.0.2
       jest-haste-map: 26.6.2
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-util: 26.6.2
       jest-worker: 26.6.2
       slash: 3.0.0
@@ -737,7 +739,7 @@ packages:
       aggregate-error: 3.1.0
       fs-extra: 9.0.1
       lodash: 4.17.20
-      semantic-release: 17.3.0
+      semantic-release: 17.3.0_semantic-release@17.3.0
     dev: true
     engines:
       node: '>=10.18'
@@ -754,7 +756,7 @@ packages:
       import-from: 3.0.0
       lodash: 4.17.20
       micromatch: 4.0.2
-      semantic-release: 17.3.0
+      semantic-release: 17.3.0_semantic-release@17.3.0
     dev: true
     engines:
       node: '>=10.18'
@@ -776,7 +778,7 @@ packages:
       lodash: 4.17.20
       micromatch: 4.0.2
       p-reduce: 2.1.0
-      semantic-release: 17.3.0
+      semantic-release: 17.3.0_semantic-release@17.3.0
     dev: true
     engines:
       node: '>=10.18'
@@ -801,7 +803,7 @@ packages:
       mime: 2.4.6
       p-filter: 2.1.0
       p-retry: 4.2.0
-      semantic-release: 17.3.0
+      semantic-release: 17.3.0_semantic-release@17.3.0
       url-join: 4.0.1
     dev: true
     engines:
@@ -823,7 +825,7 @@ packages:
       rc: 1.2.8
       read-pkg: 5.2.0
       registry-auth-token: 4.2.1
-      semantic-release: 17.3.0
+      semantic-release: 17.3.0_semantic-release@17.3.0
       semver: 7.3.4
       tempy: 1.0.0
     dev: true
@@ -845,7 +847,7 @@ packages:
       into-stream: 5.1.1
       lodash: 4.17.20
       read-pkg-up: 7.0.1
-      semantic-release: 17.3.0
+      semantic-release: 17.3.0_semantic-release@17.3.0
     dev: true
     engines:
       node: '>=10.18'
@@ -1024,6 +1026,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
+  /@types/pnpapi/0.0.1:
+    dev: true
+    resolution:
+      integrity: sha512-EgO0GdWEV999f2lTFl5PZZ2SF9mElSnIx76F1THQDB55lhk2I8J/1+RFojjlTO24RlAADJSm9231Vo5Wdi/NWQ==
   /@types/prettier/2.1.5:
     dev: true
     resolution:
@@ -3301,10 +3307,10 @@ packages:
       eslint: '>=5.16.0'
     resolution:
       integrity: sha512-oUwtPJ1W0SKD0Tr+wqu92c5xuCeQqB3hSCHasn/ZgjFdA9iDGNkNf2Zi9ztY7X+hNuMib23LNGRm6+uN+KLE3g==
-  /eslint-plugin-prettier/3.3.0_eslint@7.16.0+prettier@2.2.1:
+  /eslint-plugin-prettier/3.3.0_5b3f35139cd1625c775fba319fb81002:
     dependencies:
       eslint: 7.16.0
-      eslint-plugin-prettier: 3.3.0_eslint@7.16.0+prettier@2.2.1
+      eslint-plugin-prettier: 3.3.0_5b3f35139cd1625c775fba319fb81002
       prettier: 2.2.1
       prettier-linter-helpers: 1.0.0
     dev: true
@@ -4897,7 +4903,7 @@ packages:
       jest-get-type: 26.3.0
       jest-jasmine2: 26.6.3_ts-node@9.1.1
       jest-regex-util: 26.0.0
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-util: 26.6.2
       jest-validate: 26.6.2
       micromatch: 4.0.2
@@ -5073,7 +5079,7 @@ packages:
       integrity: sha512-YyFjePHHp1LzpzYcmgqkJ0nm0gg/lJx2aZFzFy1S6eUqNjXsOqTK10zNRff2dNfssgokjkG65OlWNcIlgd3zew==
   /jest-pnp-resolver/1.2.2_jest-resolve@26.6.2:
     dependencies:
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
     dev: true
     engines:
       node: '>=6'
@@ -5100,7 +5106,7 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-pVwUjJkxbhe4RY8QEWzN3vns2kqyuldKpxlxJlzEYfKSvY6/bMvxoFrYYzUO1Gx28yKWN37qyV7rIoIp2h8fTg==
-  /jest-resolve/26.6.2:
+  /jest-resolve/26.6.2_jest-resolve@26.6.2:
     dependencies:
       '@jest/types': 26.6.2
       chalk: 4.1.0
@@ -5113,6 +5119,8 @@ packages:
     dev: true
     engines:
       node: '>= 10.14.2'
+    peerDependencies:
+      jest-resolve: '*'
     resolution:
       integrity: sha512-sOxsZOq25mT1wRsfHcbtkInS+Ek7Q8jCHUB0ZUTP0tc/c41QHriU/NunqMfCUWsL4H3MHpvQD4QR9kSYhS7UvQ==
   /jest-runner/26.6.3_ts-node@9.1.1:
@@ -5131,7 +5139,7 @@ packages:
       jest-haste-map: 26.6.2
       jest-leak-detector: 26.6.2
       jest-message-util: 26.6.2
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-runtime: 26.6.3_ts-node@9.1.1
       jest-util: 26.6.2
       jest-worker: 26.6.2
@@ -5166,7 +5174,7 @@ packages:
       jest-message-util: 26.6.2
       jest-mock: 26.6.2
       jest-regex-util: 26.0.0
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       jest-snapshot: 26.6.2
       jest-util: 26.6.2
       jest-validate: 26.6.2
@@ -5204,7 +5212,7 @@ packages:
       jest-haste-map: 26.6.2
       jest-matcher-utils: 26.6.2
       jest-message-util: 26.6.2
-      jest-resolve: 26.6.2
+      jest-resolve: 26.6.2_jest-resolve@26.6.2
       natural-compare: 1.4.0
       pretty-format: 26.6.2
       semver: 7.3.4
@@ -5897,6 +5905,10 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
+  /micro-memoize/4.0.9:
+    dev: false
+    resolution:
+      integrity: sha512-Z2uZi/IUMGQDCXASdujXRqrXXEwSY0XffUrAOllhqzQI3wpUyZbiZTiE2JuYC0HSG2G7DbCS5jZmsEKEGZuemg==
   /micromatch/3.1.10:
     dependencies:
       arr-diff: 4.0.0
@@ -7552,7 +7564,7 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==
-  /semantic-release/17.3.0:
+  /semantic-release/17.3.0_semantic-release@17.3.0:
     dependencies:
       '@semantic-release/commit-analyzer': 8.0.1_semantic-release@17.3.0
       '@semantic-release/error': 2.2.0
@@ -7586,6 +7598,8 @@ packages:
     engines:
       node: '>=10.18'
     hasBin: true
+    peerDependencies:
+      semantic-release: '*'
     resolution:
       integrity: sha512-enhDayMZRP4nWcWAMBFHHB7THRaIcRdUAZv3lxd65pXs2ttzay7IeCvRRrGayRWExtnY0ulwRz5Ycp88Dv/UeQ==
   /semver-compare/1.0.0:
@@ -8998,6 +9012,7 @@ specifiers:
   '@types/jest': 26.0.19
   '@types/json5': 0.0.30
   '@types/node': 13.13.38
+  '@types/pnpapi': ^0.0.1
   '@types/prettier': 2.1.6
   '@types/rimraf': 3.0.0
   '@types/semantic-release': 17.2.0
@@ -9031,6 +9046,7 @@ specifiers:
   jest: 26.6.3
   json5: ^2.1.1
   markdownlint-cli: 0.26.0
+  micro-memoize: ^4.0.9
   npm-run-path: 4.0.1
   pid-cwd: ^1.2.0
   prettier: 2.2.1

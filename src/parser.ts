@@ -235,7 +235,9 @@ export class CommandParser {
       if (existsSync(bin)) return bin
     }
     // Special syntax for pnp binaries. Handles by spawn.ts
-    if (this.binsPnp.has(name)) return `yarn:${this.binsPnp.get(name)}`
+    if (this.binsPnp.has(name)) {
+      return `yarn:${this.binsPnp.get(name)}`
+    }
   }
 
   private isBin(name: string) {
