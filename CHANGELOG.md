@@ -1,3 +1,10 @@
+## [3.9.0](https://github.com/folke/ultra-runner/compare/v3.8.1...v3.9.0) (2021-01-11)
+
+
+### Features
+
+* ✨ use --filter + to filter for cwd's dependencies ([#155](https://github.com/folke/ultra-runner/issues/155)) ([4aa061a](https://github.com/folke/ultra-runner/commit/4aa061a28a72b7826cf3de42c926e78881254936))
+
 ### [3.8.1](https://github.com/folke/ultra-runner/compare/v3.8.0...v3.8.1) (2021-01-11)
 
 
