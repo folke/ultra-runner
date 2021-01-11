@@ -49,7 +49,7 @@ devDependencies:
   eslint-plugin-node: 11.1.0_eslint@7.16.0
   eslint-plugin-prettier: 3.3.0_eslint@7.16.0+prettier@2.2.1
   eslint-plugin-promise: 4.2.1
-  eslint-plugin-unicorn: 24.0.0_eslint@7.16.0
+  eslint-plugin-unicorn: 26.0.0_eslint@7.16.0
   husky: 4.3.6
   jest: 26.6.3_ts-node@9.1.1
   markdownlint-cli: 0.26.0
@@ -3325,15 +3325,15 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-VoM09vT7bfA7D+upt+FjeBO5eHIJQBUWki1aPvB+vbNiHS3+oGIJGIeyBtKQTME6UPXXy3vV07OL1tHd3ANuDw==
-  /eslint-plugin-unicorn/24.0.0_eslint@7.16.0:
+  /eslint-plugin-unicorn/26.0.0_eslint@7.16.0:
     dependencies:
       ci-info: 2.0.0
       clean-regexp: 1.0.0
       eslint: 7.16.0
       eslint-ast-utils: 1.1.0
-      eslint-template-visitor: 2.2.1_eslint@7.16.0
+      eslint-template-visitor: 2.2.2_eslint@7.16.0
       eslint-utils: 2.1.0
-      import-modules: 2.0.0
+      import-modules: 2.1.0
       lodash: 4.17.20
       pluralize: 8.0.0
       read-pkg-up: 7.0.1
@@ -3345,9 +3345,9 @@ packages:
     engines:
       node: '>=10'
     peerDependencies:
-      eslint: '>=7.15.0'
+      eslint: '>=7.17.0'
     resolution:
-      integrity: sha512-NfLjIZas/ZUwc3S+pUtbTRqgCkODxPEkJBJ5ZR8wIu90BmX4jmXp10hoOZMScR2CR1NYTtrx0OX4BQvBnbzZzA==
+      integrity: sha512-7eBSBJ2SnPwmhXczn7vfBLKbVIJtgmmv5ohxi4H2gKmZrjswkBXt2ydPKi5wmQTvHUPk564VCBbw1kfrlwCe7Q==
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -3357,18 +3357,18 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==
-  /eslint-template-visitor/2.2.1_eslint@7.16.0:
+  /eslint-template-visitor/2.2.2_eslint@7.16.0:
     dependencies:
       babel-eslint: 10.1.0_eslint@7.16.0
       eslint: 7.16.0
-      eslint-visitor-keys: 1.3.0
+      eslint-visitor-keys: 2.0.0
       esquery: 1.3.1
       multimap: 1.1.0
     dev: true
     peerDependencies:
       eslint: '>=7.0.0'
     resolution:
-      integrity: sha512-q3SxoBXz0XjPGkUpwGVAwIwIPIxzCAJX1uwfVc8tW3v7u/zS7WXNH3I2Mu2MDz2NgSITAyKLRaQFPHu/iyKxDQ==
+      integrity: sha512-SkcLjzKw3JjKTWHacRDeLBa2gxb600zbCKTkXj/V97QnZ9yxkknoPL8vc8PFueqbFXP7mYNTQzjCjcMpTRdRaA==
   /eslint-utils/2.1.0:
     dependencies:
       eslint-visitor-keys: 1.3.0
@@ -4362,12 +4362,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vjL3+w0oulAVZ0hBHnxa/Nm5TAurf9YLQJDhqRZyqb+VKGOB6LU8t9H1Nr5CIo16vh9XfJTOoHwU0B71S557gA==
-  /import-modules/2.0.0:
+  /import-modules/2.1.0:
     dev: true
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-iczM/v9drffdNnABOKwj0f9G3cFDon99VcG1mxeBsdqnbd+vnQ5c2uAiCHNQITqFTOPaEvwg3VjoWCur0uHLEw==
+      integrity: sha512-8HEWcnkbGpovH9yInoisxaSoIg9Brbul+Ju3Kqe2UsYDUBJD/iQjSgEj0zPcTDPKfPp2fs5xlv1i+JSye/m1/A==
   /imurmurhash/0.1.4:
     dev: true
     engines:
@@ -7353,7 +7353,7 @@ packages:
       request-promise-core: 1.1.4_request@2.88.2
       stealthy-require: 1.1.1
       tough-cookie: 2.5.0
-    deprecated: 'request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142'
+    deprecated: request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142
     dev: true
     engines:
       node: '>=0.12.0'
@@ -7383,7 +7383,7 @@ packages:
       tough-cookie: 2.5.0
       tunnel-agent: 0.6.0
       uuid: 3.4.0
-    deprecated: 'request has been deprecated, see https://github.com/request/request/issues/3142'
+    deprecated: request has been deprecated, see https://github.com/request/request/issues/3142
     dev: true
     engines:
       node: '>= 6'
@@ -7430,7 +7430,7 @@ packages:
     resolution:
       integrity: sha1-kFsz9socoGbxEtrafM4w9SuU9f0=
   /resolve-url/0.2.1:
-    deprecated: 'https://github.com/lydell/resolve-url#deprecated'
+    deprecated: https://github.com/lydell/resolve-url#deprecated
     dev: true
     resolution:
       integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
@@ -8669,7 +8669,7 @@ packages:
     resolution:
       integrity: sha512-B0yRTzYdUCCn9n+F4+Gh4yIDtMQcaJsmYBDsTSG8g/OejKBodLQ2IHfN3bM7jUsRXndopT7OIXWdYqc1fjmV6g==
   /urix/0.1.0:
-    deprecated: 'Please see https://github.com/lydell/urix#deprecated'
+    deprecated: Please see https://github.com/lydell/urix#deprecated
     dev: true
     resolution:
       integrity: sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
@@ -9024,7 +9024,7 @@ specifiers:
   eslint-plugin-node: 11.1.0
   eslint-plugin-prettier: 3.3.0
   eslint-plugin-promise: 4.2.1
-  eslint-plugin-unicorn: 24.0.0
+  eslint-plugin-unicorn: 26.0.0
   fast-glob: ^3.2.2
   globrex: ^0.1.2
   husky: 4.3.6
