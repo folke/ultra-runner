@@ -1,4 +1,7 @@
 import { existsSync, readFileSync } from "fs"
+// eslint-disable-next-line import/no-unresolved
+import type * as pnpapi from "pnpapi"
+import memoize from "micro-memoize"
 import path, { resolve } from "path"
 import v8 from "v8"
 import zlib from "zlib"
@@ -18,21 +21,45 @@ type InstallState = {
   >
 }
 
-type PnpAPI = {
-  resolveRequest: (bin: string, dir: string) => string
+type PnpAPI = typeof pnpapi & {
+  // getDependencyTreeRoots is missing in pnpapi types https://yarnpkg.com/advanced/pnpapi#getdependencytreeroots
+  getDependencyTreeRoots: () => pnpapi.PhysicalPackageLocator[]
 }
 
-export function getBinaries(workspaceRoot: string, packageName: string) {
-  const binaries = new Map<string, string>()
-
+const getInstallState = memoize((workspaceRoot: string) => {
   const serializedState = readFileSync(
     resolve(workspaceRoot, ".yarn", "install-state.gz")
   )
   const installState = v8.deserialize(
     zlib.gunzipSync(serializedState)
   ) as InstallState
+  return installState
+})
 
+export function getBinaries(workspaceRoot: string, packageName: string) {
+  const binaries = new Map<string, string>()
+  const installState = getInstallState(workspaceRoot)
   const hashes = new Set<string>()
+
+  const {
+    resolveRequest,
+    getPackageInformation,
+    getDependencyTreeRoots,
+  } = getPnpApi(workspaceRoot)
+
+  const packageLocator = getDependencyTreeRoots().find(
+    (x) => x.name === packageName
+  )
+
+  if (!packageLocator) {
+    throw new Error(`Cannot find package locator for ${packageName}`)
+  }
+
+  const packageLocation = getPackageInformation(packageLocator).packageLocation
+
+  if (!packageLocation) {
+    throw new Error(`Cannot find package location for ${packageName}`)
+  }
 
   for (const p of installState.storedPackages.values()) {
     const pkgName = p.scope ? `@${p.scope}/${p.name}` : p.name
@@ -44,7 +71,7 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
       })
     }
   }
-  const { resolveRequest } = getPnpApi(workspaceRoot)
+
   for (const h of hashes) {
     const p = installState.storedPackages.get(h)
     if (p?.bin.size) {
@@ -54,9 +81,11 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
           const binPath = resolveRequest(
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             path.join(pkgName, p.bin.get(b)!),
-            path.resolve(process.cwd(), "package.json")
+            path.resolve(packageLocation, "package.json")
           )
-          binaries.set(b, binPath)
+          if (binPath) {
+            binaries.set(b, binPath)
+          }
           // eslint-disable-next-line no-empty
         } catch {}
       })
@@ -66,8 +95,8 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
   return binaries
 }
 
-function getPnpApi(workspaceRoot: string): PnpAPI {
+const getPnpApi = memoize(function getPnpApi(workspaceRoot: string) {
   const jsPath = path.resolve(workspaceRoot, ".pnp.js")
   const cjsPath = path.resolve(workspaceRoot, ".pnp.cjs")
   return (existsSync(jsPath) ? require(jsPath) : require(cjsPath)) as PnpAPI
-}
+})

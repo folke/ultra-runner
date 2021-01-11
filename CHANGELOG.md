@@ -1,3 +1,19 @@
+### [3.8.1](https://github.com/folke/ultra-runner/compare/v3.8.0...v3.8.1) (2021-01-11)
+
+
+### Bug Fixes
+
+* 🐛  resolve binaries from current package location and memoize costly operations ([#154](https://github.com/folke/ultra-runner/issues/154)) ([8c5ed2a](https://github.com/folke/ultra-runner/commit/8c5ed2aac59843d24d829f7e2c5118c71986a632))
+* 🐛 fixed linting errors related to pnpapi ([0d32d08](https://github.com/folke/ultra-runner/commit/0d32d0878a45f6a2a5c720d76e5c789cbd054074))
+
+
+### Other
+
+* 📦️ disable unicorn/import-reduce rule ([392a5ae](https://github.com/folke/ultra-runner/commit/392a5ae636961088b5711a9b6f02d69800e7bbdb))
+* **deps:** pin dependency @types/pnpapi to 0.0.1 ([#156](https://github.com/folke/ultra-runner/issues/156)) ([581714b](https://github.com/folke/ultra-runner/commit/581714b4c043be79aa2127a1be028a0f43bb6309))
+* **deps:** update all non-major dependencies ([#151](https://github.com/folke/ultra-runner/issues/151)) ([f5b10f6](https://github.com/folke/ultra-runner/commit/f5b10f62a3070e2cf26a2b8b2f6b272d3d7defde))
+* **deps:** update dependency eslint-plugin-unicorn to v26 ([#152](https://github.com/folke/ultra-runner/issues/152)) ([f801087](https://github.com/folke/ultra-runner/commit/f801087119f6c6cb03473783a383daffd9e4440a))
+
 ## [3.8.0](https://github.com/folke/ultra-runner/compare/v3.7.1...v3.8.0) (2020-12-24)
 
 
