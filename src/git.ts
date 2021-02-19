@@ -36,8 +36,12 @@ export function parseFiles(data: string, root: string): GitFiles {
 
 export async function getGitFiles(root: string): Promise<GitFiles> {
   return new Promise((resolve, reject) => {
+    const gitIgnoreExists = fs.existsSync(path.resolve(root, ".gitignore"))
+    const lsFiles = `git ls-files --full-name -s -d -c -m -o ${
+      gitIgnoreExists ? "-X .gitignore" : ""
+    } --directory -t`
     exec(
-      "git ls-files --full-name -s -d -c -m -o --directory -t",
+      lsFiles,
       { cwd: root, maxBuffer: 1024 * 1024 * 1024 },
       (error, stdout) => {
         if (error) return reject(error)
