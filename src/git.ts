@@ -36,9 +36,9 @@ export function parseFiles(data: string, root: string): GitFiles {
 
 export async function getGitFiles(root: string): Promise<GitFiles> {
   return new Promise((resolve, reject) => {
-    const gitIgnoreExists = fs.existsSync(path.resolve(root, ".gitignore"))
+    const ultraIgnoreExists = fs.existsSync(path.resolve(root, ".ultraignore"))
     const lsFiles = `git ls-files --full-name -s -d -c -m -o ${
-      gitIgnoreExists ? "-X .gitignore" : ""
+      ultraIgnoreExists ? "-X .ultraignore" : ""
     } --directory -t`
     exec(
       lsFiles,
