@@ -102,6 +102,8 @@ $ ultra -r --build mycustombuildscript
 
 If for some reason you want to rebuild a package, use `--rebuild` or `rebuild`.
 
+If you want some files to be excluded from the `.ultra.cache.json`, you can create a `.ultraignore` file. The format is similar to `.gitignore`. Whenever a file changes that is listed in your `.ultraignore`, a rebuild will **not** be triggered.
+
 ## :bar_chart: Monitor
 
 With `ultra --monitor` you can easily monitor all running node processes on your machine.
