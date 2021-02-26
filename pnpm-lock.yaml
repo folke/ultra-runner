@@ -35,7 +35,7 @@ devDependencies:
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
-  '@types/yargs': 15.0.13
+  '@types/yargs': 16.0.0
   '@typescript-eslint/eslint-plugin': 4.15.2_f59adae6c23e25423ba8722b4851fe62
   '@typescript-eslint/parser': 4.15.2_eslint@7.20.0+typescript@4.2.2
   builtin-modules: 3.2.0
@@ -1117,12 +1117,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-f+fD/fQAo3BCbCDlrUpznF1A5Zp9rB0noS5vnoormHSIPFKL0Z2DcUJ3Gxp5ytH4uLRNxy7AwYUC9exZzqGMAw==
-  /@types/yargs/15.0.13:
+  /@types/yargs/16.0.0:
     dependencies:
       '@types/yargs-parser': 15.0.0
     dev: true
     resolution:
-      integrity: sha512-kQ5JNTrbDv3Rp5X2n/iUu37IJBDU2gsZ5R/g1/KHOOEc5IKfUFjXT6DENPGduh08I/pamwtEq4oul7gUqKTQDQ==
+      integrity: sha512-2nN6AGeMwe8+O6nO9ytQfbMQOJy65oi1yK2y/9oReR08DaXSGtMsrLyCM1ooKqfICpCx4oITaR4LkOmdzz41Ww==
   /@typescript-eslint/eslint-plugin/4.15.2_f59adae6c23e25423ba8722b4851fe62:
     dependencies:
       '@typescript-eslint/experimental-utils': 4.15.2_eslint@7.20.0+typescript@4.2.2
@@ -9064,7 +9064,7 @@ specifiers:
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
-  '@types/yargs': 15.0.13
+  '@types/yargs': 16.0.0
   '@typescript-eslint/eslint-plugin': 4.15.2
   '@typescript-eslint/parser': 4.15.2
   ansi-split: ^1.0.1
