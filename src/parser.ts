@@ -129,8 +129,7 @@ export class CommandParser {
       // Fix incorrect handling of ops
       for (const op of this.ops) {
         if (rawPart !== op && rawPart.endsWith(op)) {
-          args.push(rawPart.slice(0, -op.length))
-          args.push(op)
+          args.push(rawPart.slice(0, -op.length), op)
           return
         }
       }

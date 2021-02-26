@@ -2,7 +2,7 @@ import chalk from "chalk"
 import { ChildProcess } from "child_process"
 import { onProcessExit } from "./process"
 import { spawn } from "cross-spawn"
-import npmPath = require("npm-run-path")
+import npmPath from "npm-run-path"
 
 export class Spawner {
   static children = new Map<number, ChildProcess>()
@@ -73,7 +73,7 @@ export class Spawner {
         reject(this.onError(err))
       })
       child.on("close", (code) => {
-        this.exitCode = code
+        this.exitCode = code || 0
         if (this.buffer.length) this.onLine(`${this.buffer}\n`)
         this.buffer = ""
         Spawner.children.delete(child.pid)

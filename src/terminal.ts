@@ -7,11 +7,11 @@ import readline from "readline"
 // eslint-disable-next-line import/default
 import ansiLength from "string-width"
 
-export function showCursor(stream = process.stderr) {
+export function showCursor(stream: NodeJS.WriteStream = process.stderr) {
   stream.isTTY && stream.write("\u001B[?25h")
 }
 
-export function hideCursor(stream = process.stderr) {
+export function hideCursor(stream: NodeJS.WriteStream = process.stderr) {
   if (!stream.isTTY) return
   ;(["SIGTERM", "SIGINT"] as const).forEach((event) =>
     process.once(event, () => showCursor(stream))
