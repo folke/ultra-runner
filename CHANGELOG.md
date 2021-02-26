@@ -1,3 +1,24 @@
+## [3.10.0](https://github.com/folke/ultra-runner/compare/v3.9.0...v3.10.0) (2021-02-26)
+
+
+### Features
+
+* **git:** ✨ added support for .ultraignore ([#168](https://github.com/folke/ultra-runner/issues/168)) ([fab9da1](https://github.com/folke/ultra-runner/commit/fab9da1c6b6d6cae522f8ec4b8d079bb15c4294f))
+
+
+### Documentation
+
+* 📚️ added info about .ultraignore ([9675976](https://github.com/folke/ultra-runner/commit/96759766069a92be4ac96fac3bb0dd7be8fc26a0))
+
+
+### Other
+
+* **deps:** 🔗 update ([57d1d30](https://github.com/folke/ultra-runner/commit/57d1d3013fe1cf12e99bb065258f88b35844d260))
+* ♻️ use @yarnpkg/pnp for proper typing of pnpapi ([73eec5a](https://github.com/folke/ultra-runner/commit/73eec5a13fdf40e6b4bcdbfc6c7f432f934dba83))
+* 🎨 fixed some linting issues ([bdcbe31](https://github.com/folke/ultra-runner/commit/bdcbe31b982cf014ba5fa272fb2ec9d0d2331f5b))
+* 📦️ upgrade to Husky 5 ([311e902](https://github.com/folke/ultra-runner/commit/311e902cb92fd78bc56718ad27a66d189520624f))
+* **deps:** update all non-major dependencies ([#157](https://github.com/folke/ultra-runner/issues/157)) ([8bf50d4](https://github.com/folke/ultra-runner/commit/8bf50d44b8cfe90a79b95fdbdecc8e3d013146f5))
+
 ## [3.9.0](https://github.com/folke/ultra-runner/compare/v3.8.1...v3.9.0) (2021-01-11)
 
 
