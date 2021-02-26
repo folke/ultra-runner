@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from "fs"
-// eslint-disable-next-line import/no-unresolved
-import type * as pnpapi from "pnpapi"
+import type { PnpApi } from "@yarnpkg/pnp"
 import memoize from "micro-memoize"
 import path, { resolve } from "path"
 import v8 from "v8"
@@ -21,11 +20,6 @@ type InstallState = {
   >
 }
 
-type PnpAPI = typeof pnpapi & {
-  // getDependencyTreeRoots is missing in pnpapi types https://yarnpkg.com/advanced/pnpapi#getdependencytreeroots
-  getDependencyTreeRoots: () => pnpapi.PhysicalPackageLocator[]
-}
-
 const getInstallState = memoize((workspaceRoot: string) => {
   const serializedState = readFileSync(
     resolve(workspaceRoot, ".yarn", "install-state.gz")
@@ -41,21 +35,18 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
   const installState = getInstallState(workspaceRoot)
   const hashes = new Set<string>()
 
-  const {
-    resolveRequest,
-    getPackageInformation,
-    getDependencyTreeRoots,
-  } = getPnpApi(workspaceRoot)
+  const api = getPnpApi(workspaceRoot)
 
-  const packageLocator = getDependencyTreeRoots().find(
-    (x) => x.name === packageName
-  )
+  const packageLocator = api
+    .getDependencyTreeRoots()
+    .find((x) => x.name === packageName)
 
   if (!packageLocator) {
     throw new Error(`Cannot find package locator for ${packageName}`)
   }
 
-  const packageLocation = getPackageInformation(packageLocator).packageLocation
+  const packageLocation = api.getPackageInformation(packageLocator)
+    ?.packageLocation
 
   if (!packageLocation) {
     throw new Error(`Cannot find package location for ${packageName}`)
@@ -78,7 +69,7 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
       ;[...p.bin.keys()].forEach((b) => {
         try {
           const pkgName = p.scope ? `@${p.scope}/${p.name}` : p.name
-          const binPath = resolveRequest(
+          const binPath = api.resolveRequest(
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             path.join(pkgName, p.bin.get(b)!),
             path.resolve(packageLocation, "package.json")
@@ -98,5 +89,5 @@ export function getBinaries(workspaceRoot: string, packageName: string) {
 const getPnpApi = memoize(function getPnpApi(workspaceRoot: string) {
   const jsPath = path.resolve(workspaceRoot, ".pnp.js")
   const cjsPath = path.resolve(workspaceRoot, ".pnp.cjs")
-  return (existsSync(jsPath) ? require(jsPath) : require(cjsPath)) as PnpAPI
+  return (existsSync(jsPath) ? require(jsPath) : require(cjsPath)) as PnpApi
 })
