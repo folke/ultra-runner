@@ -44,14 +44,14 @@ devDependencies:
   coveralls: 3.1.0
   devmoji: 2.2.0
   eslint: 7.20.0
-  eslint-config-prettier: 7.2.0_eslint@7.20.0
+  eslint-config-prettier: 8.1.0_eslint@7.20.0
   eslint-plugin-chai-expect: 2.2.0_eslint@7.20.0
   eslint-plugin-import: 2.22.1_eslint@7.20.0
   eslint-plugin-jest: 24.1.5_eslint@7.20.0+typescript@4.2.2
   eslint-plugin-node: 11.1.0_eslint@7.20.0
-  eslint-plugin-prettier: 3.3.1_90376326e593b529cca0740deb6f3b7f
+  eslint-plugin-prettier: 3.3.1_991a7c46cc739487e9cb2e863aa32c6d
   eslint-plugin-promise: 4.3.1
-  eslint-plugin-unicorn: 26.0.1_eslint@7.20.0
+  eslint-plugin-unicorn: 28.0.2_eslint@7.20.0
   husky: 4.3.8
   jest: 26.6.3_ts-node@9.1.1
   markdownlint-cli: 0.26.0
@@ -3204,16 +3204,7 @@ packages:
       source-map: 0.6.1
     resolution:
       integrity: sha512-qFcX0XJkdg+PB3xjZZG/wKSuT1PnQWx57+TVSjIMmILd2yC/6ByYElPwJnslDsuWuSAp4AwJGumarAAmJch5Kw==
-  /eslint-ast-utils/1.1.0:
-    dependencies:
-      lodash.get: 4.4.2
-      lodash.zip: 4.2.0
-    dev: true
-    engines:
-      node: '>=4'
-    resolution:
-      integrity: sha512-otzzTim2/1+lVrlH19EfQQJEhVJSu0zOb9ygb3iapN6UlyaDtyRq4b5U1FuW0v1lRa9Fp/GJyHkSwm6NqABgCA==
-  /eslint-config-prettier/7.2.0_eslint@7.20.0:
+  /eslint-config-prettier/8.1.0_eslint@7.20.0:
     dependencies:
       eslint: 7.20.0
     dev: true
@@ -3221,7 +3212,7 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
     resolution:
-      integrity: sha512-rV4Qu0C3nfJKPOAhFujFxB7RMP+URFyQqqOZW9DMRD7ZDTFyjaIlETU3xzHELt++4ugC0+Jm084HQYkkJe+Ivg==
+      integrity: sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
   /eslint-import-resolver-node/0.3.4:
     dependencies:
       debug: 2.6.9
@@ -3311,10 +3302,10 @@ packages:
       eslint: '>=5.16.0'
     resolution:
       integrity: sha512-oUwtPJ1W0SKD0Tr+wqu92c5xuCeQqB3hSCHasn/ZgjFdA9iDGNkNf2Zi9ztY7X+hNuMib23LNGRm6+uN+KLE3g==
-  /eslint-plugin-prettier/3.3.1_90376326e593b529cca0740deb6f3b7f:
+  /eslint-plugin-prettier/3.3.1_991a7c46cc739487e9cb2e863aa32c6d:
     dependencies:
       eslint: 7.20.0
-      eslint-config-prettier: 7.2.0_eslint@7.20.0
+      eslint-config-prettier: 8.1.0_eslint@7.20.0
       prettier: 2.2.1
       prettier-linter-helpers: 1.0.0
     dev: true
@@ -3335,19 +3326,19 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-bY2sGqyptzFBDLh/GMbAxfdJC+b0f23ME63FOE4+Jao0oZ3E1LEwFtWJX/1pGMJLiTtrSSern2CRM/g+dfc0eQ==
-  /eslint-plugin-unicorn/26.0.1_eslint@7.20.0:
+  /eslint-plugin-unicorn/28.0.2_eslint@7.20.0:
     dependencies:
       ci-info: 2.0.0
       clean-regexp: 1.0.0
       eslint: 7.20.0
-      eslint-ast-utils: 1.1.0
       eslint-template-visitor: 2.2.2_eslint@7.20.0
       eslint-utils: 2.1.0
+      eslint-visitor-keys: 2.0.0
       import-modules: 2.1.0
       lodash: 4.17.20
       pluralize: 8.0.0
       read-pkg-up: 7.0.1
-      regexp-tree: 0.1.21
+      regexp-tree: 0.1.23
       reserved-words: 0.1.2
       safe-regex: 2.1.1
       semver: 7.3.4
@@ -3357,7 +3348,7 @@ packages:
     peerDependencies:
       eslint: '>=7.17.0'
     resolution:
-      integrity: sha512-SWgF9sIVY74zqkkSN2dclSCqRfocWSUGD0haC0NX2oRfmdp9p8dQvJYkYSQePaCyssPUE/pqpsIEEZNTh8crUA==
+      integrity: sha512-k4AoFP7n8/oq6lBXkdc9Flid6vw2B8j7aXFCxgzJCyKvmaKrCUFb1TFPhG9eSJQFZowqmymMPRtl8oo9NKLUbw==
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -5663,10 +5654,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-2ZwHpmnp5tJOE2Lf4mbGdhavEwI=
-  /lodash.zip/4.2.0:
-    dev: true
-    resolution:
-      integrity: sha1-7GZi5IlkCO1KtsVCo5kLcswIACA=
   /lodash/4.17.20:
     dev: true
     resolution:
@@ -7344,11 +7331,11 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-J6SDjUgDxQj5NusnOtdFxDwN/+HWykR8GELwctJ7mdqhcyy1xEc4SRFHUXvxTp661YaVKAjfRLZ9cCqS6tn32A==
-  /regexp-tree/0.1.21:
+  /regexp-tree/0.1.23:
     dev: true
     hasBin: true
     resolution:
-      integrity: sha512-kUUXjX4AnqnR8KRTCrayAo9PzYMRKmVoGgaz2tBuz0MF3g1ZbGebmtW0yFHfFK9CmBjQKeYIgoL22pFLBJY7sw==
+      integrity: sha512-+7HWfb4Bvu8Rs2eQTUIpX9I/PlQkYOuTNbRpKLJlQpSgwSkzFYh+pUj0gtvglnOZLKB6YgnIgRuJ2/IlpL48qw==
   /regexpp/3.1.0:
     dev: true
     engines:
@@ -7570,7 +7557,7 @@ packages:
       integrity: sha1-QKNmnzsHfR6UPURinhV91IAjvy4=
   /safe-regex/2.1.1:
     dependencies:
-      regexp-tree: 0.1.21
+      regexp-tree: 0.1.23
     dev: true
     resolution:
       integrity: sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A==
@@ -9076,14 +9063,14 @@ specifiers:
   cross-spawn: ^7.0.1
   devmoji: 2.2.0
   eslint: 7.20.0
-  eslint-config-prettier: 7.2.0
+  eslint-config-prettier: 8.1.0
   eslint-plugin-chai-expect: 2.2.0
   eslint-plugin-import: 2.22.1
   eslint-plugin-jest: 24.1.5
   eslint-plugin-node: 11.1.0
   eslint-plugin-prettier: 3.3.1
   eslint-plugin-promise: 4.3.1
-  eslint-plugin-unicorn: 26.0.1
+  eslint-plugin-unicorn: 28.0.2
   fast-glob: ^3.2.2
   globrex: ^0.1.2
   husky: 4.3.8
