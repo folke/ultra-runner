@@ -80,7 +80,7 @@ class FilesCache {
     Object.entries(files)
       .filter(([file]) => {
         const filePath = path.resolve(root, file)
-        if (ultraIgnore && ultraIgnore.ignores(file)) return false
+        if (file && ultraIgnore && ultraIgnore.ignores(file)) return false
         return (
           filePath == directory || filePath.startsWith(directory + path.sep)
         )
