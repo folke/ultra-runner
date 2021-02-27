@@ -41,15 +41,19 @@ test("getGitFiles", async () => {
   expect(files["__tests__/workspace/apps/app2/package.json"]).toMatch(
     /^[a-z0-9]*$/u
   )
+  expect(files["__tests__/workspace/apps/app1/file-to-ignore.js"]).toMatch(
+    /^[a-z0-9]*$/u
+  )
   expect(files[""]).toMatch(/^\d+\.\d+$/u)
 
-  expect(Object.keys(files)).toHaveLength(3)
+  expect(Object.keys(files)).toHaveLength(4)
 })
 
 test("cache", async () => {
   const files = f(await cache.getFiles(path.resolve(workspaceRoot, "apps")))
   expect(files["app1/package.json"]).toMatch(/^[a-z0-9]*$/u)
   expect(files["app2/package.json"]).toMatch(/^[a-z0-9]*$/u)
+  expect(files["app1/file-to-ignore.js"]).toBeUndefined()
   expect(Object.keys(files)).toHaveLength(2)
   expect(cache.cache.size).not.toBe(0)
   await cache.getFiles(path.resolve(workspaceRoot, "apps"))

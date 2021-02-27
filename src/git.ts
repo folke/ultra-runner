@@ -1,6 +1,7 @@
 import { exec } from "child_process"
 import fs from "fs"
 import path from "path"
+import ignore, { Ignore } from "ignore"
 import { findUp } from "./package"
 import { HASH_FILE } from "./options"
 
@@ -9,6 +10,18 @@ const regex = /^([A-Z?])\s+(\d{6})\s+([a-z0-9]{40})\s+(\d+)\s+(.*)$/u
 type GitFiles = Record<string, string>
 
 export class NoGitError extends Error {}
+
+function getUltraIgnore(root: string): Ignore {
+  const ultraIgnorePath = path.resolve(root, ".ultraignore")
+  const ultraIgnoreExists = fs.existsSync(ultraIgnorePath)
+
+  const ultraIgnore = ignore()
+  if (ultraIgnoreExists) {
+    ultraIgnore.add(fs.readFileSync(ultraIgnorePath).toString())
+  }
+
+  return ultraIgnore
+}
 
 export function parseFiles(data: string, root: string): GitFiles {
   const ret: GitFiles = {}
@@ -36,12 +49,8 @@ export function parseFiles(data: string, root: string): GitFiles {
 
 export async function getGitFiles(root: string): Promise<GitFiles> {
   return new Promise((resolve, reject) => {
-    const ultraIgnoreExists = fs.existsSync(path.resolve(root, ".ultraignore"))
-    const lsFiles = `git ls-files --full-name -s -d -c -m -o ${
-      ultraIgnoreExists ? "-X .ultraignore" : ""
-    } --directory -t`
     exec(
-      lsFiles,
+      "git ls-files --full-name -s -d -c -m -o --directory -t",
       { cwd: root, maxBuffer: 1024 * 1024 * 1024 },
       (error, stdout) => {
         if (error) return reject(error)
@@ -68,6 +77,8 @@ class FilesCache {
     const files = this.cache.get(root) || {}
     const ret: GitFiles = {}
 
+    const ultraIgnore = getUltraIgnore(root)
+
     Object.entries(files)
       .filter(([file]) => {
         const filePath = path.resolve(root, file)
@@ -75,6 +86,7 @@ class FilesCache {
           filePath == directory || filePath.startsWith(directory + path.sep)
         )
       })
+      .filter(([file]) => !ultraIgnore.ignores(file))
       .map(([file, hash]) => [
         path.relative(directory, path.resolve(root, file)),
         hash,

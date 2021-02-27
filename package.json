@@ -118,6 +118,7 @@
     "cross-spawn": "^7.0.3",
     "fast-glob": "^3.2.5",
     "globrex": "^0.1.2",
+    "ignore": "^5.1.8",
     "json5": "^2.2.0",
     "micro-memoize": "^4.0.9",
     "npm-run-path": "4.0.1",
