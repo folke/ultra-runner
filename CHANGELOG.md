@@ -1,3 +1,15 @@
+### [3.10.1](https://github.com/folke/ultra-runner/compare/v3.10.0...v3.10.1) (2021-02-27)
+
+
+### Bug Fixes
+
+* **ultraignore:** allow ultraignore to work with tracked git files ([#170](https://github.com/folke/ultra-runner/issues/170)) ([65cc044](https://github.com/folke/ultra-runner/commit/65cc04420aa9f95c1bbe2dde5da304c2119db564))
+
+
+### Other
+
+* **deps:** pin dependency @yarnpkg/pnp to 2.3.2 ([#169](https://github.com/folke/ultra-runner/issues/169)) ([880073f](https://github.com/folke/ultra-runner/commit/880073fceee7b6a3b88e6de20ac4b71d6538f39c))
+
 ## [3.10.0](https://github.com/folke/ultra-runner/compare/v3.9.0...v3.10.0) (2021-02-26)
 
 
