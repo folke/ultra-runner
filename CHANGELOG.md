@@ -1,3 +1,10 @@
+### [3.10.2](https://github.com/folke/ultra-runner/compare/v3.10.1...v3.10.2) (2021-02-27)
+
+
+### Bug Fixes
+
+* 🐛 only ignore files when .ultraignore file exists ([6f39967](https://github.com/folke/ultra-runner/commit/6f39967a60dcab82dcd4a390b1a70d43acbf1585))
+
 ### [3.10.1](https://github.com/folke/ultra-runner/compare/v3.10.0...v3.10.1) (2021-02-27)
 
 
