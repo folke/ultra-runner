@@ -1,0 +1,2 @@
+# Used only for cache unit tests
+__tests__/**/file-to-ignore.js
