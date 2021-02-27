@@ -1,3 +1,10 @@
+### [3.10.3](https://github.com/folke/ultra-runner/compare/v3.10.2...v3.10.3) (2021-02-27)
+
+
+### Bug Fixes
+
+* 🐛 don't feed root directory to ignore ([a374485](https://github.com/folke/ultra-runner/commit/a374485142f16be011c87bb56f4189849187f2fe))
+
 ### [3.10.2](https://github.com/folke/ultra-runner/compare/v3.10.1...v3.10.2) (2021-02-27)
 
 
