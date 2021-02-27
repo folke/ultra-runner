@@ -1,7 +1,7 @@
 import { exec } from "child_process"
 import fs from "fs"
 import path from "path"
-import ignore, { Ignore } from "ignore"
+import ignore from "ignore"
 import { findUp } from "./package"
 import { HASH_FILE } from "./options"
 
@@ -11,16 +11,14 @@ type GitFiles = Record<string, string>
 
 export class NoGitError extends Error {}
 
-function getUltraIgnore(root: string): Ignore {
+function getUltraIgnore(root: string) {
   const ultraIgnorePath = path.resolve(root, ".ultraignore")
-  const ultraIgnoreExists = fs.existsSync(ultraIgnorePath)
 
-  const ultraIgnore = ignore()
-  if (ultraIgnoreExists) {
+  if (fs.existsSync(ultraIgnorePath)) {
+    const ultraIgnore = ignore()
     ultraIgnore.add(fs.readFileSync(ultraIgnorePath).toString())
+    return ultraIgnore
   }
-
-  return ultraIgnore
 }
 
 export function parseFiles(data: string, root: string): GitFiles {
@@ -82,11 +80,11 @@ class FilesCache {
     Object.entries(files)
       .filter(([file]) => {
         const filePath = path.resolve(root, file)
+        if (ultraIgnore && ultraIgnore.ignores(file)) return false
         return (
           filePath == directory || filePath.startsWith(directory + path.sep)
         )
       })
-      .filter(([file]) => !ultraIgnore.ignores(file))
       .map(([file, hash]) => [
         path.relative(directory, path.resolve(root, file)),
         hash,
