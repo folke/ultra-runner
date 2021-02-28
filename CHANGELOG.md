@@ -1,3 +1,10 @@
+### [3.10.5](https://github.com/folke/ultra-runner/compare/v3.10.4...v3.10.5) (2021-02-28)
+
+
+### Bug Fixes
+
+* 🐛 run build before release ([6728329](https://github.com/folke/ultra-runner/commit/67283296c6785954d47dd2fa8b07fbf7b0efbb41))
+
 ### [3.10.4](https://github.com/folke/ultra-runner/compare/v3.10.3...v3.10.4) (2021-02-28)
 
 
