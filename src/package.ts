@@ -20,13 +20,9 @@ interface FindPackagesOption {
   cwd?: string
 }
 
-const DEFAULT_IGNORE = [
-  "**/node_modules/**",
-  "**/bower_components/**",
-  "**/test/**",
-  "**/tests/**",
-  "**/__tests__/**",
-]
+const BASIC_IGNORE = ["**/node_modules/**", "**/bower_components/**"]
+
+const DEFAULT_IGNORE = ["**/test/**", "**/tests/**", "**/__tests__/**"]
 
 export async function findPackages(
   patterns: string[],
@@ -36,6 +32,7 @@ export async function findPackages(
   if (!options) options = {}
 
   if (!options.ignore) options.ignore = DEFAULT_IGNORE
+  options.ignore.push(...BASIC_IGNORE)
 
   if (options.includeRoot) patterns.push(".")
 
