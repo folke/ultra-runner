@@ -1,3 +1,10 @@
+### [3.10.4](https://github.com/folke/ultra-runner/compare/v3.10.3...v3.10.4) (2021-02-28)
+
+
+### Bug Fixes
+
+* 🐛 always ignore node_modules when listing packages ([3defc7a](https://github.com/folke/ultra-runner/commit/3defc7ac12f908792870ee94aceb358f8e64aa0d))
+
 ### [3.10.3](https://github.com/folke/ultra-runner/compare/v3.10.2...v3.10.3) (2021-02-27)
 
 
