@@ -13,7 +13,7 @@ specifiers:
   '@types/eslint-plugin-prettier': 3.1.0
   '@types/jest': 26.0.20
   '@types/node': 14.14.45
-  '@types/prettier': 2.2.1
+  '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
   '@types/semantic-release': 17.2.0
   '@types/sinon': 9.0.10
@@ -99,7 +99,7 @@ devDependencies:
   '@types/eslint-plugin-prettier': 3.1.0
   '@types/jest': 26.0.20
   '@types/node': 14.14.45
-  '@types/prettier': 2.2.1
+  '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
   '@types/semantic-release': 17.2.0
   '@types/sinon': 9.0.10
@@ -1149,6 +1149,10 @@ packages:
 
   /@types/prettier/2.2.1:
     resolution: {integrity: sha512-DxZZbyMAM9GWEzXL+BMZROWz9oo6A9EilwwOMET2UVu2uZTqMWS5S69KVtuVKaRjCUpcrOXRalet86/OpG4kqw==}
+    dev: true
+
+  /@types/prettier/2.2.3:
+    resolution: {integrity: sha512-PijRCG/K3s3w1We6ynUKdxEc5AcuuH3NBmMDP8uvKVp6X43UY7NQlTzczakXP3DJR0F4dfNQIGjU2cUeRYs2AA==}
     dev: true
 
   /@types/retry/0.12.0:
