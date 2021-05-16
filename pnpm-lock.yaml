@@ -43,7 +43,7 @@ specifiers:
   eslint-plugin-unicorn: 28.0.2
   fast-glob: ^3.2.5
   globrex: ^0.1.2
-  husky: 5.1.1
+  husky: 6.0.0
   ignore: ^5.1.8
   jest: 26.6.3
   json5: ^2.2.0
@@ -124,7 +124,7 @@ devDependencies:
   eslint-plugin-prettier: 3.3.1_991a7c46cc739487e9cb2e863aa32c6d
   eslint-plugin-promise: 4.3.1
   eslint-plugin-unicorn: 28.0.2_eslint@7.20.0
-  husky: 5.1.1
+  husky: 6.0.0
   jest: 26.6.3_ts-node@9.1.1
   markdownlint-cli: 0.26.0
   prettier: 2.2.1
@@ -4179,9 +4179,8 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
-  /husky/5.1.1:
-    resolution: {integrity: sha512-80LZ736V0Nr4/st0c2COYaMbEQhHNmAbLMN8J/kLk7/mo0QdUkUGNDjv/7jVkhug377Wh8wfbWyaVXEJ/h2B/Q==}
-    engines: {node: '>= 10'}
+  /husky/6.0.0:
+    resolution: {integrity: sha512-SQS2gDTB7tBN486QSoKPKQItZw97BMOd+Kdb6ghfpBc0yXyzrddI0oDV5MkDAbuB4X2mO3/nj60TRMcYxwzZeQ==}
     hasBin: true
     dev: true
 
