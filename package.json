@@ -89,7 +89,7 @@
     "chai": "4.3.4",
     "conventional-changelog-cli": "2.1.1",
     "coveralls": "3.1.0",
-    "devmoji": "2.2.0",
+    "devmoji": "2.2.1",
     "eslint": "7.20.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-chai-expect": "2.2.0",
