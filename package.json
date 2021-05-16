@@ -109,7 +109,7 @@
     "sinon-chai": "3.5.0",
     "ts-jest": "26.5.2",
     "ts-node": "9.1.1",
-    "typescript": "4.2.2",
+    "typescript": "4.2.4",
     "typesync": "0.8.0"
   },
   "dependencies": {
