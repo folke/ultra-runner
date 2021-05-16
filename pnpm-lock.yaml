@@ -62,7 +62,7 @@ specifiers:
   ts-jest: 26.5.6
   ts-node: 9.1.1
   tslib: 2.1.0
-  type-fest: ^0.21.2
+  type-fest: ^1.0.0
   typescript: 4.2.4
   typesync: 0.8.0
   wrap-ansi: ^7.0.0
@@ -84,7 +84,7 @@ dependencies:
   shellwords-ts: 3.0.0
   string-width: 4.2.0
   tslib: 2.1.0
-  type-fest: 0.21.2
+  type-fest: 1.1.1
   wrap-ansi: 7.0.0
   yamljs: 0.3.0
   yargs: 16.2.0
@@ -8049,11 +8049,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /type-fest/0.21.2:
-    resolution: {integrity: sha512-pvQl0WNazvfQ0rq2XDdhpWv49sohh2t+buFbglaJ9N9+Xj4BhFRpuo+uJxemeARteRxRloJ1m+8gBR6Z2Nfktg==}
-    engines: {node: '>=10'}
-    dev: false
-
   /type-fest/0.6.0:
     resolution: {integrity: sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==}
     engines: {node: '>=8'}
@@ -8063,6 +8058,11 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
     dev: true
+
+  /type-fest/1.1.1:
+    resolution: {integrity: sha512-RPDKc5KrIyKTP7Fk75LruUagqG6b+OTgXlCR2Z0aQDJFeIvL4/mhahSEtHmmVzXu4gmA0srkF/8FCH3WOWxTWA==}
+    engines: {node: '>=10'}
+    dev: false
 
   /typedarray-to-buffer/3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
