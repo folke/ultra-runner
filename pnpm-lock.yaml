@@ -11,7 +11,7 @@ specifiers:
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.10
   '@types/eslint-plugin-prettier': 3.1.0
-  '@types/jest': 26.0.20
+  '@types/jest': 26.0.23
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
@@ -59,7 +59,7 @@ specifiers:
   sinon: 9.2.4
   sinon-chai: 3.5.0
   string-width: ^4.2.0
-  ts-jest: 26.5.2
+  ts-jest: 26.5.6
   ts-node: 9.1.1
   tslib: 2.1.0
   type-fest: ^0.21.2
@@ -97,7 +97,7 @@ devDependencies:
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.10
   '@types/eslint-plugin-prettier': 3.1.0
-  '@types/jest': 26.0.20
+  '@types/jest': 26.0.23
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
@@ -132,7 +132,7 @@ devDependencies:
   semantic-release: 17.4.3
   sinon: 9.2.4
   sinon-chai: 3.5.0_chai@4.3.4+sinon@9.2.4
-  ts-jest: 26.5.2_jest@26.6.3+typescript@4.2.4
+  ts-jest: 26.5.6_jest@26.6.3+typescript@4.2.4
   ts-node: 9.1.1_typescript@4.2.4
   typescript: 4.2.4
   typesync: 0.8.0
@@ -1108,8 +1108,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/26.0.20:
-    resolution: {integrity: sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==}
+  /@types/jest/26.0.23:
+    resolution: {integrity: sha512-ZHLmWMJ9jJ9PTiT58juykZpL7KjwJywFN3Rr2pTSkyQfydf/rk22yS7W8p5DaVUMQ2BQC7oYiU3FjbTM/mYrOA==}
     dependencies:
       jest-diff: 26.6.2
       pretty-format: 26.6.2
@@ -5046,7 +5046,7 @@ packages:
     engines: {node: '>= 10.14.2'}
     dependencies:
       '@jest/types': 26.6.2
-      '@types/node': 14.14.31
+      '@types/node': 14.14.45
       chalk: 4.1.0
       graceful-fs: 4.2.6
       is-ci: 2.0.0
@@ -7933,15 +7933,14 @@ packages:
     resolution: {integrity: sha512-BTNtU9j5yohY3XkwiwLocTrDMDYqEeqtJeULAUFcTDw1GMl1XqD6IksIDX6mt9ACI7DVm+b1gqvYcPuXsi49OA==}
     dev: true
 
-  /ts-jest/26.5.2_jest@26.6.3+typescript@4.2.4:
-    resolution: {integrity: sha512-bwyJ2zJieSugf7RB+o8fgkMeoMVMM2KPDE0UklRLuACxjwJsOrZNo6chrcScmK33YavPSwhARffy8dZx5LJdUQ==}
+  /ts-jest/26.5.6_jest@26.6.3+typescript@4.2.4:
+    resolution: {integrity: sha512-rua+rCP8DxpA8b4DQD/6X2HQS8Zy/xzViVYfEs2OQu68tkCuKLV0Md8pmX55+W24uRIyAsf/BajRfxOs+R2MKA==}
     engines: {node: '>= 10'}
     hasBin: true
     peerDependencies:
       jest: '>=26 <27'
       typescript: '>=3.8 <5.0'
     dependencies:
-      '@types/jest': 26.0.20
       bs-logger: 0.2.6
       buffer-from: 1.1.1
       fast-json-stable-stringify: 2.1.0
