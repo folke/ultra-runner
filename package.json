@@ -81,7 +81,7 @@
     "@types/sinon-chai": "3.2.5",
     "@types/wrap-ansi": "3.0.0",
     "@types/yamljs": "0.2.31",
-    "@types/yargs": "16.0.0",
+    "@types/yargs": "16.0.1",
     "@typescript-eslint/eslint-plugin": "4.15.2",
     "@typescript-eslint/parser": "4.15.2",
     "@yarnpkg/pnp": "2.3.2",
