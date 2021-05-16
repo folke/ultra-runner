@@ -7,7 +7,7 @@ specifiers:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1
   '@semantic-release/git': 9.0.0
-  '@types/chai': 4.2.15
+  '@types/chai': 4.2.18
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.10
   '@types/eslint-plugin-prettier': 3.1.0
@@ -26,7 +26,7 @@ specifiers:
   '@yarnpkg/pnp': 2.3.2
   ansi-split: ^1.0.1
   builtin-modules: 3.2.0
-  chai: 4.3.0
+  chai: 4.3.4
   chalk: ^4.1.0
   conventional-changelog-cli: 2.1.1
   coveralls: 3.1.0
@@ -93,7 +93,7 @@ devDependencies:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1_semantic-release@17.4.0
   '@semantic-release/git': 9.0.0_semantic-release@17.4.0
-  '@types/chai': 4.2.15
+  '@types/chai': 4.2.18
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.10
   '@types/eslint-plugin-prettier': 3.1.0
@@ -111,7 +111,7 @@ devDependencies:
   '@typescript-eslint/parser': 4.15.2_eslint@7.20.0+typescript@4.2.2
   '@yarnpkg/pnp': 2.3.2
   builtin-modules: 3.2.0
-  chai: 4.3.0
+  chai: 4.3.4
   conventional-changelog-cli: 2.1.1
   coveralls: 3.1.0
   devmoji: 2.2.0
@@ -131,7 +131,7 @@ devDependencies:
   rimraf: 3.0.2
   semantic-release: 17.4.0
   sinon: 9.2.4
-  sinon-chai: 3.5.0_chai@4.3.0+sinon@9.2.4
+  sinon-chai: 3.5.0_chai@4.3.4+sinon@9.2.4
   ts-jest: 26.5.2_jest@26.6.3+typescript@4.2.2
   ts-node: 9.1.1_typescript@4.2.2
   typescript: 4.2.2
@@ -1033,6 +1033,10 @@ packages:
 
   /@types/chai/4.2.15:
     resolution: {integrity: sha512-rYff6FI+ZTKAPkJUoyz7Udq3GaoDZnxYDEvdEdFZASiA7PoErltHezDishqQiSDWrGxvxmplH304jyzQmjp0AQ==}
+    dev: true
+
+  /@types/chai/4.2.18:
+    resolution: {integrity: sha512-rS27+EkB/RE1Iz3u0XtVL5q36MGDWbgYe7zWiodyKNUnthxY0rukK5V36eiUCtCisB7NN8zKYH6DO2M37qxFEQ==}
     dev: true
 
   /@types/cross-spawn/6.0.2:
@@ -2116,9 +2120,9 @@ packages:
     resolution: {integrity: sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=}
     dev: true
 
-  /chai/4.3.0:
-    resolution: {integrity: sha512-/BFd2J30EcOwmdOgXvVsmM48l0Br0nmZPlO0uOW4XKh6kpsUumRXBgPV+IlaqFaqr9cYbeoZAM1Npx0i4A+aiA==}
-    engines: {node: '>=8'}
+  /chai/4.3.4:
+    resolution: {integrity: sha512-yS5H68VYOCtN1cjfwumDSuzn/9c+yza4f3reKXlE5rUg7SFcCEy90gJvydNgOYtblyf4Zi6jIWRnXOgErta0KA==}
+    engines: {node: '>=4'}
     dependencies:
       assertion-error: 1.1.0
       check-error: 1.0.2
@@ -7317,13 +7321,13 @@ packages:
       string-width: 1.0.2
     dev: true
 
-  /sinon-chai/3.5.0_chai@4.3.0+sinon@9.2.4:
+  /sinon-chai/3.5.0_chai@4.3.4+sinon@9.2.4:
     resolution: {integrity: sha512-IifbusYiQBpUxxFJkR3wTU68xzBN0+bxCScEaKMjBvAQERg6FnTTc1F17rseLb1tjmkJ23730AXpFI0c47FgAg==}
     peerDependencies:
       chai: ^4.0.0
       sinon: '>=4.0.0 <10.0.0'
     dependencies:
-      chai: 4.3.0
+      chai: 4.3.4
       sinon: 9.2.4
     dev: true
 
