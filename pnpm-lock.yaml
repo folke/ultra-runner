@@ -20,7 +20,7 @@ specifiers:
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
-  '@types/yargs': 16.0.2
+  '@types/yargs': 16.0.3
   '@typescript-eslint/eslint-plugin': 4.15.2
   '@typescript-eslint/parser': 4.15.2
   '@yarnpkg/pnp': 2.3.2
@@ -106,7 +106,7 @@ devDependencies:
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
-  '@types/yargs': 16.0.2
+  '@types/yargs': 16.0.3
   '@typescript-eslint/eslint-plugin': 4.15.2_27c0358729fde45d4ff2ef959ff692c1
   '@typescript-eslint/parser': 4.15.2_eslint@7.20.0+typescript@4.2.4
   '@yarnpkg/pnp': 2.3.2
@@ -1221,8 +1221,8 @@ packages:
       '@types/yargs-parser': 20.2.0
     dev: true
 
-  /@types/yargs/16.0.2:
-    resolution: {integrity: sha512-EkZDJvHXblOE2/iFZb3Ty5c8RHPssmFvrXqj3V/ZLXtOt0f7xJh9Fd7p1pl2ITrNHM7Rl3Db3JJVBT7q/C0wUg==}
+  /@types/yargs/16.0.3:
+    resolution: {integrity: sha512-YlFfTGS+zqCgXuXNV26rOIeETOkXnGQXP/pjjL9P0gO/EP9jTmc7pUBhx+jVEIxpq41RX33GQ7N3DzOSfZoglQ==}
     dependencies:
       '@types/yargs-parser': 20.2.0
     dev: true
