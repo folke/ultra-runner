@@ -56,7 +56,7 @@ export class Workspace {
     const types = Object.entries(providers)
     for (const [type, provider] of types) {
       if (["single", "recursive"].includes(type)) continue
-      if ((await provider(cwd))?.patterns.length) {
+      if ((await provider(cwd))?.patterns?.length) {
         ret.push(type as WorkspaceProviderType)
       }
     }
