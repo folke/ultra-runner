@@ -7,7 +7,7 @@ specifiers:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1
   '@semantic-release/git': 9.0.0
-  '@types/chai': 4.2.18
+  '@types/chai': 4.2.19
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.13
   '@types/eslint-plugin-prettier': 3.1.0
@@ -93,7 +93,7 @@ devDependencies:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1_semantic-release@17.4.4
   '@semantic-release/git': 9.0.0_semantic-release@17.4.4
-  '@types/chai': 4.2.18
+  '@types/chai': 4.2.19
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.13
   '@types/eslint-plugin-prettier': 3.1.0
@@ -1035,8 +1035,8 @@ packages:
     resolution: {integrity: sha512-rYff6FI+ZTKAPkJUoyz7Udq3GaoDZnxYDEvdEdFZASiA7PoErltHezDishqQiSDWrGxvxmplH304jyzQmjp0AQ==}
     dev: true
 
-  /@types/chai/4.2.18:
-    resolution: {integrity: sha512-rS27+EkB/RE1Iz3u0XtVL5q36MGDWbgYe7zWiodyKNUnthxY0rukK5V36eiUCtCisB7NN8zKYH6DO2M37qxFEQ==}
+  /@types/chai/4.2.19:
+    resolution: {integrity: sha512-jRJgpRBuY+7izT7/WNXP/LsMO9YonsstuL+xuvycDyESpoDoIAsMd7suwpB4h9oEWB+ZlPTqJJ8EHomzNhwTPQ==}
     dev: true
 
   /@types/cross-spawn/6.0.2:
