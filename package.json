@@ -88,7 +88,7 @@
     "builtin-modules": "3.2.0",
     "chai": "4.3.4",
     "conventional-changelog-cli": "2.1.1",
-    "coveralls": "3.1.0",
+    "coveralls": "3.1.1",
     "devmoji": "2.2.1",
     "eslint": "7.20.0",
     "eslint-config-prettier": "8.1.0",
