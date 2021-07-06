@@ -11,7 +11,7 @@ specifiers:
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
   '@types/eslint-plugin-prettier': 3.1.0
-  '@types/jest': 26.0.23
+  '@types/jest': 26.0.24
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
@@ -97,7 +97,7 @@ devDependencies:
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
   '@types/eslint-plugin-prettier': 3.1.0
-  '@types/jest': 26.0.23
+  '@types/jest': 26.0.24
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
@@ -1108,8 +1108,8 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
-  /@types/jest/26.0.23:
-    resolution: {integrity: sha512-ZHLmWMJ9jJ9PTiT58juykZpL7KjwJywFN3Rr2pTSkyQfydf/rk22yS7W8p5DaVUMQ2BQC7oYiU3FjbTM/mYrOA==}
+  /@types/jest/26.0.24:
+    resolution: {integrity: sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==}
     dependencies:
       jest-diff: 26.6.2
       pretty-format: 26.6.2
