@@ -15,7 +15,7 @@ specifiers:
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
-  '@types/semantic-release': 17.2.0
+  '@types/semantic-release': 17.2.1
   '@types/sinon': 9.0.11
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
@@ -101,7 +101,7 @@ devDependencies:
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.0
-  '@types/semantic-release': 17.2.0
+  '@types/semantic-release': 17.2.1
   '@types/sinon': 9.0.11
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
@@ -1170,10 +1170,10 @@ packages:
       '@types/node': 14.14.31
     dev: true
 
-  /@types/semantic-release/17.2.0:
-    resolution: {integrity: sha512-l+I+I+VDBW/k4EjXpN4CDEjBAcFtdulmzwSGWAxcyWfD4/gLc2i1v4ra6nZT466dPTe3fOF2nHDRMqtRGnpLgg==}
+  /@types/semantic-release/17.2.1:
+    resolution: {integrity: sha512-Gw9LyDgBn3I2lP4fel7/SmsKqqon+6SfOXitNhURkJrt+oIi5q65oY5AsbYzwIduFVOasbFrJ5469dJMaSRCNw==}
     dependencies:
-      '@types/node': 14.14.31
+      '@types/node': 14.14.45
     dev: true
 
   /@types/sinon-chai/3.2.5:
