@@ -56,7 +56,7 @@ specifiers:
   rimraf: 3.0.2
   semantic-release: 17.4.7
   shellwords-ts: ^3.0.0
-  sinon: 9.2.4
+  sinon: 11.1.2
   sinon-chai: 3.5.0
   string-width: ^4.2.0
   ts-jest: 26.5.6
@@ -130,8 +130,8 @@ devDependencies:
   prettier: 2.2.1
   rimraf: 3.0.2
   semantic-release: 17.4.7
-  sinon: 9.2.4
-  sinon-chai: 3.5.0_chai@4.3.4+sinon@9.2.4
+  sinon: 11.1.2
+  sinon-chai: 3.5.0_chai@4.3.4+sinon@11.1.2
   ts-jest: 26.5.6_jest@26.6.3+typescript@4.2.4
   ts-node: 9.1.1_typescript@4.2.4
   typescript: 4.2.4
@@ -979,16 +979,28 @@ packages:
       type-detect: 4.0.8
     dev: true
 
+  /@sinonjs/commons/1.8.3:
+    resolution: {integrity: sha512-xkNcLAn/wZaX14RPlwizcKicDk9G3F8m2nU3L7Ukm5zBgTwiT0wsoFAHx9Jq56fJA1z/7uKGtCRu16sOUCLIHQ==}
+    dependencies:
+      type-detect: 4.0.8
+    dev: true
+
   /@sinonjs/fake-timers/6.0.1:
     resolution: {integrity: sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==}
     dependencies:
       '@sinonjs/commons': 1.8.2
     dev: true
 
-  /@sinonjs/samsam/5.3.1:
-    resolution: {integrity: sha512-1Hc0b1TtyfBu8ixF/tpfSHTVWKwCBLY4QJbkgnE7HcwyvT2xArDxb4K7dMgqRm3szI+LJbzmW/s4xxEhv6hwDg==}
+  /@sinonjs/fake-timers/7.1.2:
+    resolution: {integrity: sha512-iQADsW4LBMISqZ6Ci1dupJL9pprqwcVFTcOsEmQOEhW+KLCVn/Y4Jrvg2k19fIHCp+iFprriYPTdRcQR8NbUPg==}
     dependencies:
-      '@sinonjs/commons': 1.8.2
+      '@sinonjs/commons': 1.8.3
+    dev: true
+
+  /@sinonjs/samsam/6.0.2:
+    resolution: {integrity: sha512-jxPRPp9n93ci7b8hMfJOFDPRLFYadN6FSpeROFTR4UNF4i5b+EK6m4QXPO46BDhFgRy1JuS87zAnFOzCUwMJcQ==}
+    dependencies:
+      '@sinonjs/commons': 1.8.3
       lodash.get: 4.4.2
       type-detect: 4.0.8
     dev: true
@@ -2975,6 +2987,11 @@ packages:
 
   /diff/4.0.2:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
+    engines: {node: '>=0.3.1'}
+    dev: true
+
+  /diff/5.0.0:
+    resolution: {integrity: sha512-/VTCrvm5Z0JGty/BWHljh+BAiw3IK+2j87NGMu8Nwc/f48WoDAC395uomO9ZD117ZOBaHmkX1oyLvkVM/aIT3w==}
     engines: {node: '>=0.3.1'}
     dev: true
 
@@ -5868,11 +5885,11 @@ packages:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
     dev: true
 
-  /nise/4.1.0:
-    resolution: {integrity: sha512-eQMEmGN/8arp0xsvGoQ+B1qvSkR73B1nWSCh7nOt5neMCtwcQVYQGdzQMhcNscktTsWB54xnlSQFzOAPJD8nXA==}
+  /nise/5.1.0:
+    resolution: {integrity: sha512-W5WlHu+wvo3PaKLsJJkgPup2LrsXCcm7AWwyNZkUnn5rwPkuPBi3Iwk5SQtN0mv+K65k7nKKjwNQ30wg3wLAQQ==}
     dependencies:
-      '@sinonjs/commons': 1.8.2
-      '@sinonjs/fake-timers': 6.0.1
+      '@sinonjs/commons': 1.8.3
+      '@sinonjs/fake-timers': 7.1.2
       '@sinonjs/text-encoding': 0.7.1
       just-extend: 4.1.1
       path-to-regexp: 1.8.0
@@ -7328,24 +7345,24 @@ packages:
       string-width: 1.0.2
     dev: true
 
-  /sinon-chai/3.5.0_chai@4.3.4+sinon@9.2.4:
+  /sinon-chai/3.5.0_chai@4.3.4+sinon@11.1.2:
     resolution: {integrity: sha512-IifbusYiQBpUxxFJkR3wTU68xzBN0+bxCScEaKMjBvAQERg6FnTTc1F17rseLb1tjmkJ23730AXpFI0c47FgAg==}
     peerDependencies:
       chai: ^4.0.0
       sinon: '>=4.0.0 <10.0.0'
     dependencies:
       chai: 4.3.4
-      sinon: 9.2.4
+      sinon: 11.1.2
     dev: true
 
-  /sinon/9.2.4:
-    resolution: {integrity: sha512-zljcULZQsJxVra28qIAL6ow1Z9tpattkCTEJR4RBP3TGc00FcttsP5pK284Nas5WjMZU5Yzy3kAIp3B3KRf5Yg==}
+  /sinon/11.1.2:
+    resolution: {integrity: sha512-59237HChms4kg7/sXhiRcUzdSkKuydDeTiamT/jesUVHshBgL8XAmhgFo0GfK6RruMDM/iRSij1EybmMog9cJw==}
     dependencies:
-      '@sinonjs/commons': 1.8.2
-      '@sinonjs/fake-timers': 6.0.1
-      '@sinonjs/samsam': 5.3.1
-      diff: 4.0.2
-      nise: 4.1.0
+      '@sinonjs/commons': 1.8.3
+      '@sinonjs/fake-timers': 7.1.2
+      '@sinonjs/samsam': 6.0.2
+      diff: 5.0.0
+      nise: 5.1.0
       supports-color: 7.2.0
     dev: true
 
