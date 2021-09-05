@@ -6,7 +6,7 @@ overrides:
 specifiers:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1
-  '@semantic-release/git': 9.0.0
+  '@semantic-release/git': 9.0.1
   '@types/chai': 4.2.21
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
@@ -92,7 +92,7 @@ dependencies:
 devDependencies:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1_semantic-release@17.4.7
-  '@semantic-release/git': 9.0.0_semantic-release@17.4.7
+  '@semantic-release/git': 9.0.1_semantic-release@17.4.7
   '@types/chai': 4.2.21
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
@@ -884,8 +884,8 @@ packages:
     resolution: {integrity: sha512-9Tj/qn+y2j+sjCI3Jd+qseGtHjOAeg7dU2/lVcqIQ9TV3QDaDXDYXcoOHU+7o2Hwh8L8ymL4gfuO7KxDs3q2zg==}
     dev: true
 
-  /@semantic-release/git/9.0.0_semantic-release@17.4.7:
-    resolution: {integrity: sha512-AZ4Zha5NAPAciIJH3ipzw/WU9qLAn8ENaoVAhD6srRPxTpTzuV3NhNh14rcAo8Paj9dO+5u4rTKcpetOBluYVw==}
+  /@semantic-release/git/9.0.1_semantic-release@17.4.7:
+    resolution: {integrity: sha512-75P03s9v0xfrH9ffhDVWRIX0fgWBvJMmXhUU0rMTKYz47oMXU5O95M/ocgIKnVJlWZYoC+LpIe4Ye6ev8CrlUQ==}
     engines: {node: '>=10.18'}
     peerDependencies:
       semantic-release: '>=16.0.0 <18.0.0'
@@ -894,7 +894,7 @@ packages:
       aggregate-error: 3.1.0
       debug: 4.3.1
       dir-glob: 3.0.1
-      execa: 4.1.0
+      execa: 5.0.0
       lodash: 4.17.21
       micromatch: 4.0.2
       p-reduce: 2.1.0
