@@ -23,7 +23,7 @@ specifiers:
   '@types/yargs': 16.0.4
   '@typescript-eslint/eslint-plugin': 4.15.2
   '@typescript-eslint/parser': 4.15.2
-  '@yarnpkg/pnp': 2.3.2
+  '@yarnpkg/pnp': 3.0.2
   ansi-split: ^1.0.1
   builtin-modules: 3.2.0
   chai: 4.3.4
@@ -109,7 +109,7 @@ devDependencies:
   '@types/yargs': 16.0.4
   '@typescript-eslint/eslint-plugin': 4.15.2_27c0358729fde45d4ff2ef959ff692c1
   '@typescript-eslint/parser': 4.15.2_eslint@7.20.0+typescript@4.2.4
-  '@yarnpkg/pnp': 2.3.2
+  '@yarnpkg/pnp': 3.0.2
   builtin-modules: 3.2.0
   chai: 4.3.4
   conventional-changelog-cli: 2.1.1
@@ -1333,28 +1333,29 @@ packages:
       eslint-visitor-keys: 2.0.0
     dev: true
 
-  /@yarnpkg/fslib/2.4.0:
-    resolution: {integrity: sha512-CwffYY9owtl3uImNOn1K4jl5iIb/L16a9UZ9Q3lkBARk6tlUsPrNFX00eoUlFcLn49TTfd3zdN6higloGCyncw==}
-    engines: {node: '>=10.19.0'}
+  /@yarnpkg/fslib/2.5.2:
+    resolution: {integrity: sha512-Tonb3jXsxsGB+uTlzG6r2zcAUekIG0FfCZV/kM14fPvTE3Z1wC0cMtiD4IUzxSqyhC/zR+T1pLaTPT3xDzSvqg==}
+    engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     dependencies:
-      '@yarnpkg/libzip': 2.2.1
+      '@yarnpkg/libzip': 2.2.2
       tslib: 1.14.1
     dev: true
 
-  /@yarnpkg/libzip/2.2.1:
-    resolution: {integrity: sha512-AYDJXrkzayoDd3ZlVgFJ+LyDX+Zj/cki3vxIpcYxejtgkl3aquVWOxlC0DD9WboBWsJFIP1MjrUbchLyh++/7A==}
-    engines: {node: '>=10.19.0'}
+  /@yarnpkg/libzip/2.2.2:
+    resolution: {integrity: sha512-M7ziz16f+tFFnJSCreLtemaGPpjT+NC0E21JQaWXAAlRmFIXz6zl2EZ+tXLxV9yJaplpNDbTgX1j5GPiwg5H5w==}
+    engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     dependencies:
       '@types/emscripten': 1.39.4
       tslib: 1.14.1
     dev: true
 
-  /@yarnpkg/pnp/2.3.2:
-    resolution: {integrity: sha512-JdwHu1WBCISqJEhIwx6Hbpe8MYsYbkGMxoxolkDiAeJ9IGEe08mQcbX1YmUDV1ozSWlm9JZE90nMylcDsXRFpA==}
-    engines: {node: '>=10.19.0'}
+  /@yarnpkg/pnp/3.0.2:
+    resolution: {integrity: sha512-tqiIBzzCL5O6KcQ80ZloJp1/xoZFoAB9HnXoEgUzGGDvkuAQPqT2nWv0B9B9LArTvLwovWO2uvWI1HgZPHXvoQ==}
+    engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     dependencies:
       '@types/node': 13.13.45
-      '@yarnpkg/fslib': 2.4.0
+      '@yarnpkg/fslib': 2.5.2
+      resolve.exports: 1.0.2
       tslib: 1.14.1
     dev: true
 
@@ -7042,6 +7043,11 @@ packages:
   /resolve-url/0.2.1:
     resolution: {integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=}
     deprecated: https://github.com/lydell/resolve-url#deprecated
+    dev: true
+
+  /resolve.exports/1.0.2:
+    resolution: {integrity: sha512-1+PDdTR3xrGWB/NzXLkzS1+PQlJ+BOR2baBGJSVat4HasiY1mnkyAQws3FUTmBDB79oK54QFaDM8Ig9nUtJwvQ==}
+    engines: {node: '>=10'}
     dev: true
 
   /resolve/1.20.0:
