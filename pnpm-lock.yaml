@@ -16,7 +16,7 @@ specifiers:
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.2
   '@types/semantic-release': 17.2.2
-  '@types/sinon': 9.0.11
+  '@types/sinon': 10.0.3
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
@@ -102,7 +102,7 @@ devDependencies:
   '@types/prettier': 2.2.3
   '@types/rimraf': 3.0.2
   '@types/semantic-release': 17.2.2
-  '@types/sinon': 9.0.11
+  '@types/sinon': 10.0.3
   '@types/sinon-chai': 3.2.5
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
@@ -985,6 +985,12 @@ packages:
       '@sinonjs/commons': 1.8.2
     dev: true
 
+  /@sinonjs/fake-timers/7.1.2:
+    resolution: {integrity: sha512-iQADsW4LBMISqZ6Ci1dupJL9pprqwcVFTcOsEmQOEhW+KLCVn/Y4Jrvg2k19fIHCp+iFprriYPTdRcQR8NbUPg==}
+    dependencies:
+      '@sinonjs/commons': 1.8.2
+    dev: true
+
   /@sinonjs/samsam/5.3.1:
     resolution: {integrity: sha512-1Hc0b1TtyfBu8ixF/tpfSHTVWKwCBLY4QJbkgnE7HcwyvT2xArDxb4K7dMgqRm3szI+LJbzmW/s4xxEhv6hwDg==}
     dependencies:
@@ -1183,14 +1189,14 @@ packages:
       '@types/sinon': 9.0.10
     dev: true
 
-  /@types/sinon/9.0.10:
-    resolution: {integrity: sha512-/faDC0erR06wMdybwI/uR8wEKV/E83T0k4sepIpB7gXuy2gzx2xiOjmztq6a2Y6rIGJ04D+6UU0VBmWy+4HEMA==}
+  /@types/sinon/10.0.3:
+    resolution: {integrity: sha512-XUaFuUOQ3A/r6gS1qCU/USMleascaqGeQpGR1AZ5JdRtBPlzijRzKsik1TuGzvdtPA0mdq42JqaJmJ+Afg1LJg==}
     dependencies:
-      '@types/sinonjs__fake-timers': 6.0.2
+      '@sinonjs/fake-timers': 7.1.2
     dev: true
 
-  /@types/sinon/9.0.11:
-    resolution: {integrity: sha512-PwP4UY33SeeVKodNE37ZlOsR9cReypbMJOhZ7BVE0lB+Hix3efCOxiJWiE5Ia+yL9Cn2Ch72EjFTRze8RZsNtg==}
+  /@types/sinon/9.0.10:
+    resolution: {integrity: sha512-/faDC0erR06wMdybwI/uR8wEKV/E83T0k4sepIpB7gXuy2gzx2xiOjmztq6a2Y6rIGJ04D+6UU0VBmWy+4HEMA==}
     dependencies:
       '@types/sinonjs__fake-timers': 6.0.2
     dev: true
