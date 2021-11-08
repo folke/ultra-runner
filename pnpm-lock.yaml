@@ -7,7 +7,7 @@ specifiers:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1
   '@semantic-release/git': 9.0.1
-  '@types/chai': 4.2.21
+  '@types/chai': 4.2.22
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
   '@types/eslint-plugin-prettier': 3.1.0
@@ -93,7 +93,7 @@ devDependencies:
   0x: 4.10.2
   '@semantic-release/changelog': 5.0.1_semantic-release@17.4.7
   '@semantic-release/git': 9.0.1_semantic-release@17.4.7
-  '@types/chai': 4.2.21
+  '@types/chai': 4.2.22
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
   '@types/eslint-plugin-prettier': 3.1.0
@@ -1031,12 +1031,8 @@ packages:
       '@babel/types': 7.13.0
     dev: true
 
-  /@types/chai/4.2.15:
-    resolution: {integrity: sha512-rYff6FI+ZTKAPkJUoyz7Udq3GaoDZnxYDEvdEdFZASiA7PoErltHezDishqQiSDWrGxvxmplH304jyzQmjp0AQ==}
-    dev: true
-
-  /@types/chai/4.2.21:
-    resolution: {integrity: sha512-yd+9qKmJxm496BOV9CMNaey8TWsikaZOwMRwPHQIjcOJM9oV+fi9ZMNw3JsVnbEEbo2gRTDnGEBv8pjyn67hNg==}
+  /@types/chai/4.2.22:
+    resolution: {integrity: sha512-tFfcE+DSTzWAgifkjik9AySNqIyNoYwmR+uecPwwD/XRNfvOjmC/FjCxpiUGDkDVDphPfCUecSQVFw+lN3M3kQ==}
     dev: true
 
   /@types/cross-spawn/6.0.2:
@@ -1179,7 +1175,7 @@ packages:
   /@types/sinon-chai/3.2.5:
     resolution: {integrity: sha512-bKQqIpew7mmIGNRlxW6Zli/QVyc3zikpGzCa797B/tRnD9OtHvZ/ts8sYXV+Ilj9u3QRaUEM8xrjgd1gwm1BpQ==}
     dependencies:
-      '@types/chai': 4.2.15
+      '@types/chai': 4.2.22
       '@types/sinon': 9.0.10
     dev: true
 
