@@ -78,7 +78,7 @@
     "@types/rimraf": "3.0.2",
     "@types/semantic-release": "17.2.3",
     "@types/sinon": "9.0.11",
-    "@types/sinon-chai": "3.2.5",
+    "@types/sinon-chai": "3.2.6",
     "@types/wrap-ansi": "3.0.0",
     "@types/yamljs": "0.2.31",
     "@types/yargs": "16.0.4",

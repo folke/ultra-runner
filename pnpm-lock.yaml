@@ -17,7 +17,7 @@ specifiers:
   '@types/rimraf': 3.0.2
   '@types/semantic-release': 17.2.3
   '@types/sinon': 9.0.11
-  '@types/sinon-chai': 3.2.5
+  '@types/sinon-chai': 3.2.6
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
   '@types/yargs': 16.0.4
@@ -103,7 +103,7 @@ devDependencies:
   '@types/rimraf': 3.0.2
   '@types/semantic-release': 17.2.3
   '@types/sinon': 9.0.11
-  '@types/sinon-chai': 3.2.5
+  '@types/sinon-chai': 3.2.6
   '@types/wrap-ansi': 3.0.0
   '@types/yamljs': 0.2.31
   '@types/yargs': 16.0.4
@@ -1172,17 +1172,11 @@ packages:
       '@types/node': 14.14.45
     dev: true
 
-  /@types/sinon-chai/3.2.5:
-    resolution: {integrity: sha512-bKQqIpew7mmIGNRlxW6Zli/QVyc3zikpGzCa797B/tRnD9OtHvZ/ts8sYXV+Ilj9u3QRaUEM8xrjgd1gwm1BpQ==}
+  /@types/sinon-chai/3.2.6:
+    resolution: {integrity: sha512-Z57LprQ+yOQNu9d6mWdHNvnmncPXzDWGSeLj+8L075/QahToapC4Q13zAFRVKV4clyBmdJ5gz4xBfVkOso5lXw==}
     dependencies:
       '@types/chai': 4.2.22
-      '@types/sinon': 9.0.10
-    dev: true
-
-  /@types/sinon/9.0.10:
-    resolution: {integrity: sha512-/faDC0erR06wMdybwI/uR8wEKV/E83T0k4sepIpB7gXuy2gzx2xiOjmztq6a2Y6rIGJ04D+6UU0VBmWy+4HEMA==}
-    dependencies:
-      '@types/sinonjs__fake-timers': 6.0.2
+      '@types/sinon': 9.0.11
     dev: true
 
   /@types/sinon/9.0.11:
