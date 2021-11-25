@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
       - uses: pnpm/action-setup@v1.2.1
         with:
           version: 5.13.5
-          run_install: |
+          run_install: |  
             - recursive: false
       - name: Lint
         run: pnpm lint
