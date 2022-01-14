@@ -10,9 +10,6 @@ export async function run(argv: string[] = process.argv) {
   const options = parse(argv)
   const args = options["--"]
 
-  if (argv.includes("--build") && !args.length) args.push("build")
-  if (argv.includes("--rebuild") && !args.length) args.push("build")
-
   if (options.serial) options.concurrency = 1
 
   if (options.help) return await showHelp(1)
@@ -21,13 +18,10 @@ export async function run(argv: string[] = process.argv) {
     return (await import("./monitor")).nodeTop(options.monitorInterval * 1000)
   }
 
-  if (args[0]) {
-    if (args[0] == "build" || args[0].startsWith("build ")) options.build = true
-    if (args[0] == "rebuild" || args[0].startsWith("rebuild ")) {
-      args[0] = args[0].slice(2)
-      options.rebuild = true
-    }
+  if (options.build || options.rebuild) {
+    args.push("build")
   }
+
   if (options.rebuild) options.build = true
 
   if (options.debug) console.log({ options, args })
@@ -41,13 +35,22 @@ export async function run(argv: string[] = process.argv) {
       await (options.recursive
         ? runner.runRecursive(args.join(" "))
         : runner.run(args.join(" ")))
-    } else await showHelp(1)
+    } else {
+      await showHelp(1)
+    }
   } catch (error) {
     runner.spinner._stop()
+
     if (error instanceof Error) {
       console.error(chalk.red("error ") + error.message)
-    } else console.error(chalk.red("error ") + error)
-    if (options.debug) console.log(error)
+    } else {
+      console.error(chalk.red("error ") + error)
+    }
+
+    if (options.debug) {
+      console.log(error)
+    }
+
     process.exit(1)
   }
 }
