@@ -48,13 +48,12 @@ export const providers: Record<WorkspaceProviderType, WorkspaceProvider> = {
 
   lerna: (cwd) => {
     const root = findUp("lerna.json", cwd)
-    if (root)
-      return {
-        root,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-        patterns: require(path.resolve(root, "lerna.json"))
-          .packages as string[],
-      }
+    if (root) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+      const patterns = require(path.resolve(root, "lerna.json"))
+        .packages as string[] | undefined
+      if (patterns?.length) return { root, patterns }
+    }
   },
 
   rush: async (cwd) => {
