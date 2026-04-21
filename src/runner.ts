@@ -127,18 +127,29 @@ export class Runner {
 
     try {
       if (!isBuildScript || changes) {
-        const promises = []
+        const promises: Promise<void>[] = []
+        const inflight = new Set<Promise<void>>()
+        let failed = false
         for (const child of cmd.children) {
           if (child.isPostScript()) await Promise.all(promises)
-          const promise = this.runCommand(child, level + 1, spinner)
-          promises.push(promise)
-          if (!cmd.concurrent || child.isPreScript()) await promise
-          else if (promises.length >= this.options.concurrency) {
-            await Promise.all(promises)
-            promises.length = 0
+          if (!cmd.concurrent || child.isPreScript()) {
+            const p = this.runCommand(child, level + 1, spinner)
+            promises.push(p)
+            await p
+          } else {
+            if (inflight.size >= this.options.concurrency) {
+              await Promise.race([...inflight])
+            } else {
+              await Promise.resolve()
+            }
+            if (failed) break
+            const p = this.runCommand(child, level + 1, spinner)
+            promises.push(p)
+            inflight.add(p)
+            void p.catch(() => { failed = true }).finally(() => inflight.delete(p))
           }
         }
-        if (cmd.concurrent) await Promise.all(promises)
+        await Promise.all(promises)
       }
       spinner && this.spinner.success(spinner)
       cmd.afterRun()
