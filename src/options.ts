@@ -101,7 +101,7 @@ export const RunnerOptionDefs: Record<keyof RunnerOptions, RunnerOptionDef> = {
   pretty: {
     type: "boolean",
     description:
-      "enable pretty output, spinners and seperate command output. Default when a TTY",
+      "enable pretty output, spinners and separate command output. Default when a TTY",
   },
   raw: { type: "boolean", description: "Output only raw command output" },
   silent: {
