@@ -44,7 +44,13 @@ test("raw echo foo", async () => {
 })
 
 test("lines", async () => {
-  const spawner = new Spawner("echo", ["-n", "foo\nbar"])
+  // This needs to sit on two lines to support both
+  // windows and ubuntu tests
+  const spawner = new Spawner("echo", [
+    `foo
+     bar`,
+  ])
+
   spawner.onLine = sinon.fake()
   await spawner.spawn()
   chai.expect(spawner.onLine).to.be.calledTwice
