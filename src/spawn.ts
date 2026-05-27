@@ -6,6 +6,7 @@ import npmPath from "npm-run-path"
 
 export class Spawner {
   static children = new Map<number, ChildProcess>()
+  static registered = false
 
   output = ""
   buffer = ""
@@ -46,7 +47,10 @@ export class Spawner {
       stdio: raw ? "inherit" : "pipe",
       cwd: this.cwd,
     })
-    if (!Spawner.children.size) onProcessExit((reason) => Spawner.exit(reason))
+    if (!Spawner.registered) {
+      Spawner.registered = true
+      onProcessExit((reason) => Spawner.exit(reason))
+    }
 
     Spawner.children.set(child.pid, child)
 
