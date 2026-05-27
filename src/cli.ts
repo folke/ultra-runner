@@ -10,8 +10,8 @@ export async function run(argv: string[] = process.argv) {
   const options = parse(argv)
   const args = options["--"]
 
-  if (argv.includes("--build") && !args.length) args.push("build")
-  if (argv.includes("--rebuild") && !args.length) args.push("build")
+  if (options.build && !args.length) args.push("build")
+  if (options.rebuild && !args.length) args.push("build")
 
   if (options.serial) options.concurrency = 1
 
