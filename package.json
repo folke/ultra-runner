@@ -79,7 +79,7 @@
     "@types/semantic-release": "17.2.3",
     "@types/sinon": "9.0.11",
     "@types/sinon-chai": "3.2.6",
-    "@types/wrap-ansi": "3.0.0",
+    "@types/wrap-ansi": "8.0.1",
     "@types/yamljs": "0.2.31",
     "@types/yargs": "16.0.4",
     "@typescript-eslint/eslint-plugin": "4.15.2",
@@ -128,7 +128,7 @@
     "string-width": "^4.2.0",
     "tslib": "2.1.0",
     "type-fest": "^0.21.2",
-    "wrap-ansi": "^7.0.0",
+    "wrap-ansi": "^8.0.0",
     "yamljs": "^0.3.0",
     "yargs": "^16.2.0"
   },
