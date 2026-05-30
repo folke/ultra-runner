@@ -57,6 +57,7 @@ Commands are always run concurrently with a default concurrency of `10` (can be 
 
 **Ultra** finds packages based on your monorepo workspace:
 
+* npm
 * lerna
 * pnpm
 * yarn workspace
