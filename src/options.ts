@@ -6,7 +6,7 @@ export const HASH_FILE = ".ultra.cache.json"
 
 export const defaults = {
   recursive: false,
-  filter: undefined as string | undefined,
+  filter: [] as string[],
   color: chalk.supportsColor !== undefined,
   pretty: process.stdout.isTTY,
   raw: false,
@@ -29,7 +29,7 @@ export const defaults = {
 export type RunnerOptions = typeof defaults
 
 type RunnerOptionDef = {
-  type: "number" | "boolean" | "string"
+  type: "number" | "boolean" | "string" | "array"
   description: string
   hidden?: boolean
   alias?: string
@@ -67,7 +67,7 @@ export const RunnerOptionDefs: Record<keyof RunnerOptions, RunnerOptionDef> = {
       "Set the maximum number of concurrency to 1. Same as --concurrency 1",
   },
   filter: {
-    type: "string",
+    type: "array",
     description:
       "Filter package name or directory using wildcard pattern. Prefix the filter with '+' to always include dependencies.",
   },
@@ -148,6 +148,12 @@ export function parse(argv: string[] = process.argv) {
       } else if (def.type == "string") {
         // @ts-ignore
         ret[arg] = argv[++offset]
+      } else if (def.type == "array") {
+        // @ts-ignore
+        if (!ret[arg]) ret[arg] = []
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+        ret[arg].push(argv[++offset])
       }
     } else unknown.push(arg)
   }

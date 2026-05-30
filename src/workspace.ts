@@ -117,41 +117,49 @@ export class Workspace {
     return ret
   }
 
-  getPackages(filter?: string) {
+  getPackages(filters?: string[]) {
     let ret = [...this.packages.values()]
 
-    if (filter) {
-      const withDeps = filter.startsWith("+")
-      let useCwd = false
-      if (withDeps) {
-        if (filter === "+" || filter === "+.") {
-          if (!existsSync(path.resolve(".", "package.json"))) {
-            throw new Error(
-              `'--filter +' requires a ./package.json file in the current working directory`
-            )
-          }
-          useCwd = true
-        } else {
-          filter = filter.slice(1)
-        }
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-      const regex: RegExp = globrex(filter, { filepath: true, extended: true })
-        .regex
+    if (filters && filters.length > 0) {
       const names = new Set<string>()
-      ret.forEach((p) => {
-        if (
-          (useCwd && p.root == process.cwd()) ||
-          regex.test(p.name || "") ||
-          regex.test(path.relative(this.root, p.root).replace(/\\/gu, "/"))
-        ) {
-          names.add(p.name)
-          if (withDeps) this.getDepTree(p.name).forEach((dep) => names.add(dep))
+
+      filters.forEach((filter) => {
+        const withDeps = filter.startsWith("+")
+        let useCwd = false
+        if (withDeps) {
+          if (filter === "+" || filter === "+.") {
+            if (!existsSync(path.resolve(".", "package.json"))) {
+              throw new Error(
+                `'--filter +' requires a ./package.json file in the current working directory`
+              )
+            }
+            useCwd = true
+          } else {
+            filter = filter.slice(1)
+          }
         }
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        const regex: RegExp = globrex(filter, {
+          filepath: true,
+          extended: true,
+        }).regex
+        ret.forEach((p) => {
+          if (
+            (useCwd && p.root == process.cwd()) ||
+            regex.test(p.name || "") ||
+            regex.test(path.relative(this.root, p.root).replace(/\\/gu, "/"))
+          ) {
+            names.add(p.name)
+            if (withDeps)
+              this.getDepTree(p.name).forEach((dep) => names.add(dep))
+          }
+        })
       })
+
       ret = ret.filter((p) => names.has(p.name))
     }
+
     return ret.sort(
       (a, b) => this.order.indexOf(a.name) - this.order.indexOf(b.name)
     )
