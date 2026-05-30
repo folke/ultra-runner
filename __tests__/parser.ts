@@ -98,7 +98,7 @@ test("AA=123 foobar", () => {
 test("op", () => {
   const parser = new CommandParser({ name: "test", scripts: {} })
   const cmd = parser.parse("npx jest && npx foo")
-  expect(cmd.debug()).toStrictEqual(["bin:jest", "op:&&", "system:npx foo"])
+  expect(cmd.debug()).toStrictEqual(["bin:jest", "op:&&", "bin:npx foo"])
 })
 
 test("op ;", () => {
