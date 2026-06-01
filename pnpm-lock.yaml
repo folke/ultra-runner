@@ -37,7 +37,7 @@ specifiers:
   eslint-plugin-chai-expect: 2.2.0
   eslint-plugin-import: 2.22.1
   eslint-plugin-jest: 24.1.5
-  eslint-plugin-node: 11.1.0
+  eslint-plugin-n: 14.0.0
   eslint-plugin-prettier: 3.3.1
   eslint-plugin-promise: 4.3.1
   eslint-plugin-unicorn: 28.0.2
@@ -120,7 +120,7 @@ devDependencies:
   eslint-plugin-chai-expect: 2.2.0_eslint@7.20.0
   eslint-plugin-import: 2.22.1_ab8d610acc2f7413a322d24de5341271
   eslint-plugin-jest: 24.1.5_eslint@7.20.0+typescript@4.2.4
-  eslint-plugin-node: 11.1.0_eslint@7.20.0
+  eslint-plugin-n: 14.0.0_eslint@7.20.0
   eslint-plugin-prettier: 3.3.1_991a7c46cc739487e9cb2e863aa32c6d
   eslint-plugin-promise: 4.3.1
   eslint-plugin-unicorn: 28.0.2_eslint@7.20.0
@@ -1741,7 +1741,7 @@ packages:
     dev: true
 
   /balanced-match/1.0.0:
-    resolution: {integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=}
+    resolution: {integrity: sha512-9Y0g0Q8rmSt+H33DfKv7FOc3v+iRI+o1lbzt8jGcIosYW37IIW/2XVYq5NPdmaD5NQ59Nk26Kl/vZbwW9Fr8vg==}
 
   /base/0.11.2:
     resolution: {integrity: sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg==}
@@ -2038,7 +2038,7 @@ packages:
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
     dependencies:
-      function-bind: 1.1.1
+      function-bind: 1.1.2
       get-intrinsic: 1.1.1
     dev: true
 
@@ -2328,7 +2328,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   /concat-stream/1.6.2:
     resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}
@@ -3124,7 +3124,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       es-to-primitive: 1.2.1
-      function-bind: 1.1.1
+      function-bind: 1.1.2
       get-intrinsic: 1.1.1
       has: 1.0.3
       has-symbols: 1.0.1
@@ -3227,8 +3227,8 @@ packages:
       eslint: 7.20.0
     dev: true
 
-  /eslint-plugin-es/3.0.1_eslint@7.20.0:
-    resolution: {integrity: sha512-GUmAsJaN4Fc7Gbtl8uOBlayo2DqhwWvEzykMHSCZHU3XdJ+NSzzZcVhXh3VxX5icqQ+oQdIEawXX8xkR3mIFmQ==}
+  /eslint-plugin-es/4.1.0_eslint@7.20.0:
+    resolution: {integrity: sha512-GILhQTnjYE2WorX5Jyi5i4dz5ALWxBIdQECVQavL6s7cI76IZTDWleTHkxz/QT3kvcs2QlGHvKLYsSlPOlPXnQ==}
     engines: {node: '>=8.10.0'}
     peerDependencies:
       eslint: '>=4.19.1'
@@ -3282,16 +3282,17 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-node/11.1.0_eslint@7.20.0:
-    resolution: {integrity: sha512-oUwtPJ1W0SKD0Tr+wqu92c5xuCeQqB3hSCHasn/ZgjFdA9iDGNkNf2Zi9ztY7X+hNuMib23LNGRm6+uN+KLE3g==}
-    engines: {node: '>=8.10.0'}
+  /eslint-plugin-n/14.0.0_eslint@7.20.0:
+    resolution: {integrity: sha512-mNwplPLsbaKhHyA0fa/cy8j+oF6bF6l81hzBTWa6JOvPcMNAuIogk2ih6d9tYvWYzyUG+7ZFeChqbzdFpg2QrQ==}
+    engines: {node: '>=12.22.0'}
     peerDependencies:
-      eslint: '>=5.16.0'
+      eslint: '>=7.0.0'
     dependencies:
       eslint: 7.20.0
-      eslint-plugin-es: 3.0.1_eslint@7.20.0
-      eslint-utils: 2.1.0
+      eslint-plugin-es: 4.1.0_eslint@7.20.0
+      eslint-utils: 3.0.0_eslint@7.20.0
       ignore: 5.1.8
+      is-core-module: 2.16.2
       minimatch: 3.0.4
       resolve: 1.20.0
       semver: 6.3.0
@@ -3379,6 +3380,16 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       eslint-visitor-keys: 1.3.0
+    dev: true
+
+  /eslint-utils/3.0.0_eslint@7.20.0:
+    resolution: {integrity: sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==}
+    engines: {node: ^10.0.0 || ^12.0.0 || >= 14.0.0}
+    peerDependencies:
+      eslint: '>=5'
+    dependencies:
+      eslint: 7.20.0
+      eslint-visitor-keys: 2.0.0
     dev: true
 
   /eslint-visitor-keys/1.3.0:
@@ -3815,8 +3826,8 @@ packages:
     dev: true
     optional: true
 
-  /function-bind/1.1.1:
-    resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
+  /function-bind/1.1.2:
+    resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
     dev: true
 
   /functional-red-black-tree/1.0.1:
@@ -3843,7 +3854,7 @@ packages:
   /get-intrinsic/1.1.1:
     resolution: {integrity: sha512-kWZrnVM42QCiEA2Ig1bG8zjoIMOgxWwYCEeNdwY6Tv/cOSeGpcoX4pXHfKUxNKVoArnrEr2e9srnAxxGIraS9Q==}
     dependencies:
-      function-bind: 1.1.1
+      function-bind: 1.1.2
       has: 1.0.3
       has-symbols: 1.0.1
     dev: true
@@ -4109,7 +4120,7 @@ packages:
     resolution: {integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==}
     engines: {node: '>= 0.4.0'}
     dependencies:
-      function-bind: 1.1.1
+      function-bind: 1.1.2
     dev: true
 
   /hash-base/3.1.0:
@@ -4126,6 +4137,13 @@ packages:
     dependencies:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
+    dev: true
+
+  /hasown/2.0.4:
+    resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      function-bind: 1.1.2
     dev: true
 
   /hmac-drbg/1.0.1:
@@ -4413,10 +4431,11 @@ packages:
       ci-info: 2.0.0
     dev: true
 
-  /is-core-module/2.2.0:
-    resolution: {integrity: sha512-XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==}
+  /is-core-module/2.16.2:
+    resolution: {integrity: sha512-evOr8xfXKxE6qSR0hSXL2r3sd7ALj8+7jQEUvPYcm5sgZFdJ+AYzT6yNmJenvIYQBgIGwfwz08sL8zoL7yq2BA==}
+    engines: {node: '>= 0.4'}
     dependencies:
-      has: 1.0.3
+      hasown: 2.0.4
     dev: true
 
   /is-data-descriptor/0.1.4:
@@ -7100,7 +7119,7 @@ packages:
   /resolve/1.20.0:
     resolution: {integrity: sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==}
     dependencies:
-      is-core-module: 2.2.0
+      is-core-module: 2.16.2
       path-parse: 1.0.6
     dev: true
 
