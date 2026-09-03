@@ -10,7 +10,7 @@ specifiers:
   '@types/chai': 4.2.22
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
-  '@types/eslint-plugin-prettier': 3.1.0
+  '@types/eslint-plugin-prettier': 3.1.3
   '@types/jest': 26.0.24
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
@@ -96,7 +96,7 @@ devDependencies:
   '@types/chai': 4.2.22
   '@types/cross-spawn': 6.0.2
   '@types/eslint': 7.2.14
-  '@types/eslint-plugin-prettier': 3.1.0
+  '@types/eslint-plugin-prettier': 3.1.3
   '@types/jest': 26.0.24
   '@types/node': 14.14.45
   '@types/prettier': 2.2.3
@@ -1047,21 +1047,14 @@ packages:
     resolution: {integrity: sha512-k3LLVMFrdNA9UCvMDPWMbFrGPNb+GcPyw29ktJTo1RCN7RmxFG5XzPZcPKRlnLuLT/FRm8wp4ohvDwNY7GlROQ==}
     dev: true
 
-  /@types/eslint-plugin-prettier/3.1.0:
-    resolution: {integrity: sha512-6/UIuz99F0IvtDez4U3bRwAmN4VKnuw10Ibblf0iZhtNbmbonMSLqs/qqsXrGIAWvjy+vXqYwOljgtLhrETSMg==}
+  /@types/eslint-plugin-prettier/3.1.3:
+    resolution: {integrity: sha512-Jk+lgBZM0u9ETUyqe2HvykL1j6uE7L1oEqbInWtsVHT6sP+AdwLb4ncmQBqASTS+YzYOPF6hKX0zgEhblRMjqA==}
     dependencies:
-      '@types/eslint': 7.2.6
+      '@types/eslint': 7.2.14
     dev: true
 
   /@types/eslint/7.2.14:
     resolution: {integrity: sha512-pESyhSbUOskqrGcaN+bCXIQDyT5zTaRWfj5ZjjSlMatgGjIn3QQPfocAu4WSabUR7CGyLZ2CQaZyISOEX7/saw==}
-    dependencies:
-      '@types/estree': 0.0.46
-      '@types/json-schema': 7.0.7
-    dev: true
-
-  /@types/eslint/7.2.6:
-    resolution: {integrity: sha512-I+1sYH+NPQ3/tVqCeUSBwTE/0heyvtXqpIopUUArlBm0Kpocb8FbMa3AZ/ASKIFpN3rnEx932TTXDbt9OXsNDw==}
     dependencies:
       '@types/estree': 0.0.46
       '@types/json-schema': 7.0.7
