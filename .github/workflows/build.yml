@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - uses: pnpm/action-setup@v1.2.1
         with:
-          version: 5.13.5
+          version: 5.18.10
           run_install: |
             - recursive: false
       - name: Lint
